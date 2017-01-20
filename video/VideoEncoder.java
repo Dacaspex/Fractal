@@ -35,15 +35,16 @@ public class VideoEncoder {
 	
 	public void render() {
 		
-		BufferedImage frame = fractal.getImage(new Scaling(1, -1, 1, -1), 1000, 1000);
-		File outputFile = new File(directory + "\\test.png");
-		
-		try {
-			ImageIO.write(frame, "PNG", outputFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// TODO temporary disabled
+//		BufferedImage frame = fractal.getImage(new Scaling(1, -1, 1, -1), 1000, 1000);
+//		File outputFile = new File(directory + "\\test.png");
+//		
+//		try {
+//			ImageIO.write(frame, "PNG", outputFile);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 
