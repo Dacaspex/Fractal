@@ -1,14 +1,14 @@
 package main;
 
-import displayUtilities.fractalDisplay.FractalDisplay;
+import video.VideoEncoder;
 
 public class Main {
 
 	public void run() {
 
-		 new FractalDisplay();
+//		 new FractalDisplay();
 		// new VideoTest();
-		// new VideoEncoder().render();
+		 new VideoEncoder().render();
 	}
 
 	public static void main(String[] args) {

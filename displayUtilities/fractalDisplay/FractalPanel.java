@@ -33,14 +33,12 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	public FractalPanel() {
 		
 		resizeDelayTimer = new ResizeDelayTimer(this);
-		
 		fractal = new JuliaFractal();
+		scaling = new Scaling(-1, 1, -1, 1);
 		
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
 		addComponentListener(this);
-		
-		scaling = new Scaling(-1, 1, -1, 1);
 		
 		// Video encoding
 		// http://jcodec.org/
@@ -49,7 +47,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	}
 	
 	public void setScaling(Scaling scaling) {
+		
 		this.scaling = scaling;
+		
 	}
 
 	public void draw() {
