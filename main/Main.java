@@ -1,5 +1,7 @@
 package main;
 
+import java.io.IOException;
+
 import video.VideoEncoder;
 
 public class Main {
@@ -8,7 +10,12 @@ public class Main {
 
 //		 new FractalDisplay();
 		// new VideoTest();
-		 new VideoEncoder().render();
+		 try {
+			new VideoEncoder().render();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {

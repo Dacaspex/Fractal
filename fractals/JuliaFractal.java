@@ -36,6 +36,14 @@ public class JuliaFractal implements AbstractFractal {
 	public void setEscapeValue(double escapeValue) {
 		this.escapeValue = escapeValue;
 	}
+	
+	public JuliaColoring getJuliaColoring() {
+		return juliaColoring;
+	}
+	
+	public void setJuliaColoring(JuliaColoring juliaColoring) {
+		this.juliaColoring = juliaColoring;
+	}
 
 	@Override
 	public BufferedImage getImage(Scaling scaling, int imageWidth, int imageHeight) {

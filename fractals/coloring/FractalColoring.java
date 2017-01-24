@@ -8,16 +8,16 @@ public class FractalColoring {
 	private Color[] colorArray;
 	private int[] gradientMap;
 	private int steps;
-	
+
 	public FractalColoring(boolean loadDefaultColors, int steps) {
-		
+
 		this.steps = steps;
-		
+
 		if (loadDefaultColors) {
-			
+
 			loadDefaultColors();
 			generateGradientMap();
-			
+
 		}
 
 	}
@@ -25,25 +25,37 @@ public class FractalColoring {
 	public FractalColoring(boolean loadDefaultColors) {
 
 		if (loadDefaultColors) {
-			
+
 			loadDefaultColors();
 			steps = colorArray.length;
 			generateGradientMap();
-			
+
 		}
 
 	}
-	
+
 	public FractalColoring(int steps) {
-		
+
 		this(true, steps);
-		
+
 	}
-	
+
 	public FractalColoring() {
-		
+
 		this(true);
-		
+
+	}
+
+	public int getSteps() {
+
+		return steps;
+
+	}
+
+	public void setSteps(int steps) {
+
+		this.steps = steps;
+
 	}
 
 	public void generateGradientMap() {
@@ -97,45 +109,45 @@ public class FractalColoring {
 
 	public void loadDefaultColors() {
 
-		colorArray = new Color[] { new Color(0, 0, 0), new Color(255, 200, 0), new Color(255, 255, 255),
-				new Color(0, 0, 255), new Color(0, 0, 128) };
+		colorArray = new Color[] { new Color(0, 0, 128), new Color(0, 0, 255), new Color(255, 255, 255),
+				new Color(255, 200, 0), new Color(0, 0, 0) };
 
 	}
-	
+
 	public void setColorArray(Color[] colorArray) {
-		
+
 		this.colorArray = colorArray;
-		
+
 	}
-	
+
 	public void addColor(Color color) {
-		
-		addColors(new Color[] {color});
-		
+
+		addColors(new Color[] { color });
+
 	}
-	
+
 	public void addColors(Color[] colors) {
-		
+
 		// Create new array
 		Color[] colorArray = new Color[this.colorArray.length + colors.length];
-		
+
 		// Copy old array into new array
 		int index = 0;
 		for (int i = 0; i < this.colorArray.length; i++) {
-			
+
 			colorArray[index++] = this.colorArray[i];
-			
+
 		}
-		
+
 		// Append new colors
 		for (int j = 0; j < colors.length; j++) {
-			
+
 			colorArray[index++] = colors[j];
-			
+
 		}
-		
+
 		this.colorArray = colorArray;
-		
+
 	}
 
 	public int getRGBValue(int referenceNumber) {

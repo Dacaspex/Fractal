@@ -16,69 +16,77 @@ import fractals.Scaling;
 
 @SuppressWarnings("deprecation")
 public class VideoEncoder {
+	
+	private SequenceEncoder8Bit encoder;
 
 	private int framesPerSecond;
 	private int numberOfFrames;
-
+	
 	private String directory;
 
+	private AbstractFractal fractal2;
+	private JuliaFractal fractal;
+	
 	private Animator animator;
-
-	private AbstractFractal fractal;
 
 	public VideoEncoder() {
 
 		framesPerSecond = 10;
 		numberOfFrames = 100;
-
-		directory = "";
-
-		// TODO testing purposes
+		encoder = null;
 		fractal = new JuliaFractal();
+		directory = "";
+		animator = new TestAnimator(fractal);
+		
+		 initEncoder();
 
 	}
 	
-	public void render() {
+	public void initEncoder() {
 		
+		try {
+			
+			encoder = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File(directory + "test.mp4")), Rational.R(framesPerSecond, 1));
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
+	}
+	
+	public void render() throws IOException {
+		
+		BufferedImage rawImage;
+		Picture8Bit picture;
+		
+		long time;
+		
+		for (int i = 0; i < numberOfFrames; i++) {
+			
+			System.out.println("frame number: " + i);
+			time = System.currentTimeMillis();
+			
+			animator.animate();
+			rawImage = fractal.getImage(new Scaling(-1, 1, -1, 1), 1000, 1000);
+			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
+			encoder.encodeNativeFrame(picture);
+			
+			System.out.println("Finished in: " + (System.currentTimeMillis() - time));
+			System.out.println();
+			
+		}
+		
+		encoder.finish();
 		
 	}
 
 	public void renderTest() {
-		
-		SequenceEncoder8Bit enc = null;
-
-		try {
-			
-			enc = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File("test.mp4")), Rational.R(framesPerSecond, 1));
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
+				
 		BufferedImage image = fractal.getImage(new Scaling(-1, 1, -1, 1), 1920, 1080);
 		
 		Picture8Bit picture = AWTUtil.fromBufferedImageRGB8Bit(image);
-		
-		try {
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			enc.encodeNativeFrame(picture);
-			
-			enc.finish();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
 	}
