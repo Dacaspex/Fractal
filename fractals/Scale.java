@@ -1,13 +1,13 @@
 package fractals;
 
-public class Scaling {
+public class Scale {
 
 	private double xMin;
 	private double xMax;
 	private double yMin;
 	private double yMax;
 
-	public Scaling(double xScaleMin, double xScaleMax, double yScaleMin, double yScaleMax) {
+	public Scale(double xScaleMin, double xScaleMax, double yScaleMin, double yScaleMax) {
 
 		this.xMin = xScaleMin;
 		this.xMax = xScaleMax;

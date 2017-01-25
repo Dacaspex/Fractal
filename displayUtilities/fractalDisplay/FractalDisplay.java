@@ -24,8 +24,8 @@ public class FractalDisplay extends JFrame {
 	public FractalDisplay() {
 		
 		// Initialize variables
-		DEFAULT_DISPLAY_WIDTH = 800;
-		DEFAULT_DISPLAY_HEIGHT = 800;
+		DEFAULT_DISPLAY_WIDTH = 1000;
+		DEFAULT_DISPLAY_HEIGHT = 1000;
 		
 		// Initialize the display
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

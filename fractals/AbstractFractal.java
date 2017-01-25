@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public interface AbstractFractal {
 
-	BufferedImage getImage(Scaling scaling, int imageWidth, int imageHeight);
+	BufferedImage getImage(Scale scaling, int imageWidth, int imageHeight);
 
 	int getRGBValue(int referenceNumber);
 

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
-import fractals.Scaling;
+import fractals.Scale;
 import timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
@@ -25,7 +25,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 */
 	private static final long serialVersionUID = 11274784860690473L;
 	
-	private Scaling scaling;
+	private Scale scaling;
 	private BufferedImage image;
 	private AbstractFractal fractal;
 	private ResizeDelayTimer resizeDelayTimer;
@@ -34,7 +34,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		fractal = new JuliaFractal();
-		scaling = new Scaling(-1, 1, -1, 1);
+		scaling = new Scale(-1, 1, -1, 1);
 		
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -46,7 +46,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	}
 	
-	public void setScaling(Scaling scaling) {
+	public void setScaling(Scale scaling) {
 		
 		this.scaling = scaling;
 		
@@ -98,7 +98,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		yScaleMax = yMiddle + yDelta;
 		yScaleMin = yMiddle - yDelta;
 		
-		Scaling scaling = new Scaling(xScaleMin, xScaleMax, yScaleMin, yScaleMax);
+		Scale scaling = new Scale(xScaleMin, xScaleMax, yScaleMin, yScaleMax);
 		
 		setScaling(scaling);
 		

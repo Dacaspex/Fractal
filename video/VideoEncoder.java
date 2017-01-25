@@ -12,7 +12,7 @@ import org.jcodec.scale.AWTUtil;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
-import fractals.Scaling;
+import fractals.Scale;
 
 @SuppressWarnings("deprecation")
 public class VideoEncoder {
@@ -69,7 +69,7 @@ public class VideoEncoder {
 			time = System.currentTimeMillis();
 			
 			animator.animate();
-			rawImage = fractal.getImage(new Scaling(-1, 1, -1, 1), 1000, 1000);
+			rawImage = fractal.getImage(new Scale(-1, 1, -1, 1), 1000, 1000);
 			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
 			encoder.encodeNativeFrame(picture);
 			
@@ -79,15 +79,6 @@ public class VideoEncoder {
 		}
 		
 		encoder.finish();
-		
-	}
-
-	public void renderTest() {
-				
-		BufferedImage image = fractal.getImage(new Scaling(-1, 1, -1, 1), 1920, 1080);
-		
-		Picture8Bit picture = AWTUtil.fromBufferedImageRGB8Bit(image);
-		
 		
 	}
 

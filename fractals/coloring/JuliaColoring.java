@@ -13,7 +13,5 @@ public class JuliaColoring extends FractalColoring {
 		super(steps);
 		
 	}
-	
-	
 
 }
