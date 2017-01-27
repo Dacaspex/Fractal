@@ -7,9 +7,6 @@ import displayUtilities.fractalDisplay.menuBar.fileMenu.menuItems.ExitMenuItem;
 
 public class FileMenu extends JMenu {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7419183203732549510L;
 
 	private ExitMenuItem exitMenuItem;

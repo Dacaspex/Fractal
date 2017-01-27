@@ -3,6 +3,7 @@ package displayUtilities.fractalDisplay;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -32,8 +33,6 @@ public class FractalDisplay extends JFrame {
 		setName("Fractal Drawer");
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		
-		// Setup fractal functionality
-		
 		fractalPanel = new FractalPanel();
 		
 		// Build display
@@ -60,7 +59,7 @@ public class FractalDisplay extends JFrame {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			
-			// TODO print a nice error message
+			// TODO print error
 			e.printStackTrace();
 			
 		}

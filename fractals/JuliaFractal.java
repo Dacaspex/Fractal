@@ -18,7 +18,7 @@ public class JuliaFractal implements AbstractFractal {
 	public JuliaFractal() {
 
 		constant = new Complex(-0.7269, 0.1889);
-//		constant = new Complex(0.285, 0.01);
+		constant = new Complex(0.285, 0.01);
 		maxIterations = 512;
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColoring(true, 512);
@@ -78,7 +78,11 @@ public class JuliaFractal implements AbstractFractal {
 				double y = scaling.getyMin() + i * yTransformFactor;
 
 				int escapeNumber = getEscapeNumber(new Complex(x, y));
-				int colorValue = getColor(escapeNumber);
+				
+				double continuousIndex = escapeNumber + 1
+						- (Math.log10(2) / lastEscapeComplexValue.getMagnitude()) / Math.log10(2);
+				
+				int colorValue = getRGBValue(continuousIndex);
 				image.setRGB((int) j, (int) i, colorValue);
 
 			}
@@ -106,24 +110,9 @@ public class JuliaFractal implements AbstractFractal {
 
 	}
 
-	@Override
-	public int getRGBValue(int referenceNumber) {
+	public int getRGBValue(double continuousIndex) {
 
-		return juliaColoring.getRGBValue(referenceNumber);
+		return juliaColoring.getRGBValue(continuousIndex);
 
-	}
-	
-	public int getColor(int referenceNumber) {
-		
-		double continuousIndex = referenceNumber + 1 - (Math.log10(2) / lastEscapeComplexValue.getMagnitude()) / Math.log10(2);
-		
-		int r = (int) Math.abs((Math.sin(0.016 * continuousIndex + 4) * 230 + 25));
-		int g = (int) Math.abs((Math.sin(0.013 * continuousIndex + 2) * 230 + 25));
-		int b = (int) Math.abs((Math.sin(0.01 * continuousIndex + 1) * 230 + 25));
-		
-//		System.out.println("r: " + r + ", g: " + g + ", b: " + b);
-		
-		return new Color(r, g, b).getRGB();
-		
 	}
 }

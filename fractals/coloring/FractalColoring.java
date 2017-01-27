@@ -150,9 +150,9 @@ public class FractalColoring {
 
 	}
 
-	public int getRGBValue(int referenceNumber) {
+	public int getRGBValue(double referenceNumber) {
 
-		return gradientMap[referenceNumber];
+		return gradientMap[(int) referenceNumber];
 
 	}
 

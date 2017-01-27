@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
+import fractals.MandleBrotFractal;
 import fractals.Scale;
 import timers.ResizeDelayTimer;
 
@@ -24,91 +25,97 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * 
 	 */
 	private static final long serialVersionUID = 11274784860690473L;
-	
+
 	private Scale scaling;
 	private BufferedImage image;
 	private AbstractFractal fractal;
 	private ResizeDelayTimer resizeDelayTimer;
 
 	public FractalPanel() {
-		
+
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		fractal = new JuliaFractal();
+		fractal = new MandleBrotFractal();
 		scaling = new Scale(-1, 1, -1, 1);
-		
+
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
 		addComponentListener(this);
-		
+
 		// Video encoding
 		// http://jcodec.org/
 		// FFMPEG <- works in command prompt
 
 	}
-	
+
 	public void setScaling(Scale scaling) {
-		
+
 		this.scaling = scaling;
-		
+
 	}
 
 	public void draw() {
+		
+		long startTime = System.currentTimeMillis();
 
 		image = fractal.getImage(scaling, getWidth(), getHeight());
+		
+		System.out.println("image crated in: " + (System.currentTimeMillis() - startTime) + "ms");
+		
 		repaint();
 
 	}
-	
+
 	public void zoom(Point centerPoint) {
-		
+
 		double zoomFactor = 3.0;
-		
+
 		double xScaleMin = scaling.getxMin();
 		double xScaleMax = scaling.getxMax();
 		double yScaleMin = scaling.getyMin();
 		double yScaleMax = scaling.getyMax();
-		
+
 		// Translation
 		double normalizedX = centerPoint.getX() / (double) getWidth();
 		double normalizedY = centerPoint.getY() / (double) getHeight();
-		
+
 		double xPoint = xScaleMin + normalizedX * (xScaleMax - xScaleMin);
 		double yPoint = yScaleMin + normalizedY * (yScaleMax - yScaleMin);
-		
+
 		double xMiddle = (xScaleMax + xScaleMin) / 2.0;
 		double yMiddle = (yScaleMax + yScaleMin) / 2.0;
-		
+
 		double xTranslation = xPoint - xMiddle;
 		double yTranslation = yPoint - yMiddle;
-		
+
 		xScaleMax += xTranslation;
 		xScaleMin += xTranslation;
 		yScaleMax += yTranslation;
 		yScaleMin += yTranslation;
-		
+
 		// Scaling
 		double xDelta = (xScaleMax - xScaleMin) / zoomFactor;
 		double yDelta = (yScaleMax - yScaleMin) / zoomFactor;
-		
+
 		xMiddle = (xScaleMax + xScaleMin) / 2.0;
 		yMiddle = (yScaleMax + yScaleMin) / 2.0;
-		
+
 		xScaleMax = xMiddle + xDelta;
 		xScaleMin = xMiddle - xDelta;
 		yScaleMax = yMiddle + yDelta;
 		yScaleMin = yMiddle - yDelta;
-		
+
 		Scale scaling = new Scale(xScaleMin, xScaleMax, yScaleMin, yScaleMax);
-		
+
 		setScaling(scaling);
-		
+
 		draw();
-		
+
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		
+
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		super.paint(g);
@@ -116,7 +123,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		((Graphics2D) g).drawImage(image, null, null);
 
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -146,24 +153,24 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	@Override
 	public void componentHidden(ComponentEvent e) {
-		
+
 	}
 
 	@Override
 	public void componentMoved(ComponentEvent e) {
-		
+
 	}
 
 	@Override
 	public void componentResized(ComponentEvent e) {
-		
+
 		resizeDelayTimer.restart();
-		
+
 	}
 
 	@Override
 	public void componentShown(ComponentEvent e) {
-		
+
 	}
 
 }
