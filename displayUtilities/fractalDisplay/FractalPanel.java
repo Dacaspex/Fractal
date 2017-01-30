@@ -21,9 +21,6 @@ import timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 11274784860690473L;
 
 	private Scale scaling;
@@ -37,14 +34,11 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractal = new JuliaFractal();
 		fractal = new MandleBrotFractal();
 		scaling = new Scale(-1, 1, -1, 1);
+		scaling = new Scale(-1.5, 0.5, -1, 1);
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
 		addComponentListener(this);
-
-		// Video encoding
-		// http://jcodec.org/
-		// FFMPEG <- works in command prompt
 
 	}
 

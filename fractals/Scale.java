@@ -1,7 +1,9 @@
 package fractals;
 
-public class Scale {
+import java.awt.Point;
 
+public class Scale {
+	
 	private double xMin;
 	private double xMax;
 	private double yMin;
@@ -29,7 +31,9 @@ public class Scale {
 	}
 
 	public double getxMax() {
+
 		return xMax;
+
 	}
 
 	public void setxMax(double xScaleMax) {
@@ -72,6 +76,14 @@ public class Scale {
 
 		return yMax - yMin;
 
+	}
+	
+	// TODO change name
+	public Point getPointInScaling(Scale source, Scale target, Point point) {
+		
+		// TODO create method body
+		return new Point();
+		
 	}
 
 }

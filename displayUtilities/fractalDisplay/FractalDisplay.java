@@ -30,8 +30,8 @@ public class FractalDisplay extends JFrame {
 		
 		// Initialize the display
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		setName("Fractal Drawer");
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
+		setName("Fractal Drawer");
 		
 		fractalPanel = new FractalPanel();
 		

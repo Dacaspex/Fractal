@@ -1,12 +1,11 @@
 package fractals;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 import complex.Complex;
 import fractals.coloring.JuliaColoring;
 
-public class JuliaFractal implements AbstractFractal {
+public class JuliaFractal extends AbstractFractal {
 
 	private Complex constant;
 	private int maxIterations;
