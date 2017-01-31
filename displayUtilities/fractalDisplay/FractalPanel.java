@@ -50,12 +50,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	public void draw() {
 		
-		long startTime = System.currentTimeMillis();
-
 		image = fractal.getImage(scaling, getWidth(), getHeight());
-		
-		System.out.println("image crated in: " + (System.currentTimeMillis() - startTime) + "ms");
-		
 		repaint();
 
 	}

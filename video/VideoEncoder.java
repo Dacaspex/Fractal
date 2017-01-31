@@ -10,11 +10,9 @@ import org.jcodec.common.model.Picture8Bit;
 import org.jcodec.common.model.Rational;
 import org.jcodec.scale.AWTUtil;
 
-import fractals.AbstractFractal;
 import fractals.JuliaFractal;
 import fractals.Scale;
 
-@SuppressWarnings("deprecation")
 public class VideoEncoder {
 	
 	private SequenceEncoder8Bit encoder;
@@ -24,7 +22,6 @@ public class VideoEncoder {
 	
 	private String directory;
 
-	private AbstractFractal fractal2;
 	private JuliaFractal fractal;
 	
 	private Animator animator;
