@@ -26,8 +26,10 @@ public class BlockCCE extends Block {
     private BlockType[] type;
     private int[] id_select;
     private int[] ch_select;
-    private int sign;
-    private Object scale;
+    @SuppressWarnings("unused")
+	private int sign;
+    @SuppressWarnings("unused")
+	private Object scale;
     private Object[] cce_scale;
     private BlockICS blockICS;
     private BandType[] bandType;
@@ -41,7 +43,8 @@ public class BlockCCE extends Block {
         this.bandType = bandType;
     }
 
-    public void parse(BitReader _in) {
+    @SuppressWarnings("unused")
+	public void parse(BitReader _in) {
         int num_gain = 0;
         coupling_point = 2 * _in.read1Bit();
         num_coupled = _in.readNBit(3);
@@ -71,7 +74,6 @@ public class BlockCCE extends Block {
             if (c != 0) {
                 cge = coupling_point == AFTER_IMDCT.ordinal() ? 1 : _in.read1Bit();
                 gain = cge != 0 ? vlc.readVLC(_in) - 60 : 0;
-                // gain_cache = powf(scale, -gain);
             }
             if (coupling_point != AFTER_IMDCT.ordinal()) {
                 for (int g = 0; g < blockICS.num_window_groups; g++) {

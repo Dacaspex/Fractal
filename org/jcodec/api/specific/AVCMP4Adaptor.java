@@ -26,6 +26,7 @@ import org.jcodec.containers.mp4.MP4Packet;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class AVCMP4Adaptor implements ContainerAdaptor {
 
     private H264Decoder decoder;

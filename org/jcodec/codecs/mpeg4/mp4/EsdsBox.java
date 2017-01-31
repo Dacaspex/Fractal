@@ -11,8 +11,6 @@ import org.jcodec.codecs.mpeg4.es.DescriptorFactory;
 import org.jcodec.codecs.mpeg4.es.ES;
 import org.jcodec.codecs.mpeg4.es.NodeDescriptor;
 import org.jcodec.codecs.mpeg4.es.SL;
-import org.jcodec.common.io.BitWriter;
-import org.jcodec.containers.mp4.boxes.Box;
 import org.jcodec.containers.mp4.boxes.FullBox;
 import org.jcodec.containers.mp4.boxes.Header;
 

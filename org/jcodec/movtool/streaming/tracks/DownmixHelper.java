@@ -1,9 +1,4 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-import java.lang.ThreadLocal;
-
-
 import static org.jcodec.common.model.Label.Center;
 import static org.jcodec.common.model.Label.Discrete;
 import static org.jcodec.common.model.Label.LFE2;
@@ -21,16 +16,16 @@ import static org.jcodec.common.model.Label.RightSurround;
 import static org.jcodec.common.model.Label.RightTotal;
 import static org.jcodec.common.model.Label.Unused;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jcodec.common.IntArrayList;
 import org.jcodec.common.io.NIOUtils;
 import org.jcodec.common.logging.Logger;
 import org.jcodec.common.model.Label;
 import org.jcodec.movtool.streaming.AudioCodecMeta;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

@@ -36,7 +36,8 @@ public abstract class FixTimestamp {
         }
     }
 
-    private boolean processPacket(boolean payloadStart, ByteBuffer bb, boolean sectionSyntax, ByteBuffer fullPkt) {
+    @SuppressWarnings("unused")
+	private boolean processPacket(boolean payloadStart, ByteBuffer bb, boolean sectionSyntax, ByteBuffer fullPkt) {
         if (!payloadStart || sectionSyntax)
             return true;
 
@@ -101,7 +102,8 @@ public abstract class FixTimestamp {
         return pts;
     }
 
-    public void fixMpeg2(int streamId, ByteBuffer is) {
+    @SuppressWarnings("unused")
+	public void fixMpeg2(int streamId, ByteBuffer is) {
         int flags1 = is.get() & 0xff;
         int flags2 = is.get() & 0xff;
         int header_len = is.get() & 0xff;

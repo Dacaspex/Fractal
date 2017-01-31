@@ -1,7 +1,5 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.File;
 
 import org.jcodec.containers.mp4.boxes.Box;
 import org.jcodec.containers.mp4.boxes.MediaHeaderBox;
@@ -9,8 +7,6 @@ import org.jcodec.containers.mp4.boxes.MovieBox;
 import org.jcodec.containers.mp4.boxes.MovieFragmentBox;
 import org.jcodec.containers.mp4.boxes.NodeBox;
 import org.jcodec.containers.mp4.boxes.TrakBox;
-
-import java.io.File;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

@@ -64,7 +64,8 @@ public class MTSIndexer {
             analyseBuffer(data, filePos);
         }
 
-        protected void analyseBuffer(ByteBuffer buf, long pos) {
+        @SuppressWarnings("unused")
+		protected void analyseBuffer(ByteBuffer buf, long pos) {
             while (buf.hasRemaining()) {
                 ByteBuffer tsBuf = NIOUtils.read(buf, 188);
                 pos += 188;

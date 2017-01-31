@@ -9,7 +9,8 @@ import java.util.List;
  * 
  */
 public class Frame {
-    private Picture pic;
+    @SuppressWarnings("deprecation")
+	private Picture pic;
     private RationalLarge pts;
     private RationalLarge duration;
     private Rational pixelAspect;
@@ -17,7 +18,8 @@ public class Frame {
     private int frameNo;
     private List<String> messages;
 
-    public Frame(Picture pic, RationalLarge pts, RationalLarge duration, Rational pixelAspect, int frameNo,
+    @SuppressWarnings("deprecation")
+	public Frame(Picture pic, RationalLarge pts, RationalLarge duration, Rational pixelAspect, int frameNo,
             TapeTimecode tapeTimecode, List<String> messages) {
         this.pic = pic;
         this.pts = pts;
@@ -28,7 +30,8 @@ public class Frame {
         this.messages = messages;
     }
 
-    public Picture getPic() {
+    @SuppressWarnings("deprecation")
+	public Picture getPic() {
         return pic;
     }
 

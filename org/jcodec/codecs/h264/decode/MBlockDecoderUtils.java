@@ -50,7 +50,8 @@ public class MBlockDecoderUtils {
         }
     }
 
-    static void saveMvsIntra(DeblockerInput di, int mbX, int mbY) {
+    @SuppressWarnings("unused")
+	static void saveMvsIntra(DeblockerInput di, int mbX, int mbY) {
         for (int j = 0, blkOffY = mbY << 2, blkInd = 0; j < 4; j++, blkOffY++) {
             for (int i = 0, blkOffX = mbX << 2; i < 4; i++, blkOffX++, blkInd++) {
                 di.mvs[0][blkOffY][blkOffX] = NULL_VECTOR;

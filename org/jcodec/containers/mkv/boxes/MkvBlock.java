@@ -3,18 +3,15 @@ import static java.lang.System.arraycopy;
 import static org.jcodec.containers.mkv.boxes.EbmlSint.convertToBytes;
 import static org.jcodec.containers.mkv.boxes.EbmlSint.signedComplement;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.Arrays;
+
 import org.jcodec.common.ByteArrayList;
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.containers.mkv.util.EbmlUtil;
 import org.jcodec.platform.Platform;
-
-import java.io.IOException;
-import java.lang.IllegalArgumentException;
-import java.lang.StringBuilder;
-import java.lang.System;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.Arrays;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -27,7 +24,8 @@ public class MkvBlock extends EbmlBin {
     private static final String XIPH = "Xiph";
     private static final String EBML = "EBML";
     private static final String FIXED = "Fixed";
-    private static final int MAX_BLOCK_HEADER_SIZE = 512;
+    @SuppressWarnings("unused")
+	private static final int MAX_BLOCK_HEADER_SIZE = 512;
     public int[] frameOffsets;
     public int[] frameSizes;
     public long trackNumber;

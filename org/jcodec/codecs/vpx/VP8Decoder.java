@@ -32,7 +32,8 @@ import org.jcodec.common.model.Size;
  */
 public class VP8Decoder extends VideoDecoder {
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public Picture8Bit decodeFrame8Bit(ByteBuffer frame, byte[][] buffer) {
         byte[] firstThree = new byte[3];
         frame.get(firstThree);

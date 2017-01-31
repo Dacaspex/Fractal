@@ -40,7 +40,8 @@ public class NodeDescriptor extends Descriptor {
         return new NodeDescriptor(0, children);
     }
 
-    public static <T> T find(Descriptor es, Class<T> class1, int tag) {
+    @SuppressWarnings("unchecked")
+	public static <T> T find(Descriptor es, Class<T> class1, int tag) {
         if (es.getTag() == tag)
             return (T) es;
         else {

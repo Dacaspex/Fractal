@@ -1,9 +1,4 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-import java.lang.ThreadLocal;
-import java.lang.IllegalArgumentException;
-
 import org.jcodec.codecs.prores.ProresDecoder;
 import org.jcodec.codecs.prores.ProresEncoder;
 import org.jcodec.codecs.prores.ProresEncoder.Profile;

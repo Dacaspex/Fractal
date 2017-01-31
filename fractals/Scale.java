@@ -9,12 +9,12 @@ public class Scale {
 	private double yMin;
 	private double yMax;
 
-	public Scale(double xScaleMin, double xScaleMax, double yScaleMin, double yScaleMax) {
+	public Scale(double xMin, double xMax, double yMin, double yMax) {
 
-		this.xMin = xScaleMin;
-		this.xMax = xScaleMax;
-		this.yMin = yScaleMin;
-		this.yMax = yScaleMax;
+		this.xMin = xMin;
+		this.xMax = xMax;
+		this.yMin = yMin;
+		this.yMax = yMax;
 
 	}
 
@@ -24,9 +24,9 @@ public class Scale {
 
 	}
 
-	public void setxMin(double xScaleMin) {
+	public void setxMin(double xMin) {
 
-		this.xMin = xScaleMin;
+		this.xMin = xMin;
 
 	}
 
@@ -36,9 +36,9 @@ public class Scale {
 
 	}
 
-	public void setxMax(double xScaleMax) {
+	public void setxMax(double xMax) {
 
-		this.xMax = xScaleMax;
+		this.xMax = xMax;
 
 	}
 
@@ -48,9 +48,9 @@ public class Scale {
 
 	}
 
-	public void setyMin(double yScaleMin) {
+	public void setyMin(double yMin) {
 
-		this.yMin = yScaleMin;
+		this.yMin = yMin;
 
 	}
 
@@ -60,18 +60,26 @@ public class Scale {
 
 	}
 
-	public void setyMax(double yScaleMax) {
+	public void setyMax(double yMax) {
 
-		this.yMax = yScaleMax;
+		this.yMax = yMax;
 
 	}
 
+	/**
+	 * Calculates the difference between the xMax and the xMin
+	 * @return Returns the result of xMax - xMin
+	 */
 	public double getxDifference() {
 
 		return xMax - xMin;
 
 	}
 
+	/**
+	 * Calculates the difference between the yMax and the yMin
+	 * @return Returns the result of yMax - yMin
+	 */
 	public double getyDifference() {
 
 		return yMax - yMin;

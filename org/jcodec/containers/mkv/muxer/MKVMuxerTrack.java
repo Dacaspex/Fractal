@@ -24,7 +24,8 @@ public class MKVMuxerTrack implements MuxerTrack {
     public VideoCodecMeta videoMeta;
     public String codecId;
     public int trackNo;
-    private int frameDuration;
+    @SuppressWarnings("unused")
+	private int frameDuration;
     List<MkvBlock> trackBlocks;
     
     public MKVMuxerTrack() {

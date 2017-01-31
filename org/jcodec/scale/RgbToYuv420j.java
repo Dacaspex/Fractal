@@ -15,6 +15,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class RgbToYuv420j implements Transform {
 
     public RgbToYuv420j() {

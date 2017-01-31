@@ -1,8 +1,4 @@
 package org.jcodec.movtool.streaming;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import java.nio.ByteBuffer;
 
 /**

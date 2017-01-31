@@ -13,7 +13,8 @@ import org.jcodec.common.io.BitReader;
  */
 public class BlockDSE extends Block {
 
-    public void parse(BitReader _in) {
+    @SuppressWarnings("unused")
+	public void parse(BitReader _in) {
         int elemType = (int) _in.readNBit(4);
         int byte_align = _in.read1Bit();
         int count = (int) _in.readNBit(8);

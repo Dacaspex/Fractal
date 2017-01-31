@@ -13,13 +13,13 @@ public class ResizeDelayTimer implements ActionListener {
 
 	private Timer timer;
 
-	private FractalPanel fractalDrawManager;
+	private FractalPanel fractalPanel;
 
-	public ResizeDelayTimer(FractalPanel fractalDrawManager) {
+	public ResizeDelayTimer(FractalPanel fractalPanel) {
 
 		delay = 200;
 		timer = new Timer(delay, this);
-		this.fractalDrawManager = fractalDrawManager;
+		this.fractalPanel = fractalPanel;
 
 	}
 
@@ -33,7 +33,7 @@ public class ResizeDelayTimer implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		timer.stop();
-		fractalDrawManager.draw();
+		fractalPanel.draw();
 
 	}
 

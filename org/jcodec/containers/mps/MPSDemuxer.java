@@ -261,7 +261,8 @@ public class MPSDemuxer extends SegmentReader implements MPEGDemuxer {
             return toReturn;
         }
 
-        public DemuxerTrackMeta getMeta() {
+        @SuppressWarnings("unused")
+		public DemuxerTrackMeta getMeta() {
             TrackType t = videoStream(streamId) ? VIDEO : (audioStream(streamId) ? AUDIO : OTHER);
             return null;
         }

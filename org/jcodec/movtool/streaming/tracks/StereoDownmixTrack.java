@@ -1,7 +1,7 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-import java.lang.IllegalArgumentException;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import org.jcodec.common.AudioFormat;
 import org.jcodec.common.model.Label;
@@ -9,10 +9,6 @@ import org.jcodec.movtool.streaming.AudioCodecMeta;
 import org.jcodec.movtool.streaming.CodecMeta;
 import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

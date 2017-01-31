@@ -194,7 +194,8 @@ public class MPSUtils {
                 | ((is.get() & 0xff) << 7) | ((is.get() & 0xff) >> 1);
     }
 
-    public static PESPacket mpeg2Pes(int b0, int len, int streamId, ByteBuffer is, long pos) {
+    @SuppressWarnings("unused")
+	public static PESPacket mpeg2Pes(int b0, int len, int streamId, ByteBuffer is, long pos) {
         int flags1 = b0;
         int flags2 = is.get() & 0xff;
         int header_len = is.get() & 0xff;
@@ -371,7 +372,8 @@ public class MPSUtils {
     }
 
     public static class Mpeg4VideoDescriptor extends MPEGMediaDescriptor {
-        private int profileLevel;
+        @SuppressWarnings("unused")
+		private int profileLevel;
 
         @Override
         public void parse(ByteBuffer buf) {
@@ -489,7 +491,8 @@ public class MPSUtils {
         }
     }
 
-    public static Class<? extends MPEGMediaDescriptor>[] dMapping = new Class[256];
+    @SuppressWarnings("unchecked")
+	public static Class<? extends MPEGMediaDescriptor>[] dMapping = new Class[256];
 
     static {
         dMapping[2] = VideoStreamDescriptor.class;

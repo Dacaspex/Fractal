@@ -20,7 +20,8 @@ import java.util.zip.CRC32;
  */
 public class HLSFixPMT {
 
-    public void fix(File file) throws IOException {
+    @SuppressWarnings("unused")
+	public void fix(File file) throws IOException {
         RandomAccessFile ra = null;
 
         try {
@@ -58,7 +59,8 @@ public class HLSFixPMT {
         }
     }
 
-    public static void fixPAT(ByteBuffer data) {
+    @SuppressWarnings("deprecation")
+	public static void fixPAT(ByteBuffer data) {
         ByteBuffer table = data.duplicate();
         MTSUtils.parseSection(data);
         ByteBuffer newPmt = data.duplicate();

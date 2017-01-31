@@ -1,9 +1,11 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static org.jcodec.containers.mps.MPSUtils.readPESHeader;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jcodec.common.Assert;
 import org.jcodec.common.io.FileChannelWrapper;
@@ -11,12 +13,6 @@ import org.jcodec.common.io.NIOUtils;
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.tracks.MPSTrackFactory.Stream;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -66,7 +62,8 @@ public class MTSTrackFactory {
 				this.program = program;
             }
 
-            @Override
+            @SuppressWarnings("unused")
+			@Override
             protected ByteBuffer readPes(SeekableByteChannel ch, long pesPosition, int pesSize, int payloadSize,
                     int pesAbsIdx) throws IOException {
                 ch.setPosition(pesPosition * 188);

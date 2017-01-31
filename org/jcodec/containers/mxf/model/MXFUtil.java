@@ -20,7 +20,8 @@ public class MXFUtil {
         return res.size() > 0 ? res.get(0) : null;
     }
 
-    public static <T> List<T> resolveRefs(List<MXFMetadata> metadata, UL[] refs, Class<T> class1) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> List<T> resolveRefs(List<MXFMetadata> metadata, UL[] refs, Class<T> class1) {
         List<MXFMetadata> copy = new ArrayList<MXFMetadata>(metadata);
         for (Iterator<MXFMetadata> iterator = copy.iterator(); iterator.hasNext();) {
             MXFMetadata next = iterator.next();
@@ -39,7 +40,8 @@ public class MXFUtil {
         return result;
     }
 
-    public static <T> T findMeta(Collection<MXFMetadata> metadata, Class<T> class1) {
+    @SuppressWarnings("unchecked")
+	public static <T> T findMeta(Collection<MXFMetadata> metadata, Class<T> class1) {
         for (MXFMetadata mxfMetadata : metadata) {
             if (mxfMetadata.getClass().isAssignableFrom(class1))
                 return (T) mxfMetadata;
@@ -47,7 +49,8 @@ public class MXFUtil {
         return null;
     }
 
-    public static <T> List<T> findAllMeta(Collection<MXFMetadata> metadata, Class<T> class1) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> List<T> findAllMeta(Collection<MXFMetadata> metadata, Class<T> class1) {
         List result = new ArrayList();
         for (MXFMetadata mxfMetadata : metadata) {
             if (class1.isAssignableFrom(mxfMetadata.getClass()))

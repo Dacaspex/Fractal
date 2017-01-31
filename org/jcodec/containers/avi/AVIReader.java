@@ -162,7 +162,8 @@ public class AVIReader {
         return (this.aviIndexes);
     }
 
-    public void parse() throws IOException {
+    @SuppressWarnings("unused")
+	public void parse() throws IOException {
         try {
             long t1 = currentTimeMillis();
 
@@ -518,14 +519,19 @@ static class AVITag_AVIH extends AVIChunk {
         final static int AVIF_WASCAPTUREFILE = 0x00010000;
         final static int AVIF_COPYRIGHTED = 0x00020000;
 
-        private int dwMicroSecPerFrame; // (1 / frames per sec) * 1,000,000
-        private int dwMaxBytesPerSec;
-        private int dwPaddingGranularity;
+        @SuppressWarnings("unused")
+		private int dwMicroSecPerFrame; // (1 / frames per sec) * 1,000,000
+        @SuppressWarnings("unused")
+		private int dwMaxBytesPerSec;
+        @SuppressWarnings("unused")
+		private int dwPaddingGranularity;
         private int dwFlags;
         private int dwTotalFrames; // replace with correct value
-        private int dwInitialFrames;
+        @SuppressWarnings("unused")
+		private int dwInitialFrames;
         private int dwStreams;
-        private int dwSuggestedBufferSize;
+        @SuppressWarnings("unused")
+		private int dwSuggestedBufferSize;
         private int dwWidth; // replace with correct value
         private int dwHeight; // replace with correct value
         private int[] dwReserved;
@@ -604,21 +610,35 @@ static class AVITag_STRH extends AVIChunk {
                              // byte[]{'v','i','d','s'};
         private int fccCodecHandler; // private byte[] fccHandler = new
                                      // byte[]{'M','J','P','G'};
-        private int dwFlags = 0;
-        private short wPriority = 0;
-        private short wLanguage = 0;
+        @SuppressWarnings("unused")
+		private int dwFlags = 0;
+        @SuppressWarnings("unused")
+		private short wPriority = 0;
+        @SuppressWarnings("unused")
+		private short wLanguage = 0;
         private int dwInitialFrames = 0;
-        private int dwScale = 0; // microseconds per frame
-        private int dwRate = 1000000; // dwRate / dwScale = frame rate
-        private int dwStart = 0;
-        private int dwLength = 0; // num frames
-        private int dwSuggestedBufferSize = 0;
-        private int dwQuality = -1;
-        private int dwSampleSize = 0;
-        private short left = 0;
-        private short top = 0;
-        private short right = 0;
-        private short bottom = 0;
+        @SuppressWarnings("unused")
+		private int dwScale = 0; // microseconds per frame
+        @SuppressWarnings("unused")
+		private int dwRate = 1000000; // dwRate / dwScale = frame rate
+        @SuppressWarnings("unused")
+		private int dwStart = 0;
+        @SuppressWarnings("unused")
+		private int dwLength = 0; // num frames
+        @SuppressWarnings("unused")
+		private int dwSuggestedBufferSize = 0;
+        @SuppressWarnings("unused")
+		private int dwQuality = -1;
+        @SuppressWarnings("unused")
+		private int dwSampleSize = 0;
+        @SuppressWarnings("unused")
+		private short left = 0;
+        @SuppressWarnings("unused")
+		private short top = 0;
+        @SuppressWarnings("unused")
+		private short right = 0;
+        @SuppressWarnings("unused")
+		private short bottom = 0;
 
         @Override
         public void read(final int dwFourCC, final DataReader raf) throws IOException {
@@ -688,18 +708,28 @@ static class AVITag_BitmapInfoHeader extends AVIChunk {
         private int biHeight; // long
         private short biPlanes;
         private short biBitCount;
-        private int biCompression;
-        private int biSizeImage;
-        private int biXPelsPerMeter; // long
-        private int biYPelsPerMeter; // long
-        private int biClrUsed;
-        private int biClrImportant;
+        @SuppressWarnings("unused")
+		private int biCompression;
+        @SuppressWarnings("unused")
+		private int biSizeImage;
+        @SuppressWarnings("unused")
+		private int biXPelsPerMeter; // long
+        @SuppressWarnings("unused")
+		private int biYPelsPerMeter; // long
+        @SuppressWarnings("unused")
+		private int biClrUsed;
+        @SuppressWarnings("unused")
+		private int biClrImportant;
 
         // Optional palette info ( number of colours I believe )
-        private byte r;
-        private byte g;
-        private byte b;
-        private byte x;
+        @SuppressWarnings("unused")
+		private byte r;
+        @SuppressWarnings("unused")
+		private byte g;
+        @SuppressWarnings("unused")
+		private byte b;
+        @SuppressWarnings("unused")
+		private byte x;
 
         @Override
         public void read(final int dwFourCC, final DataReader raf) throws IOException {
@@ -1161,12 +1191,15 @@ static class AVITag_AviDmlSuperIndex extends AVIChunk {
         protected long[] qwOffset;
         protected int[] dwSize;
         protected int[] dwDuration;
-        private int numIndex;
-        private int numIndexFill;
+        @SuppressWarnings("unused")
+		private int numIndex;
+        @SuppressWarnings("unused")
+		private int numIndexFill;
 
         // Generated
         StringBuilder sb;
-        private int streamNo = 0;
+        @SuppressWarnings("unused")
+		private int streamNo = 0;
         
         public AVITag_AviDmlSuperIndex() {
             super();

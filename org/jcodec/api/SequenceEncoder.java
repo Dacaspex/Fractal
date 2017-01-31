@@ -36,9 +36,7 @@ public class SequenceEncoder {
     private ByteBuffer _out;
     private int frameNo;
     private MP4Muxer muxer;
-    private ByteBuffer sps;
-    private ByteBuffer pps;
-
+    
     public static SequenceEncoder createSequenceEncoder(File out) throws IOException {
         return new SequenceEncoder(NIOUtils.writableChannel(out));
     }

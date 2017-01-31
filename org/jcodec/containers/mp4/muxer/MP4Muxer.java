@@ -99,7 +99,8 @@ public class MP4Muxer implements Muxer {
         return track;
     }
 
-    private FramesMP4MuxerTrack addVideoTrack(Codec codec, Size size, String encoderName, int timescale) {
+    @SuppressWarnings("unused")
+	private FramesMP4MuxerTrack addVideoTrack(Codec codec, Size size, String encoderName, int timescale) {
         FramesMP4MuxerTrack track = addTrack(VIDEO, codec);
 
         track.addSampleEntry(videoSampleEntry(codec2fourcc.get(codec), size, encoderName));

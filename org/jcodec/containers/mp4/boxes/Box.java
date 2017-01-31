@@ -71,7 +71,8 @@ public abstract class Box {
         sb.append("}");
     }
 
-    protected void collectModel(Class claz, List<String> model) {
+    @SuppressWarnings("rawtypes")
+	protected void collectModel(Class claz, List<String> model) {
         if (Box.class == claz || !Box.class.isAssignableFrom(claz))
             return;
 
@@ -85,7 +86,8 @@ public abstract class Box {
         }
     }
 
-    private void checkWrongSignature(Class claz) {
+    @SuppressWarnings("rawtypes")
+	private void checkWrongSignature(Class claz) {
         Method[] declaredMethods = Platform.getDeclaredMethods(claz);
         for (int i = 0; i < declaredMethods.length; i++) {
             Method method = declaredMethods[i];

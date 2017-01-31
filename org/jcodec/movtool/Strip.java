@@ -1,13 +1,13 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static java.lang.System.arraycopy;
 import static org.jcodec.common.io.NIOUtils.readableChannel;
 import static org.jcodec.common.io.NIOUtils.writableChannel;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.containers.mp4.Chunk;
@@ -27,11 +27,6 @@ import org.jcodec.containers.mp4.boxes.TimeToSampleBox;
 import org.jcodec.containers.mp4.boxes.TimeToSampleBox.TimeToSampleEntry;
 import org.jcodec.containers.mp4.boxes.TrakBox;
 import org.jcodec.platform.Platform;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

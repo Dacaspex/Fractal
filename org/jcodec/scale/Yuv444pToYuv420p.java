@@ -10,6 +10,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class Yuv444pToYuv420p implements Transform {
     private int shiftUp;
     private int shiftDown;

@@ -23,7 +23,8 @@ public class BlockPCE extends Block {
         ChannelPosition position;
     }
 
-    public void parse(BitReader _in) {
+    @SuppressWarnings("unused")
+	public void parse(BitReader _in) {
 
         _in.readNBit(2); // object_type
 

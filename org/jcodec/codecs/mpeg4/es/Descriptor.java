@@ -14,7 +14,8 @@ import java.nio.ByteBuffer;
  */
 public abstract class Descriptor {
     private int _tag;
-    private int size;
+    @SuppressWarnings("unused")
+	private int size;
     protected IDescriptorFactory factory;
     
     public Descriptor(int tag, int size) {

@@ -73,7 +73,8 @@ public class BitReader {
         return ret;
     }
 
-    public int readNBit(int n) {
+    @SuppressWarnings("unused")
+	public int readNBit(int n) {
         if (n > 32)
             throw new IllegalArgumentException("Can not read more then 32 bit");
 

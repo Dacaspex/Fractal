@@ -35,7 +35,8 @@ public class MPSMediaInfo extends PESReader {
 
     private Map<Integer, MPEGTrackMetadata> infos;
     private int pesTried;
-    private PSM psm;
+    @SuppressWarnings("unused")
+	private PSM psm;
     
     public MPSMediaInfo() {
         this.infos = new HashMap<Integer, MPSMediaInfo.MPEGTrackMetadata>();
@@ -137,7 +138,8 @@ public class MPSMediaInfo extends PESReader {
         return getInfos();
     }
 
-    public static class MediaInfoDone extends RuntimeException {
+    @SuppressWarnings("serial")
+	public static class MediaInfoDone extends RuntimeException {
     };
 
     @Override
@@ -187,7 +189,8 @@ public class MPSMediaInfo extends PESReader {
         }
     }
 
-    private int[] parseSystem(ByteBuffer pesBuffer) {
+    @SuppressWarnings("unused")
+	private int[] parseSystem(ByteBuffer pesBuffer) {
         NIOUtils.skip(pesBuffer, 12);
         IntArrayList result = IntArrayList.createIntArrayList();
         while (pesBuffer.remaining() >= 3 && (pesBuffer.get(pesBuffer.position()) & 0x80) == 0x80) {
@@ -201,7 +204,8 @@ public class MPSMediaInfo extends PESReader {
 
     }
 
-    private PSM parsePSM(ByteBuffer pesBuffer) {
+    @SuppressWarnings("unused")
+	private PSM parsePSM(ByteBuffer pesBuffer) {
         pesBuffer.getInt();
         short psmLen = pesBuffer.getShort();
         if (psmLen > 1018)
@@ -219,7 +223,8 @@ public class MPSMediaInfo extends PESReader {
         return new PSM();
     }
 
-    private void parseElStreams(ByteBuffer buf) {
+    @SuppressWarnings("unused")
+	private void parseElStreams(ByteBuffer buf) {
         while (buf.hasRemaining()) {
             byte streamType = buf.get();
             byte streamId = buf.get();

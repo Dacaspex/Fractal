@@ -198,7 +198,8 @@ public class ProresFix {
         beforeSizes.putShort((short) (beforeCr - beforeCb));
     }
 
-    public static List<String> check(ByteBuffer data) {
+    @SuppressWarnings("unused")
+	public static List<String> check(ByteBuffer data) {
         List<String> messages = new ArrayList<String>();
         int frameSize = data.getInt();
 
@@ -237,7 +238,8 @@ public class ProresFix {
         return messages;
     }
 
-    private static void checkPicture(ByteBuffer data, int width, int height, List<String> messages) {
+    @SuppressWarnings("unused")
+	private static void checkPicture(ByteBuffer data, int width, int height, List<String> messages) {
 
         PictureHeader ph = ProresDecoder.readPictureHeader(data);
 
@@ -266,7 +268,8 @@ public class ProresFix {
         }
     }
 
-    private static void checkSlice(ByteBuffer sliceData, int sliceMbCount) {
+    @SuppressWarnings("unused")
+	private static void checkSlice(ByteBuffer sliceData, int sliceMbCount) {
         int sliceSize = sliceData.remaining();
 
         int hdrSize = (sliceData.get() & 0xff) >> 3;

@@ -6,6 +6,8 @@ public class NotSupportedException extends RuntimeException {
 //		super();
 //	}
 	
+	private static final long serialVersionUID = 3007108065947759711L;
+
 	public NotSupportedException(String... arguments) {
 		super(""+arguments);
 	}

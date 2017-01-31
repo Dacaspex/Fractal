@@ -122,7 +122,8 @@ public class MBlockDecoderInter8x8 extends MBlockDecoderBase {
         Arrays.fill(pp, L0);
     }
 
-    private void predict8x8B(MBlock mBlock, Frame[][] refs, Picture8Bit mb, boolean ref0, int mbX, int mbY,
+    @SuppressWarnings("unused")
+	private void predict8x8B(MBlock mBlock, Frame[][] refs, Picture8Bit mb, boolean ref0, int mbX, int mbY,
             boolean leftAvailable, boolean topAvailable, boolean tlAvailable, boolean topRightAvailable, int[][][] x,
             PartPred[] p) {
 

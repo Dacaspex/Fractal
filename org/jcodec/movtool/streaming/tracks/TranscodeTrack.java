@@ -1,7 +1,7 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-import java.lang.ThreadLocal;
+import java.io.IOException;
+import java.nio.BufferOverflowException;
+import java.nio.ByteBuffer;
 
 import org.jcodec.common.VideoDecoder;
 import org.jcodec.common.VideoEncoder;
@@ -17,10 +17,6 @@ import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
 import org.jcodec.scale.ColorUtil;
 import org.jcodec.scale.Transform8Bit;
-
-import java.io.IOException;
-import java.nio.BufferOverflowException;
-import java.nio.ByteBuffer;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -132,7 +128,8 @@ public abstract class TranscodeTrack implements VirtualTrack {
             pic0 = Picture8Bit.create(track.mbW << 4, track.mbH << 4, ColorSpace.YUV444);
         }
 
-        public ByteBuffer transcodeFrame(ByteBuffer src, ByteBuffer dst) {
+        @SuppressWarnings("unused")
+		public ByteBuffer transcodeFrame(ByteBuffer src, ByteBuffer dst) {
             Picture8Bit decoded = decoder.decodeFrame8Bit(src, pic0.getData());
             if (pic1 == null) {
                 pic1 = Picture8Bit.create(decoded.getWidth(), decoded.getHeight(), ColorSpace.YUV420);

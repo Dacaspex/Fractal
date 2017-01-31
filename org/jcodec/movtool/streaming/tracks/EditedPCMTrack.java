@@ -1,18 +1,14 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jcodec.common.io.NIOUtils;
 import org.jcodec.movtool.streaming.AudioCodecMeta;
 import org.jcodec.movtool.streaming.CodecMeta;
 import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -36,7 +32,8 @@ public class EditedPCMTrack implements VirtualTrack {
     private int frameSize;
     private float sampleRate;
 
-    public EditedPCMTrack(VirtualTrack src) throws IOException {
+    @SuppressWarnings("unchecked")
+	public EditedPCMTrack(VirtualTrack src) throws IOException {
         this.src = src;
 
         edits = src.getEdits();

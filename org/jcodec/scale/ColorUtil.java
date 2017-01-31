@@ -15,9 +15,10 @@ import java.util.Map;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class ColorUtil {
 
-    private static Map<ColorSpace, Map<ColorSpace, Transform>> map = new HashMap<ColorSpace, Map<ColorSpace, Transform>>();
+	private static Map<ColorSpace, Map<ColorSpace, Transform>> map = new HashMap<ColorSpace, Map<ColorSpace, Transform>>();
     private static Map<ColorSpace, Map<ColorSpace, Transform8Bit>> map8Bit = new HashMap<ColorSpace, Map<ColorSpace, Transform8Bit>>();
 
     static {

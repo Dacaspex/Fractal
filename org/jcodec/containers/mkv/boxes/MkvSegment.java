@@ -3,11 +3,9 @@ import static org.jcodec.containers.mkv.util.EbmlUtil.ebmlEncode;
 import static org.jcodec.containers.mkv.util.EbmlUtil.ebmlLength;
 import static org.jcodec.platform.Platform.arrayEqualsByte;
 
-import org.jcodec.containers.mkv.util.EbmlUtil;
-import org.jcodec.platform.Platform;
-
-import java.lang.System;
 import java.nio.ByteBuffer;
+
+import org.jcodec.containers.mkv.util.EbmlUtil;
 
 
 /**

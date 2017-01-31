@@ -1,15 +1,5 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-import java.lang.IllegalArgumentException;
-
-
-import org.jcodec.movtool.streaming.CodecMeta;
-import org.jcodec.movtool.streaming.VirtualPacket;
-import org.jcodec.movtool.streaming.VirtualTrack;
-
 import java.io.IOException;
-import java.lang.Runnable;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +7,10 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import org.jcodec.movtool.streaming.CodecMeta;
+import org.jcodec.movtool.streaming.VirtualPacket;
+import org.jcodec.movtool.streaming.VirtualTrack;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

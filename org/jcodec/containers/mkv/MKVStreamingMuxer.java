@@ -1,8 +1,4 @@
 package org.jcodec.containers.mkv;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static org.jcodec.containers.mkv.MKVType.Audio;
 import static org.jcodec.containers.mkv.MKVType.BitDepth;
 import static org.jcodec.containers.mkv.MKVType.Channels;
@@ -43,6 +39,13 @@ import static org.jcodec.containers.mkv.muxer.MKVMuxer.createDouble;
 import static org.jcodec.containers.mkv.muxer.MKVMuxer.createLong;
 import static org.jcodec.containers.mkv.muxer.MKVMuxer.createString;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.jcodec.common.Assert;
 import org.jcodec.containers.mkv.boxes.EbmlBase;
 import org.jcodec.containers.mkv.boxes.EbmlMaster;
@@ -54,13 +57,6 @@ import org.jcodec.movtool.streaming.MovieSegment;
 import org.jcodec.movtool.streaming.VideoCodecMeta;
 import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed under FreeBSD License

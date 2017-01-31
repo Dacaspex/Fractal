@@ -21,7 +21,8 @@ import org.jcodec.common.model.AudioBuffer;
 public class PCMDVDDecoder implements AudioDecoder {
     private static final int[] lpcm_freq_tab = new int[] { 48000, 96000, 44100, 32000 };
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public AudioBuffer decodeFrame(ByteBuffer _frame, ByteBuffer _dst) throws IOException {
         ByteBuffer dst = _dst.duplicate();
         ByteBuffer frame = _frame.duplicate();
@@ -83,7 +84,8 @@ public class PCMDVDDecoder implements AudioDecoder {
         return new AudioBuffer(dst, new AudioFormat(sampleRate, sampleSizeInBits, channelCount, true, false), nFrames);
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public AudioCodecMeta getCodecMeta(ByteBuffer _frame) throws IOException {
         ByteBuffer frame = _frame.duplicate();
 

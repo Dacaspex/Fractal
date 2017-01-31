@@ -1,9 +1,11 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static org.jcodec.common.io.NIOUtils.readableChannel;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jcodec.common.io.NIOUtils;
 import org.jcodec.common.io.SeekableByteChannel;
@@ -15,12 +17,6 @@ import org.jcodec.containers.mp4.boxes.Box;
 import org.jcodec.containers.mp4.boxes.Header;
 import org.jcodec.containers.mp4.boxes.MovieBox;
 import org.jcodec.containers.mp4.boxes.NodeBox;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -65,7 +61,8 @@ public class Undo {
         }
     }
 
-    private List<Atom> list(String fileName) throws IOException {
+    @SuppressWarnings("unused")
+	private List<Atom> list(String fileName) throws IOException {
         ArrayList<Atom> result = new ArrayList<Atom>();
         SeekableByteChannel is = null;
         try {

@@ -9,6 +9,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class RgbToYuv422p implements Transform {
 
     private int upShift;

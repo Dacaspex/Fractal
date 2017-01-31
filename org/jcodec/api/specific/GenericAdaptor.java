@@ -17,6 +17,7 @@ import org.jcodec.common.model.Size;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class GenericAdaptor implements ContainerAdaptor {
 
     private VideoDecoder decoder;

@@ -14,6 +14,7 @@ import org.jcodec.common.model.Rect;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class ImageOP {
 
     /**

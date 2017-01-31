@@ -13,9 +13,12 @@ import java.nio.ByteOrder;
  */
 public class DeltaEntries {
 
-    private byte[] posTabIdx;
-    private byte[] slice;
-    private int[] elementData;
+    @SuppressWarnings("unused")
+	private byte[] posTabIdx;
+    @SuppressWarnings("unused")
+	private byte[] slice;
+    @SuppressWarnings("unused")
+	private int[] elementData;
 
     public DeltaEntries(byte[] posTabIdx, byte[] slice, int[] elementDelta) {
         this.posTabIdx = posTabIdx;

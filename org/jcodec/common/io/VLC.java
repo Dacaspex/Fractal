@@ -100,7 +100,8 @@ public class VLC {
         return code;
     }
 
-    public int readVLC(BitReader _in) {
+    @SuppressWarnings("unused")
+	public int readVLC(BitReader _in) {
 
         int code = 0, len = 0, overall = 0, total = 0;
         for (int i = 0; len == 0; i++) {

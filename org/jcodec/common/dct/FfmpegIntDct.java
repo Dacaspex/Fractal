@@ -817,7 +817,8 @@ public class FfmpegIntDct {
         }
     }
 
-    private final static int DESCALE(int x, int n) {
+    @SuppressWarnings("unused")
+	private final static int DESCALE(int x, int n) {
         return ((x) + (1 << ((n) - 1))) >> n;
     }
 

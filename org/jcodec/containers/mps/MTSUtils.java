@@ -50,7 +50,8 @@ public class MTSUtils {
         return PSISection.parsePSI(data);
     }
 
-    private static void parseEsInfo(ByteBuffer read) {
+    @SuppressWarnings("unused")
+	private static void parseEsInfo(ByteBuffer read) {
 
     }
 
@@ -107,7 +108,8 @@ public class MTSUtils {
             this.flush = flush;
         }
 
-        public void readTsFile(SeekableByteChannel ch) throws IOException {
+        @SuppressWarnings("unused")
+		public void readTsFile(SeekableByteChannel ch) throws IOException {
             ch.setPosition(0);
             ByteBuffer buf = ByteBuffer.allocate(BUFFER_SIZE);
 

@@ -84,7 +84,8 @@ public class SliceGroupMapBuilder {
      *            respective slice groups
      * @return
      */
-    public static int[] buildForegroundMap(int picWidthInMbs, int picHeightInMbs, int numSliceGroups,
+    @SuppressWarnings("unused")
+	public static int[] buildForegroundMap(int picWidthInMbs, int picHeightInMbs, int numSliceGroups,
             int[] topLeftAddr, int[] bottomRightAddr) {
 
         int picSizeInMbs = picWidthInMbs * picHeightInMbs;

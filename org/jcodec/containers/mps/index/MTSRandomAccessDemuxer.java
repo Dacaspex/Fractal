@@ -38,7 +38,8 @@ public class MTSRandomAccessDemuxer {
             @Override
             protected Stream newStream(SeekableByteChannel ch, MPSStreamIndex streamIndex) throws IOException {
                 return new Stream(this, streamIndex, ch) {
-                    @Override
+                    @SuppressWarnings("unused")
+					@Override
                     protected ByteBuffer fetch(int pesLen) throws IOException {
                         ByteBuffer bb = ByteBuffer.allocate(pesLen * 188);
                         

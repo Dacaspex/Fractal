@@ -1,7 +1,7 @@
 package org.jcodec.movtool.streaming.tracks;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.List;
 
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.common.model.Size;
@@ -26,10 +26,6 @@ import org.jcodec.movtool.streaming.CodecMeta;
 import org.jcodec.movtool.streaming.VideoCodecMeta;
 import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

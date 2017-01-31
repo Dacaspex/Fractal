@@ -11,6 +11,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class Yuv420jToYuv420 implements Transform {
     public static int Y_COEFF = 7168;
 

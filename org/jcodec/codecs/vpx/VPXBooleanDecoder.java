@@ -15,7 +15,8 @@ public class VPXBooleanDecoder {
         int range; /* always identical to encoder's range */
         int value; /* contains at least 24 significant bits */
         long callCounter=0;
-        private String debugName;
+        @SuppressWarnings("unused")
+		private String debugName;
 
         public VPXBooleanDecoder(ByteBuffer input, int offset) {
             this.input = input;

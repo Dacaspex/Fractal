@@ -1,8 +1,4 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static java.util.Arrays.fill;
 import static org.jcodec.common.io.NIOUtils.readableChannel;
 import static org.jcodec.common.io.NIOUtils.writableChannel;
@@ -11,6 +7,8 @@ import static org.jcodec.movtool.Util.forceEditListMov;
 import static org.jcodec.movtool.Util.insertTo;
 import static org.jcodec.movtool.Util.shift;
 import static org.jcodec.movtool.Util.spread;
+
+import java.io.File;
 
 import org.jcodec.common.io.SeekableByteChannel;
 import org.jcodec.containers.mp4.MP4Util;
@@ -25,8 +23,6 @@ import org.jcodec.containers.mp4.boxes.TrackHeaderBox;
 import org.jcodec.containers.mp4.boxes.TrakBox;
 import org.jcodec.containers.mp4.boxes.VideoMediaHeaderBox;
 import org.jcodec.platform.Platform;
-
-import java.io.File;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -116,7 +112,8 @@ public class Paste {
 
     long[] tv;
 
-    private long getFrameTv(TrakBox videoTrack, int frame) {
+    @SuppressWarnings("unused")
+	private long getFrameTv(TrakBox videoTrack, int frame) {
         if (tv == null) {
             tv = Util.getTimevalues(videoTrack);
         }

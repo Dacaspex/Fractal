@@ -60,7 +60,8 @@ public class ADTSParser {
         }
     }
 
-    public static Header read(ByteBuffer data) {
+    @SuppressWarnings("unused")
+	public static Header read(ByteBuffer data) {
         ByteBuffer dup = data.duplicate();
         BitReader br = BitReader.createBitReader(dup);
         // int size, rdb, ch, sr;

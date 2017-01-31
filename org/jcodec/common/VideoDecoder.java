@@ -13,6 +13,7 @@ import java.nio.ByteBuffer;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 abstract public class VideoDecoder {
     private byte[][] byteBuffer;
     

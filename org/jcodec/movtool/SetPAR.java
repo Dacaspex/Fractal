@@ -1,7 +1,5 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.File;
 
 import org.jcodec.common.model.Rational;
 import org.jcodec.common.model.Size;
@@ -13,8 +11,6 @@ import org.jcodec.containers.mp4.boxes.NodeBox;
 import org.jcodec.containers.mp4.boxes.SampleDescriptionBox;
 import org.jcodec.containers.mp4.boxes.TrakBox;
 import org.jcodec.containers.mp4.boxes.VideoSampleEntry;
-
-import java.io.File;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

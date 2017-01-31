@@ -327,7 +327,8 @@ public class WavHeader {
         return samples * numChannels * bytesPerSample;
     }
 
-    public static WavHeader create(AudioFormat af, int size) {
+    @SuppressWarnings("unused")
+	public static WavHeader create(AudioFormat af, int size) {
         WavHeader w = emptyWavHeader();
         w.dataSize = size;
         FmtChunk fmt = newFmtChunk();

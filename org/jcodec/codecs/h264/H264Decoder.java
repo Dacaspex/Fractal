@@ -45,6 +45,7 @@ import org.jcodec.common.model.Size;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class H264Decoder extends VideoDecoder {
 
     private Frame[] sRefs;
@@ -184,7 +185,8 @@ public class H264Decoder extends VideoDecoder {
             }
         }
 
-        private Frame init(SliceReader sliceReader, byte[][] buffer) {
+        @SuppressWarnings("unused")
+		private Frame init(SliceReader sliceReader, byte[][] buffer) {
             firstNu = sliceReader.getNALUnit();
 
             firstSliceHeader = sliceReader.getSliceHeader();
@@ -400,7 +402,8 @@ public class H264Decoder extends VideoDecoder {
         return pps.pic_init_qp_minus26 <= 26 && pps.seq_parameter_set_id <= 2 && pps.pic_parameter_set_id <= 2;
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public VideoCodecMeta getCodecMeta(ByteBuffer data) {
         List<ByteBuffer> rawSPS = H264Utils.getRawSPS(data.duplicate());
         List<ByteBuffer> rawPPS = H264Utils.getRawPPS(data.duplicate());

@@ -243,7 +243,8 @@ public class ProresDecoder extends VideoDecoder {
         }
     }
 
-    public static FrameHeader readFrameHeader(ByteBuffer inp) {
+    @SuppressWarnings("unused")
+	public static FrameHeader readFrameHeader(ByteBuffer inp) {
         int frameSize = inp.getInt();
         String sig = readSig(inp);
         if (!"icpf".equals(sig))
@@ -333,7 +334,8 @@ public class ProresDecoder extends VideoDecoder {
         }
     }
 
-    public static PictureHeader readPictureHeader(ByteBuffer inp) {
+    @SuppressWarnings("unused")
+	public static PictureHeader readPictureHeader(ByteBuffer inp) {
         int hdrSize = (inp.get() & 0xff) >> 3;
         inp.getInt();
         int sliceCount = inp.getShort();

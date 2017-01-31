@@ -12,6 +12,7 @@ import org.jcodec.common.model.Picture8Bit;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public interface ContainerAdaptor {
 
     @Deprecated

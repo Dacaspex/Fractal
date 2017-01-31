@@ -72,7 +72,8 @@ public class WavInput implements Closeable {
 
         private WavInput src;
         private AudioFormat format;
-        private int pos;
+        @SuppressWarnings("unused")
+		private int pos;
 
         public Source(WavInput src) {
             this.src = src;

@@ -75,9 +75,12 @@ public class AudioSampleEntry extends SampleEntry {
     private int bytesPerSample;
     private short version;
     private int lpcmFlags;
-    private static final List<Label> MONO = Arrays.asList(Label.Mono);
-    private static final List<Label> STEREO = Arrays.asList(Label.Left, Label.Right);
-    private static final List<Label> MATRIX_STEREO = Arrays.asList(Label.LeftTotal, Label.RightTotal);
+    @SuppressWarnings("unused")
+	private static final List<Label> MONO = Arrays.asList(Label.Mono);
+    @SuppressWarnings("unused")
+	private static final List<Label> STEREO = Arrays.asList(Label.Left, Label.Right);
+    @SuppressWarnings("unused")
+	private static final List<Label> MATRIX_STEREO = Arrays.asList(Label.LeftTotal, Label.RightTotal);
     public static final Label[] EMPTY = new Label[0];
 
     public AudioSampleEntry(Header atom) {

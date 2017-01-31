@@ -1,29 +1,21 @@
 package org.jcodec.movtool.streaming;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 
 import org.jcodec.common.io.IOUtils;
 import org.jcodec.containers.mp4.MP4Util;
 import org.jcodec.containers.mp4.boxes.MovieBox;
 import org.jcodec.movtool.streaming.tracks.FilePool;
 import org.jcodec.movtool.streaming.tracks.RealTrack;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.InterruptedException;
-import java.lang.Runnable;
-import java.lang.Thread;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadFactory;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -34,7 +26,8 @@ import java.util.concurrent.ThreadFactory;
  */
 public class ConcurrentMovieRangeServiceMain {
 
-    public static void main1(String[] args) throws IOException {
+    @SuppressWarnings("rawtypes")
+	public static void main1(String[] args) throws IOException {
         if (args.length < 1) {
             System.out.println("Syntax: <movie.mov>");
             return;
@@ -86,7 +79,8 @@ public class ConcurrentMovieRangeServiceMain {
             this.cmrs = cmrs;
         }
 
-        public void run() {
+        @SuppressWarnings({ "resource", "unused" })
+		public void run() {
             try {
                 long size = vm.size();
 

@@ -136,7 +136,8 @@ public class MTSDemuxer {
         return parsePacket(buffer);
     }
 
-    public static MTSPacket parsePacket(ByteBuffer buffer) {
+    @SuppressWarnings("unused")
+	public static MTSPacket parsePacket(ByteBuffer buffer) {
 
         int marker = buffer.get() & 0xff;
         Assert.assertEquals(0x47, marker);

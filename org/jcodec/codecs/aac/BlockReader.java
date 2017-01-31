@@ -16,7 +16,8 @@ import org.jcodec.common.io.BitReader;
  */
 public class BlockReader {
 
-    public Block nextBlock(BitReader bits) {
+    @SuppressWarnings("unused")
+	public Block nextBlock(BitReader bits) {
         BlockType type = BlockType.values()[(int) (long) bits.readNBit(3)];
         if (type == TYPE_END)
             return null;

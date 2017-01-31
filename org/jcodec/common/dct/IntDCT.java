@@ -145,7 +145,8 @@ public class IntDCT extends DCT {
 
     }
 
-    private static boolean shortcut(IntBuffer inptr, IntBuffer wsptr) {
+    @SuppressWarnings("unused")
+	private static boolean shortcut(IntBuffer inptr, IntBuffer wsptr) {
         /*
          * Due to quantization, we will usually find that many of the input
          * coefficients are zero, especially the AC terms. We can exploit this
@@ -295,5 +296,6 @@ public class IntDCT extends DCT {
     private final static int FIX_3_072711026 = FIX(3.072711026);
 
     private static final int CONST_BITS = 13;
-    private static final int ONE_HALF = (1 << (CONST_BITS - 1));
+    @SuppressWarnings("unused")
+	private static final int ONE_HALF = (1 << (CONST_BITS - 1));
 }

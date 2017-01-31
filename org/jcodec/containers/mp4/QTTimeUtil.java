@@ -187,7 +187,8 @@ public class QTTimeUtil {
      * @return
      * @throws IOException
      */
-    public static String qtPlayerTimecodeFromMovie(MovieBox movie, TimecodeMP4DemuxerTrack timecodeTrack, int mediaFrameNo)
+    @SuppressWarnings("deprecation")
+	public static String qtPlayerTimecodeFromMovie(MovieBox movie, TimecodeMP4DemuxerTrack timecodeTrack, int mediaFrameNo)
             throws IOException {
         TrakBox videoTrack = movie.getVideoTrack();
         long editedTv = mediaToEdited(videoTrack, frameToTimevalue(videoTrack, mediaFrameNo), movie.getTimescale());
@@ -212,7 +213,8 @@ public class QTTimeUtil {
      * @return
      * @throws IOException
      */
-    public static String qtPlayerTimecode(TimecodeMP4DemuxerTrack timecodeTrack, RationalLarge tv, int movieTimescale)
+    @SuppressWarnings("deprecation")
+	public static String qtPlayerTimecode(TimecodeMP4DemuxerTrack timecodeTrack, RationalLarge tv, int movieTimescale)
             throws IOException {
         TrakBox tt = timecodeTrack.getBox();
         int ttTimescale = tt.getTimescale();

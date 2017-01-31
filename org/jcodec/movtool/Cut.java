@@ -1,14 +1,16 @@
 package org.jcodec.movtool;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.max;
 import static org.jcodec.common.io.NIOUtils.readableChannel;
 import static org.jcodec.common.io.NIOUtils.writableChannel;
 import static org.jcodec.containers.mp4.MP4Util.createRefMovie;
 import static org.jcodec.movtool.Util.forceEditList;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.jcodec.common.JCodecUtil2;
 import org.jcodec.common.StringUtils;
@@ -20,12 +22,6 @@ import org.jcodec.containers.mp4.boxes.Edit;
 import org.jcodec.containers.mp4.boxes.MovieBox;
 import org.jcodec.containers.mp4.boxes.NodeBox;
 import org.jcodec.containers.mp4.boxes.TrakBox;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

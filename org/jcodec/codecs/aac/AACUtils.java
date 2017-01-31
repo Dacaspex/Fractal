@@ -61,7 +61,8 @@ public class AACUtils {
                     ChannelLabel.SIDE_RIGHT, ChannelLabel.REAR_LEFT, ChannelLabel.REAR_RIGHT, ChannelLabel.LFE } //
     };
 
-    public static AACMetadata parseAudioInfo(ByteBuffer privData) {
+    @SuppressWarnings("unused")
+	public static AACMetadata parseAudioInfo(ByteBuffer privData) {
         BitReader reader = BitReader.createBitReader(privData);
 
         int objectType = getObjectType(reader);

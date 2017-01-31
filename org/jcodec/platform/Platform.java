@@ -8,11 +8,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.jcodec.containers.mp4.boxes.Box;
-
 public class Platform {
 
-    public static <T> T newInstance(Class<T> clazz, Object[] params) {
+    @SuppressWarnings("rawtypes")
+	public static <T> T newInstance(Class<T> clazz, Object[] params) {
         Class[] classes = new Class[params.length];
         for (int i = 0; i < params.length; i++) {
             classes[i] = params[i].getClass();
@@ -24,7 +23,8 @@ public class Platform {
         }
     }
 
-    public static void invokeMethod(Object target, String methodName, Object[] params) throws NoSuchMethodException {
+    @SuppressWarnings("rawtypes")
+	public static void invokeMethod(Object target, String methodName, Object[] params) throws NoSuchMethodException {
         Class[] parameterTypes = new Class[params.length];
         for (int i = 0; i < params.length; i++) {
             parameterTypes[i] = params[i].getClass();
@@ -136,7 +136,8 @@ public class Platform {
         return new String(bytes);
     }
 
-    public static boolean isAssignableFrom(Class class1, Class class2) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static boolean isAssignableFrom(Class class1, Class class2) {
         return class1.isAssignableFrom(class2);
     }
 

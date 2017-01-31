@@ -455,7 +455,8 @@ public class H264Utils {
         return AvcCBox.createAvcCBox(sps.profile_idc, 0, sps.level_idc, nalLengthSize, spsList, ppsList);
     }
 
-    public static SampleEntry createMOVSampleEntryFromAvcC(AvcCBox avcC) {
+    @SuppressWarnings("unused")
+	public static SampleEntry createMOVSampleEntryFromAvcC(AvcCBox avcC) {
         SeqParameterSet sps = SeqParameterSet.read(avcC.getSpsList().get(0).duplicate());
         int codedWidth = (sps.pic_width_in_mbs_minus1 + 1) << 4;
         int codedHeight = SeqParameterSet.getPicHeightInMbs(sps) << 4;

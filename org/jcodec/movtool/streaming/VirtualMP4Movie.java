@@ -1,16 +1,12 @@
 package org.jcodec.movtool.streaming;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
-
 import static org.jcodec.movtool.streaming.MovieHelper.produceHeader;
-
-import org.jcodec.codecs.h264.H264Utils;
-import org.jcodec.containers.mp4.Brand;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
+
+import org.jcodec.codecs.h264.H264Utils;
+import org.jcodec.containers.mp4.Brand;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed
@@ -69,7 +65,8 @@ public class VirtualMP4Movie extends VirtualMovie {
         private int track;
         private int no;
         private long pos;
-        private String fourcc;
+        @SuppressWarnings("unused")
+		private String fourcc;
 
         public PacketChunk(VirtualPacket packet, int track, int no, long pos, String fourcc) {
             this.packet = packet;

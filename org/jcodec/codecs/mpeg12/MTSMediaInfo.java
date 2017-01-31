@@ -40,7 +40,8 @@ public class MTSMediaInfo {
                 private int pmtPid = -1;
                 private boolean pmtDone;
 
-                @Override
+                @SuppressWarnings("deprecation")
+				@Override
                 protected boolean onPkt(int guid, boolean payloadStart, ByteBuffer tsBuf, long filePos, boolean sectionSyntax,
                         ByteBuffer fullPkt) {
                     if (guid == 0) {

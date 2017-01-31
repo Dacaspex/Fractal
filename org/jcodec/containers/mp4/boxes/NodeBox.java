@@ -153,7 +153,8 @@ public class NodeBox extends Box {
         return result.length > 0 ? result[0] : null;
     }
 
-    public static <T extends Box> T[] findAllPath(Box box, Class<T> class1, String[] path) {
+    @SuppressWarnings("unchecked")
+	public static <T extends Box> T[] findAllPath(Box box, Class<T> class1, String[] path) {
         List<Box> result = new LinkedList<Box>();
         List<String> tlist = new LinkedList<String>();
         for (int i = 0; i < path.length; i++) {

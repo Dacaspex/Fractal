@@ -40,7 +40,8 @@ public class BoxFactory implements IBoxFactory {
         this.boxes = boxes;
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public Box newBox(Header header) {
         Class<? extends Box> claz = boxes.toClass(header.getFourcc());
         String fourcc = header.getFourcc();

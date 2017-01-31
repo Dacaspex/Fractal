@@ -11,7 +11,8 @@ package org.jcodec.codecs.vpx;
  */
 public class VP8FixedRateControl implements RateControl {
 
-    private int rate;
+    @SuppressWarnings("unused")
+	private int rate;
 
     public VP8FixedRateControl(int rate) {
         this.rate = rate;

@@ -9,6 +9,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class Yuv422jToYuv420p implements Transform {
     public static int Y_COEFF = 7168;
 

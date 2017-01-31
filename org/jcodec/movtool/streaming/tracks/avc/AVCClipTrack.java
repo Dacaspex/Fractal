@@ -1,7 +1,8 @@
 package org.jcodec.movtool.streaming.tracks.avc;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jcodec.codecs.h264.H264Decoder;
 import org.jcodec.codecs.h264.H264Encoder;
@@ -23,11 +24,6 @@ import org.jcodec.movtool.streaming.VirtualPacket;
 import org.jcodec.movtool.streaming.VirtualTrack;
 import org.jcodec.movtool.streaming.tracks.ClipTrack;
 import org.jcodec.movtool.streaming.tracks.VirtualPacketWrapper;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

@@ -223,7 +223,8 @@ public class FLVReader {
         return true;
     }
 
-    public static FLVMetadata parseMetadata(ByteBuffer bb) {
+    @SuppressWarnings("unchecked")
+	public static FLVMetadata parseMetadata(ByteBuffer bb) {
         if ("onMetaData".equals(readAMFData(bb, -1)))
             return new FLVMetadata((Map<String, Object>) readAMFData(bb, -1));
         return null;

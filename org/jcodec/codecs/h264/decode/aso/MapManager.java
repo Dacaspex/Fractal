@@ -1,6 +1,4 @@
 package org.jcodec.codecs.h264.decode.aso;
-import static org.jcodec.codecs.h264.io.model.SeqParameterSet.getPicHeightInMbs;
-
 import org.jcodec.codecs.h264.io.model.PictureParameterSet;
 import org.jcodec.codecs.h264.io.model.SeqParameterSet;
 import org.jcodec.codecs.h264.io.model.SliceHeader;

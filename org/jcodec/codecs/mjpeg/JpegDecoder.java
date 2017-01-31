@@ -138,7 +138,8 @@ public class JpegDecoder extends VideoDecoder {
         return (length >= 1 && raw < (1 << length - 1)) ? -(1 << length) + 1 + raw : raw;
     }
 
-    public Picture8Bit decodeFrame8Bit(ByteBuffer data, byte[][] data2) {
+    @SuppressWarnings("unused")
+	public Picture8Bit decodeFrame8Bit(ByteBuffer data, byte[][] data2) {
 
         if (interlace) {
             Picture8Bit r1 = decodeField(data, data2, topFieldFirst ? 0 : 1, 2);
@@ -149,7 +150,8 @@ public class JpegDecoder extends VideoDecoder {
         }
     }
 
-    public Picture8Bit decodeField(ByteBuffer data, byte[][] data2, int field, int step) {
+    @SuppressWarnings("unused")
+	public Picture8Bit decodeField(ByteBuffer data, byte[][] data2, int field, int step) {
         Picture8Bit result = null;
 
         FrameHeader header = null;

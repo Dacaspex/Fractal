@@ -284,7 +284,8 @@ public class MPEGDecoder extends VideoDecoder {
         return null;
     }
 
-    public void decodeSlice(PictureHeader ph, int verticalPos, Context context, byte[][] buf, BitReader _in,
+    @SuppressWarnings("unused")
+	public void decodeSlice(PictureHeader ph, int verticalPos, Context context, byte[][] buf, BitReader _in,
             int vertOff, int vertStep) throws IOException {
 
         int stride = context.codedWidth;

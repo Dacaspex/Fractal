@@ -847,7 +847,8 @@ public class VP8Util {
         return p;
     }
 
-    public static int[] predictHE(int[] left, int aboveLeft) {
+    @SuppressWarnings("unused")
+	public static int[] predictHE(int[] left, int aboveLeft) {
         int[] p = new int[16];
         /**
          *  Bottom row is exceptional because L[4] does not exist 

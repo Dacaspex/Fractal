@@ -51,7 +51,8 @@ public class HLSRelocatePMT {
         }
     }
 
-    private static int replocatePMT(ReadableByteChannel _in, WritableByteChannel out) throws IOException {
+    @SuppressWarnings("unused")
+	private static int replocatePMT(ReadableByteChannel _in, WritableByteChannel out) throws IOException {
         ByteBuffer buf = ByteBuffer.allocate(TS_PKT_SIZE * CHUNK_SIZE_PKT);
         Set<Integer> pmtPids = new HashSet<Integer>();
         List<ByteBuffer> held = new ArrayList<ByteBuffer>();

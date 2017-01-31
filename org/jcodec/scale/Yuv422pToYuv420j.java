@@ -10,6 +10,7 @@ import java.lang.IllegalArgumentException;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class Yuv422pToYuv420j implements Transform {
     public static int COEFF = 9362;
     private int shift;

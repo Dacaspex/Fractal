@@ -9,7 +9,9 @@ package org.jcodec.api;
  */
 public class UnsupportedFormatException extends JCodecException {
 
-    public UnsupportedFormatException(String arg0) {
+	private static final long serialVersionUID = -7728951064473464302L;
+
+	public UnsupportedFormatException(String arg0) {
         super(arg0);
     }
 }

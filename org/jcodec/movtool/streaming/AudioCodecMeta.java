@@ -1,13 +1,9 @@
 package org.jcodec.movtool.streaming;
-import java.lang.IllegalStateException;
-import java.lang.System;
-
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import org.jcodec.common.AudioFormat;
 import org.jcodec.common.model.Label;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
 /**
  * This class is part of JCodec ( www.jcodec.org ) This software is distributed

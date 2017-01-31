@@ -33,8 +33,10 @@ public class MainUtils {
             || Boolean.parseBoolean(System.getProperty(JCODEC_LOG_SINK_COLOR));
     
     public static class Flag {
-        private String longName;
-        private String shortName;
+        @SuppressWarnings("unused")
+		private String longName;
+        @SuppressWarnings("unused")
+		private String shortName;
 
         public Flag(String longName) {
             this(longName, null);
@@ -229,7 +231,8 @@ public class MainUtils {
 
     private static Pattern flagPattern = Pattern.compile("^--([^=]+)=(.*)$");
 
-    public static Cmd parseArguments(String[] args) {
+    @SuppressWarnings("unchecked")
+	public static Cmd parseArguments(String[] args) {
         Map<String, String> flags = new HashMap<String, String>();
         Map<String, String> allFlags = new HashMap<String, String>();
         List<String> outArgs = new ArrayList<String>();

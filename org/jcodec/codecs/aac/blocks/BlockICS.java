@@ -79,7 +79,8 @@ public class BlockICS extends Block {
         ONLY_LONG_SEQUENCE, LONG_START_SEQUENCE, EIGHT_SHORT_SEQUENCE, LONG_STOP_SEQUENCE;
     }
 
-    protected int parseICSInfo(BitReader _in) {
+    @SuppressWarnings("unused")
+	protected int parseICSInfo(BitReader _in) {
         _in.read1Bit();
         windowSequence = (int) _in.readNBit(2);
         int useKbWindow = _in.read1Bit();
@@ -122,7 +123,8 @@ public class BlockICS extends Block {
         return 0;
     }
 
-    private void decodePrediction(BitReader _in, int maxSfb) {
+    @SuppressWarnings("unused")
+	private void decodePrediction(BitReader _in, int maxSfb) {
         if (_in.read1Bit() != 0) {
             int predictorResetGroup = (int) _in.readNBit(5);
         }
@@ -131,7 +133,8 @@ public class BlockICS extends Block {
         }
     }
 
-    private void decodeLtp(BitReader _in, int maxSfb) {
+    @SuppressWarnings("unused")
+	private void decodeLtp(BitReader _in, int maxSfb) {
 
         int lag = (int) _in.readNBit(11);
         float coef = AACTab.ltpCoefTab[(int) _in.readNBit(3)];
@@ -285,11 +288,16 @@ public class BlockICS extends Block {
 
     public static class Tns {
 
-        private int[] nFilt;
-        private int[][] length;
-        private int[][] order;
-        private int[][] direction;
-        private float[][][] coeff;
+        @SuppressWarnings("unused")
+		private int[] nFilt;
+        @SuppressWarnings("unused")
+		private int[][] length;
+        @SuppressWarnings("unused")
+		private int[][] order;
+        @SuppressWarnings("unused")
+		private int[][] direction;
+        @SuppressWarnings("unused")
+		private float[][][] coeff;
 
         public Tns(int[] nFilt, int[][] length, int[][] order, int[][] direction, float[][][] coeff) {
             this.nFilt = nFilt;
@@ -536,7 +544,8 @@ public class BlockICS extends Block {
         }
     }
 
-    public void parse(BitReader _in) {
+    @SuppressWarnings("unused")
+	public void parse(BitReader _in) {
         globalGain = (int) _in.readNBit(8);
 
         if (!commonWindow && !scaleFlag) {

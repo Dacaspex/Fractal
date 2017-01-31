@@ -11,6 +11,7 @@ import org.jcodec.common.model.Picture;
  * @author The JCodec project
  * 
  */
+@SuppressWarnings("deprecation")
 public class Yuv420pToRgb implements Transform {
 
     private final int downShift;

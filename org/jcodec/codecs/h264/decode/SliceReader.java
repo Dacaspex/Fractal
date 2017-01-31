@@ -909,7 +909,8 @@ public class SliceReader {
         savePrevCBP(mBlock._cbp);
     }
 
-    private void readLuma8x8CAVLC(MBlock mBlock, boolean leftAvailable, boolean topAvailable, int mbX, int mbY) {
+    @SuppressWarnings("unused")
+	private void readLuma8x8CAVLC(MBlock mBlock, boolean leftAvailable, boolean topAvailable, int mbX, int mbY) {
         for (int i = 0; i < 4; i++) {
             int blk8x8OffLeft = (i & 1) << 1;
             int blk8x8OffTop = i & 2;

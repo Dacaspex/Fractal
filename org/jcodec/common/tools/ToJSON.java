@@ -30,7 +30,8 @@ import java.util.Set;
  * @author The JCodec project
  */
 public class ToJSON {
-    static Set<Class> primitive = new HashSet<Class>();
+    @SuppressWarnings("rawtypes")
+	static Set<Class> primitive = new HashSet<Class>();
     static Set<String> omitMethods = new HashSet<String>();
 
     static {
@@ -49,11 +50,13 @@ public class ToJSON {
         omitMethods.add("get");
     }
 
-    public static List<String> allFields(Class claz) {
+    @SuppressWarnings("rawtypes")
+	public static List<String> allFields(Class claz) {
         return allFieldsExcept(claz, new String[]{});
     }
 
-    public static List<String> allFieldsExcept(Class claz, String[] except) {
+    @SuppressWarnings("rawtypes")
+	public static List<String> allFieldsExcept(Class claz, String[] except) {
         List<String> result = new ArrayList<String>();
         for (Method method : Platform.getDeclaredMethods(claz)) {
             if (!isGetter(method))
@@ -124,7 +127,8 @@ public class ToJSON {
         return pref + new String(ch);
     }
 
-    private static void toJSONSub(Object obj, IntArrayList stack, StringBuilder builder) {
+    @SuppressWarnings("rawtypes")
+	private static void toJSONSub(Object obj, IntArrayList stack, StringBuilder builder) {
         if(obj == null) {
             builder.append("null");
             return;

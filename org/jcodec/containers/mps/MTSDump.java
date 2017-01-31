@@ -78,7 +78,8 @@ public class MTSDump extends MPSDump {
         }
     }
 
-    private static void dumpProgramPids(ReadableByteChannel readableFileChannel) throws IOException {
+    @SuppressWarnings("unused")
+	private static void dumpProgramPids(ReadableByteChannel readableFileChannel) throws IOException {
         Set<Integer> pids = new HashSet<Integer>();
         ByteBuffer buf = ByteBuffer.allocate(188 * 10240);
         readableFileChannel.read(buf);
@@ -169,7 +170,8 @@ public class MTSDump extends MPSDump {
         return -1;
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public int fillBuffer(ByteBuffer dst) throws IOException {
         IntArrayList payloads = IntArrayList.createIntArrayList();
         IntArrayList nums = IntArrayList.createIntArrayList();
