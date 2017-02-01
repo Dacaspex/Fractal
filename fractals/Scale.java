@@ -1,9 +1,9 @@
 package fractals;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class Scale {
-	
+
 	private double xMin;
 	private double xMax;
 	private double yMin;
@@ -68,6 +68,7 @@ public class Scale {
 
 	/**
 	 * Calculates the difference between the xMax and the xMin
+	 * 
 	 * @return Returns the result of xMax - xMin
 	 */
 	public double getxDifference() {
@@ -78,6 +79,7 @@ public class Scale {
 
 	/**
 	 * Calculates the difference between the yMax and the yMin
+	 * 
 	 * @return Returns the result of yMax - yMin
 	 */
 	public double getyDifference() {
@@ -86,12 +88,67 @@ public class Scale {
 
 	}
 	
-	// TODO change name
-	public Point getPointInScaling(Scale source, Scale target, Point point) {
+	/**
+	 * Zooms the current scale with a certain factor with respect to the middle. 
+	 * @param factor The factor to zoom by
+	 */
+	public void zoomAtCenter(double factor) {
 		
-		// TODO create method body
-		return new Point();
+		double xMiddle = (xMax + xMin) / 2.0;
+		double yMiddle = (yMax + yMin) / 2.0;
 		
+		double distanceToMiddleX = xMax - xMiddle;
+		double distanceToMiddleY = yMax - yMiddle;
+		
+		double scaledDistanceX = distanceToMiddleX / factor;
+		double scaledDistanceY = distanceToMiddleY / factor;
+
+		xMax = xMiddle + scaledDistanceX;
+		xMin = xMiddle - scaledDistanceX;
+		yMax = yMiddle + scaledDistanceY;
+		yMin = yMiddle - scaledDistanceY;
+		
+	}
+
+	/**
+	 * TODO Change name This method converts a Point2D.Double from the standard
+	 * Java library to a new point in the target scale. This means that the
+	 * relative position is preserved.
+	 * 
+	 * @param target
+	 *            The target scale which the point should be mapped to
+	 * @param point
+	 *            The point in source scale
+	 * @return Returns a point that has the same relative position from the
+	 *         source scale to the target scale
+	 */
+	public Point2D.Double getPointInScale(Scale target, Point2D.Double point) {
+
+		double normalizedX = (point.getX() - xMin) / getxDifference();
+		double normalizedY = (point.getY() - yMin) / getyDifference();
+
+		double xPoint = target.getxMin() + normalizedX * target.getxDifference();
+		double yPoint = target.getyMin() + normalizedY * target.getyDifference();
+
+		return new Point2D.Double(xPoint, yPoint);
+
+	}
+
+	/**
+	 * Creates a new scale based on the window with and height. It is simply a
+	 * quicker and cleaner way. It creates a scale (0, 0, windowWith,
+	 * windowHeight).
+	 * 
+	 * @param windowWith
+	 *            The window width
+	 * @param windowHeight
+	 *            The windows height
+	 * @return Returns a new scale based on the window width and height
+	 */
+	public static Scale createFromWindow(int windowWith, int windowHeight) {
+
+		return new Scale(0, 0, windowWith, windowHeight);
+
 	}
 
 }
