@@ -1,15 +1,15 @@
-package fractals.coloring;
+package fractals.colorSchemes;
 
 import java.awt.Color;
 import java.util.Arrays;
 
-public class FractalColoring {
+public class LinearColorScheme {
 
 	private Color[] colorArray;
 	private int[] gradientMap;
 	private int steps;
 
-	public FractalColoring(boolean loadDefaultColors, int steps) {
+	public LinearColorScheme(boolean loadDefaultColors, int steps) {
 
 		this.steps = steps;
 
@@ -22,7 +22,7 @@ public class FractalColoring {
 
 	}
 
-	public FractalColoring(boolean loadDefaultColors) {
+	public LinearColorScheme(boolean loadDefaultColors) {
 
 		if (loadDefaultColors) {
 
@@ -34,13 +34,13 @@ public class FractalColoring {
 
 	}
 
-	public FractalColoring(int steps) {
+	public LinearColorScheme(int steps) {
 
 		this(true, steps);
 
 	}
 
-	public FractalColoring() {
+	public LinearColorScheme() {
 
 		this(true);
 

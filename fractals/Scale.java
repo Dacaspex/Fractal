@@ -97,9 +97,6 @@ public class Scale {
 		double xMiddle = (xMax + xMin) / 2.0;
 		double yMiddle = (yMax + yMin) / 2.0;
 		
-		System.out.println(xMax + ", " + xMin);
-		System.out.println(xMiddle);
-		
 		double distanceToMiddleX = xMax - xMiddle;
 		double distanceToMiddleY = yMax - yMiddle;
 		

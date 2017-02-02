@@ -23,7 +23,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	private static final long serialVersionUID = 11274784860690473L;
 
-	private Scale scaling;
+	private Scale scale;
 	private BufferedImage image;
 	private AbstractFractal fractal;
 	private ResizeDelayTimer resizeDelayTimer;
@@ -33,7 +33,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		fractal = new JuliaFractal();
 //		fractal = new MandleBrotFractal();
-		scaling = new Scale(-1, 1, -1, 1);
+		scale = new Scale(-1, 1, -1, 1);
 //		scaling = new Scale(-1.5, 0.5, -1, 1);
 
 		setPreferredSize(new Dimension());
@@ -44,13 +44,13 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	public void setScaling(Scale scaling) {
 
-		this.scaling = scaling;
+		this.scale = scaling;
 
 	}
 
 	public void draw() {
 		
-		image = fractal.getImage(scaling, getWidth(), getHeight());
+		image = fractal.getImage(scale, getWidth(), getHeight());
 		repaint();
 
 	}
@@ -60,8 +60,8 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		double zoomFactor = 2.0;
 		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
 		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
-		Point2D.Double pointInScale = windowScale.getPointInScale(scaling, point);
-		scaling.zoomAtPoint(pointInScale, zoomFactor);
+		Point2D.Double pointInScale = windowScale.getPointInScale(scale, point);
+		scale.zoomAtPoint(pointInScale, zoomFactor);
 		draw();
 
 	}

@@ -1,16 +1,16 @@
-package fractals.coloring;
+package fractals.colorSchemes;
 
 import java.awt.Color;
 
-public class JuliaColoring extends FractalColoring {
+public class JuliaColorScheme extends LinearColorScheme {
 
-	public JuliaColoring(boolean loadDefaultColors, int steps) {
+	public JuliaColorScheme(boolean loadDefaultColors, int steps) {
 
 		super(loadDefaultColors, steps);
 
 	}
 
-	public JuliaColoring(int steps) {
+	public JuliaColorScheme(int steps) {
 
 		super(steps);
 

@@ -42,12 +42,24 @@ public class Complex {
 
 	}
 
+	/**
+	 * Calculates the magnitude / modulus / length of the complex number using
+	 * the Pythagorean theorem
+	 * 
+	 * @return Returns the magnitude of the complex number
+	 */
 	public double getMagnitude() {
 
 		return Math.sqrt(Math.pow(real, 2) + Math.pow(imaginary, 2));
 
 	}
 
+	/**
+	 * Calculates the argument of the complex number. It will return the angle
+	 * between the positive x axis in radians
+	 * 
+	 * @return The argument of the complex number in radians
+	 */
 	public double getArgument() {
 
 		if (real > 0) {
@@ -77,7 +89,7 @@ public class Complex {
 		}
 
 	}
-
+	
 	public Complex add(Complex c) {
 
 		real += c.getReal();
@@ -95,26 +107,26 @@ public class Complex {
 		return this;
 
 	}
-	
+
 	public Complex multiply(Complex c) {
-		
+
 		double real = this.real * c.getReal() - this.imaginary * c.getImaginary();
 		double imaginary = this.real * c.getImaginary() + this.imaginary * c.getReal();
-		
+
 		this.real = real;
 		this.imaginary = imaginary;
-		
+
 		return this;
-		
+
 	}
-	
+
 	public Complex multiply(double k) {
-		
+
 		real = k * real;
 		imaginary = k * imaginary;
-		
+
 		return this;
-		
+
 	}
 
 	public Complex square() {
@@ -128,25 +140,25 @@ public class Complex {
 		return this;
 
 	}
-	
+
 	public Complex power(int power) {
-		
+
 		Complex complex = clone();
-		
+
 		for (int i = 0; i < power - 1; i++) {
-			
+
 			this.multiply(complex);
-			
+
 		}
-		
+
 		return this;
-		
+
 	}
-	
+
 	public Complex clone() {
-		
+
 		return new Complex(getReal(), getImaginary());
-		
+
 	}
 
 }

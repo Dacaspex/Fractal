@@ -1,4 +1,4 @@
-package fractals.coloring;
+package fractals.colorSchemes;
 
 public abstract class AbstractColorScheme {
 
@@ -8,10 +8,6 @@ public abstract class AbstractColorScheme {
 	 */
 	protected String name;
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getName() {
 
 		return name;

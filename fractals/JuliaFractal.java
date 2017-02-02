@@ -3,14 +3,14 @@ package fractals;
 import java.awt.image.BufferedImage;
 
 import complex.Complex;
-import fractals.coloring.JuliaColoring;
+import fractals.colorSchemes.JuliaColorScheme;
 
 public class JuliaFractal extends AbstractFractal {
 
 	private Complex constant;
 	private int maxIterations;
 	private double escapeValue;
-	private JuliaColoring juliaColoring;
+	private JuliaColorScheme juliaColoring;
 	
 	private Complex lastEscapeComplexValue;
 
@@ -20,7 +20,7 @@ public class JuliaFractal extends AbstractFractal {
 		constant = new Complex(0.285, 0.01);
 		maxIterations = 512;
 		escapeValue = 2.0;
-		juliaColoring = new JuliaColoring(true, 512);
+		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();
 
 	}
@@ -49,13 +49,13 @@ public class JuliaFractal extends AbstractFractal {
 
 	}
 
-	public JuliaColoring getJuliaColoring() {
+	public JuliaColorScheme getJuliaColoring() {
 
 		return juliaColoring;
 
 	}
 
-	public void setJuliaColoring(JuliaColoring juliaColoring) {
+	public void setJuliaColoring(JuliaColorScheme juliaColoring) {
 
 		this.juliaColoring = juliaColoring;
 

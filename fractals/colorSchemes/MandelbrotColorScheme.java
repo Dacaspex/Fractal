@@ -1,10 +1,10 @@
-package fractals.coloring;
+package fractals.colorSchemes;
 
 import java.awt.Color;
 
-public class MandleBrotColoring extends AbstractColorScheme {
+public class MandelbrotColorScheme extends AbstractColorScheme {
 	
-	public MandleBrotColoring() {
+	public MandelbrotColorScheme() {
 		
 		name = "MandelBrot Colorscheme";
 		

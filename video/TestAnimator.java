@@ -1,7 +1,7 @@
 package video;
 
 import fractals.JuliaFractal;
-import fractals.coloring.JuliaColoring;
+import fractals.colorSchemes.JuliaColorScheme;
 
 public class TestAnimator implements Animator {
 	
@@ -18,7 +18,7 @@ public class TestAnimator implements Animator {
 		int max = fractal.getMaxIterations();
 		fractal.setMaxIterations(max + 10);
 		
-		JuliaColoring coloring = fractal.getJuliaColoring();
+		JuliaColorScheme coloring = fractal.getJuliaColoring();
 		coloring.setSteps(max + 10);
 		coloring.generateGradientMap();
 		

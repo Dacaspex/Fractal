@@ -3,17 +3,17 @@ package fractals;
 import java.awt.image.BufferedImage;
 
 import complex.Complex;
-import fractals.coloring.MandleBrotColoring;
+import fractals.colorSchemes.MandelbrotColorScheme;
 
 public class MandleBrotFractal extends AbstractFractal {
 	
 	private int maxIterations;
-	private MandleBrotColoring mandleBrotColoring;
+	private MandelbrotColorScheme mandleBrotColoring;
 	
 	public MandleBrotFractal() {
 		
 		maxIterations = 512;
-		mandleBrotColoring = new MandleBrotColoring();
+		mandleBrotColoring = new MandelbrotColorScheme();
 		
 		// test for github
 	}
