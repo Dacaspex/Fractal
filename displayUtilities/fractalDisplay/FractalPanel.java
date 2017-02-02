@@ -9,13 +9,13 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
-import fractals.MandleBrotFractal;
 import fractals.Scale;
 import timers.ResizeDelayTimer;
 
@@ -32,9 +32,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		fractal = new JuliaFractal();
-		fractal = new MandleBrotFractal();
+//		fractal = new MandleBrotFractal();
 		scaling = new Scale(-1, 1, -1, 1);
-		scaling = new Scale(-1.5, 0.5, -1, 1);
+//		scaling = new Scale(-1.5, 0.5, -1, 1);
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -57,47 +57,11 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	public void zoom(Point centerPoint) {
 
-		double zoomFactor = 3.0;
-
-		double xScaleMin = scaling.getxMin();
-		double xScaleMax = scaling.getxMax();
-		double yScaleMin = scaling.getyMin();
-		double yScaleMax = scaling.getyMax();
-
-		// Translation
-		double normalizedX = centerPoint.getX() / (double) getWidth();
-		double normalizedY = centerPoint.getY() / (double) getHeight();
-
-		double xPoint = xScaleMin + normalizedX * (xScaleMax - xScaleMin);
-		double yPoint = yScaleMin + normalizedY * (yScaleMax - yScaleMin);
-
-		double xMiddle = (xScaleMax + xScaleMin) / 2.0;
-		double yMiddle = (yScaleMax + yScaleMin) / 2.0;
-
-		double xTranslation = xPoint - xMiddle;
-		double yTranslation = yPoint - yMiddle;
-
-		xScaleMax += xTranslation;
-		xScaleMin += xTranslation;
-		yScaleMax += yTranslation;
-		yScaleMin += yTranslation;
-
-		// Scaling
-		double xDelta = (xScaleMax - xScaleMin) / zoomFactor;
-		double yDelta = (yScaleMax - yScaleMin) / zoomFactor;
-
-		xMiddle = (xScaleMax + xScaleMin) / 2.0;
-		yMiddle = (yScaleMax + yScaleMin) / 2.0;
-
-		xScaleMax = xMiddle + xDelta;
-		xScaleMin = xMiddle - xDelta;
-		yScaleMax = yMiddle + yDelta;
-		yScaleMin = yMiddle - yDelta;
-
-		Scale scaling = new Scale(xScaleMin, xScaleMax, yScaleMin, yScaleMax);
-
-		setScaling(scaling);
-
+		double zoomFactor = 2.0;
+		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
+		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
+		Point2D.Double pointInScale = windowScale.getPointInScale(scaling, point);
+		scaling.zoomAtPoint(pointInScale, zoomFactor);
 		draw();
 
 	}

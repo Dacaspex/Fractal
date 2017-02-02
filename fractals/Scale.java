@@ -89,6 +89,28 @@ public class Scale {
 	}
 	
 	/**
+	 * Translates the current scale so that the given point is in the center
+	 * @param point The new center point of the scale
+	 */
+	public void translateCenterToPoint(Point2D.Double point) {
+		
+		double xMiddle = (xMax + xMin) / 2.0;
+		double yMiddle = (yMax + yMin) / 2.0;
+		
+		System.out.println(xMax + ", " + xMin);
+		System.out.println(xMiddle);
+		
+		double distanceToMiddleX = xMax - xMiddle;
+		double distanceToMiddleY = yMax - yMiddle;
+		
+		xMax = point.getX() + distanceToMiddleX;
+		xMin = point.getX() - distanceToMiddleX;
+		yMax = point.getY() + distanceToMiddleY;
+		yMin = point.getY() - distanceToMiddleY;
+		
+	}
+	
+	/**
 	 * Zooms the current scale with a certain factor with respect to the middle. 
 	 * @param factor The factor to zoom by
 	 */
@@ -107,6 +129,13 @@ public class Scale {
 		xMin = xMiddle - scaledDistanceX;
 		yMax = yMiddle + scaledDistanceY;
 		yMin = yMiddle - scaledDistanceY;
+		
+	}
+	
+	public void zoomAtPoint(Point2D.Double point, double factor) {
+		
+		translateCenterToPoint(point);
+		zoomAtCenter(factor);
 		
 	}
 
@@ -147,7 +176,7 @@ public class Scale {
 	 */
 	public static Scale createFromWindow(int windowWith, int windowHeight) {
 
-		return new Scale(0, 0, windowWith, windowHeight);
+		return new Scale(0, windowWith, 0, windowHeight);
 
 	}
 
