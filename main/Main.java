@@ -1,12 +1,12 @@
 package main;
 
-import gui.FractalDisplay;
+import gui.Display;
 
 public class Main {
 
 	public void run() {
 
-		new FractalDisplay();
+		new Display();
 		
 		// try {
 		// new VideoEncoder().render();

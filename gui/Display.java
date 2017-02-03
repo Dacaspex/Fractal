@@ -3,14 +3,15 @@ package gui;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import displayUtilities.fractalDisplay.menuBar.FileMenu;
+import gui.menuItems.ExitMenuItem;
 import util.Settings;
 
-public class FractalDisplay extends JFrame {
+public class Display extends JFrame {
 
 	private static final long serialVersionUID = -2354333139035535931L;
 	
@@ -19,7 +20,7 @@ public class FractalDisplay extends JFrame {
 
 	FractalPanel fractalPanel;
 	
-	public FractalDisplay() {
+	public Display() {
 		
 		// Initialize variables
 		DEFAULT_DISPLAY_WIDTH = 1000;
@@ -29,24 +30,32 @@ public class FractalDisplay extends JFrame {
 		Settings.loadDefaultSettigns();
 		
 		// Initialize the display
+		buildGUI();
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	}
+	
+	public void buildGUI() {
+		
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
 		
 		fractalPanel = new FractalPanel();
-		
-		// Build display
-		JMenuBar menuBar = new JMenuBar();
-		FileMenu fileMenu = new FileMenu(fractalPanel);
-		
-		menuBar.add(fileMenu);
-		
 		add(fractalPanel);
+		
+		JMenuBar menuBar = new JMenuBar();
+		
+		// File menu
+		JMenu fileMenu = new JMenu("File");
+		ExitMenuItem exitMenuItem = new ExitMenuItem();
+		fileMenu.add(exitMenuItem);
+		menuBar.add(fileMenu);
 		setJMenuBar(menuBar);
 		
 		pack();
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 
