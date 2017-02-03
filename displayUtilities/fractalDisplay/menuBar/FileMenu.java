@@ -2,8 +2,8 @@ package displayUtilities.fractalDisplay.menuBar;
 
 import javax.swing.JMenu;
 
-import displayUtilities.fractalDisplay.FractalPanel;
 import displayUtilities.fractalDisplay.menuBar.fileMenu.menuItems.ExitMenuItem;
+import gui.FractalPanel;
 
 public class FileMenu extends JMenu {
 

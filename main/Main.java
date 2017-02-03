@@ -1,12 +1,13 @@
 package main;
 
-import displayUtilities.fractalDisplay.FractalDisplay;
+import gui.FractalDisplay;
 
 public class Main {
 
 	public void run() {
 
 		new FractalDisplay();
+		
 		// try {
 		// new VideoEncoder().render();
 		// } catch (IOException e) {

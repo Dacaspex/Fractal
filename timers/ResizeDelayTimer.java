@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import displayUtilities.fractalDisplay.FractalPanel;
+import gui.FractalPanel;
 
 public class ResizeDelayTimer implements ActionListener {
 
