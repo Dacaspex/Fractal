@@ -14,16 +14,16 @@ import fractals.JuliaFractal;
 import fractals.Scale;
 
 public class VideoEncoder {
-	
+
 	private SequenceEncoder8Bit encoder;
 
 	private int framesPerSecond;
 	private int numberOfFrames;
-	
+
 	private String directory;
 
 	private JuliaFractal fractal;
-	
+
 	private Animator animator;
 
 	public VideoEncoder() {
@@ -34,49 +34,50 @@ public class VideoEncoder {
 		fractal = new JuliaFractal();
 		directory = "";
 		animator = new TestAnimator(fractal);
-		
-		 initEncoder();
+
+		initEncoder();
 
 	}
-	
+
 	public void initEncoder() {
-		
+
 		try {
-			
-			encoder = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File(directory + "test.mp4")), Rational.R(framesPerSecond, 1));
-			
+
+			encoder = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File(directory + "test.mp4")),
+					Rational.R(framesPerSecond, 1));
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
-			
+
 		}
-		
+
 	}
-	
+
 	public void render() throws IOException {
-		
+
 		BufferedImage rawImage;
 		Picture8Bit picture;
-		
+
 		long time;
-		
+
 		for (int i = 0; i < numberOfFrames; i++) {
-			
+
 			System.out.println("frame number: " + i);
 			time = System.currentTimeMillis();
-			
+
 			animator.animate();
 			rawImage = fractal.getImage(new Scale(-1, 1, -1, 1), 1000, 1000);
 			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
 			encoder.encodeNativeFrame(picture);
-			
+
 			System.out.println("Finished in: " + (System.currentTimeMillis() - time));
 			System.out.println();
-			
+
 		}
-		
+
 		encoder.finish();
-		
+
 	}
 
 }

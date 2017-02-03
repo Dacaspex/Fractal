@@ -10,7 +10,7 @@ import org.w3c.dom.Document;
 public class Settings {
 	
 	private static String file;
-	private static String defaultFile = "settings.xml";
+	private static String defaultFile = "src/resource/settings.xml";
 	private static Document doc;
 	
 	public static void setFile(String file) {
