@@ -2,13 +2,13 @@ package complex;
 
 public class Complex {
 
-	private double real;
-	private double imaginary;
+	private double modulus;
+	private double argument;
 
-	public Complex(double real, double imaginary) {
+	public Complex(double modulus, double argument) {
 
-		this.real = real;
-		this.imaginary = imaginary;
+		this.modulus = modulus;
+		this.argument = argument;
 
 	}
 
@@ -18,39 +18,61 @@ public class Complex {
 
 	}
 
+	public double getModulus() {
+
+		return modulus;
+
+	}
+
+	public void setModulus(double modulus) {
+
+		this.modulus = modulus;
+
+	}
+
+	public double getArgument() {
+
+		return argument;
+
+	}
+
+	public void setArgument(double argument) {
+
+		// TODO mod 2PI
+		this.argument = argument;
+
+	}
+
+	public Complex set(double real, double imaginary) {
+
+		modulus = Math.sqrt(Math.pow(real, 2) + Math.pow(imaginary, 2));
+		argument = calculateArgument(real, imaginary);
+
+		return this;
+
+	}
+
 	public double getReal() {
 
-		return real;
+		return modulus * Math.cos(argument);
 
 	}
 
 	public void setReal(double real) {
 
-		this.real = real;
+		return;
 
 	}
 
 	public double getImaginary() {
 
-		return imaginary;
+		return modulus * Math.sin(argument);
 
 	}
 
 	public void setImaginary(double imaginary) {
 
-		this.imaginary = imaginary;
-
-	}
-
-	/**
-	 * Calculates the magnitude / modulus / length of the complex number using
-	 * the Pythagorean theorem
-	 * 
-	 * @return Returns the magnitude of the complex number
-	 */
-	public double getMagnitude() {
-
-		return Math.sqrt(Math.pow(real, 2) + Math.pow(imaginary, 2));
+		return;
 
 	}
 
@@ -60,7 +82,7 @@ public class Complex {
 	 * 
 	 * @return The argument of the complex number in radians
 	 */
-	public double getArgument() {
+	public double calculateArgument(double real, double imaginary) {
 
 		if (real > 0) {
 
@@ -89,11 +111,16 @@ public class Complex {
 		}
 
 	}
-	
+
 	public Complex add(Complex c) {
+
+		double real = getReal();
+		double imaginary = getImaginary();
 
 		real += c.getReal();
 		imaginary += c.getImaginary();
+
+		set(real, imaginary);
 
 		return this;
 
@@ -101,8 +128,13 @@ public class Complex {
 
 	public Complex subtract(Complex c) {
 
+		double real = c.getReal();
+		double imaginary = c.getImaginary();
+
 		real -= c.getReal();
 		imaginary -= c.getImaginary();
+
+		set(real, imaginary);
 
 		return this;
 
@@ -110,11 +142,10 @@ public class Complex {
 
 	public Complex multiply(Complex c) {
 
-		double real = this.real * c.getReal() - this.imaginary * c.getImaginary();
-		double imaginary = this.real * c.getImaginary() + this.imaginary * c.getReal();
+		double real = getReal() * c.getReal() - getImaginary() * c.getImaginary();
+		double imaginary = getReal() * c.getImaginary() + getImaginary() * c.getReal();
 
-		this.real = real;
-		this.imaginary = imaginary;
+		set(real, imaginary);
 
 		return this;
 
@@ -122,8 +153,10 @@ public class Complex {
 
 	public Complex multiply(double k) {
 
-		real = k * real;
-		imaginary = k * imaginary;
+		double real = k * getReal();
+		double imaginary = k * getImaginary();
+
+		set(real, imaginary);
 
 		return this;
 
@@ -131,11 +164,10 @@ public class Complex {
 
 	public Complex square() {
 
-		double real = Math.pow(this.real, 2) - Math.pow(this.imaginary, 2);
-		double imaginary = 2 * this.real * this.imaginary;
+		double real = Math.pow(getReal(), 2) - Math.pow(getImaginary(), 2);
+		double imaginary = 2 * getReal() * getImaginary();
 
-		this.real = real;
-		this.imaginary = imaginary;
+		set(real, imaginary);
 
 		return this;
 
@@ -157,7 +189,13 @@ public class Complex {
 
 	public Complex clone() {
 
-		return new Complex(getReal(), getImaginary());
+		return new Complex(getModulus(), getArgument());
+
+	}
+
+	public static Complex createFromCartesianForm(double real, double imaginary) {
+
+		return new Complex().set(real, imaginary);
 
 	}
 
