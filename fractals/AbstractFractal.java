@@ -8,12 +8,12 @@ public abstract class AbstractFractal {
 	 * The name of the fractal. This name is used in all the context menus. It
 	 * should be a unique and descriptive short name.
 	 */
-	private String name;
+	protected String name;
 
 	/**
 	 * Scaling used to determine where to draw the fractal.
 	 */
-	private Scale scale;
+	protected Scale scale;
 	
 	public String getName() {
 		

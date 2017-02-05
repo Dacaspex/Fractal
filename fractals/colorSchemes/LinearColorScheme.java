@@ -58,6 +58,12 @@ public class LinearColorScheme {
 
 	}
 
+	/**
+	 * This method generates a gradient color map for the current loaded color
+	 * and steps. It will do this linearly from one color to the next in equally
+	 * spaced steps. It updates the gradient map which is used to retrieve a
+	 * color value
+	 */
 	public void generateGradientMap() {
 
 		int gradientMap[] = new int[steps];
@@ -107,6 +113,10 @@ public class LinearColorScheme {
 
 	}
 
+	/**
+	 * Loads a set of default colors in the color array TODO: Specify which
+	 * colors.
+	 */
 	public void loadDefaultColors() {
 
 		colorArray = new Color[] { new Color(0, 0, 128), new Color(0, 0, 255), new Color(255, 255, 255),
@@ -114,19 +124,50 @@ public class LinearColorScheme {
 
 	}
 
-	public void setColorArray(Color[] colorArray) {
+	/**
+	 * Sets the color array to a specific new array. When the updateGradientMap
+	 * variable is true, it also updates the gradient map immediately
+	 * 
+	 * @param colorArray
+	 *            The new color array that should be loaded in
+	 * @param updateGradientMap
+	 *            If set to true, it will update the gradient map as well
+	 */
+	public void setColorArray(Color[] colorArray, boolean updateGradientMap) {
 
 		this.colorArray = colorArray;
 
+		if (updateGradientMap) {
+
+			generateGradientMap();
+
+		}
+
 	}
 
-	public void addColor(Color color) {
+	/**
+	 * Adds a color to the end of the color array
+	 * 
+	 * @param color
+	 *            The color to be added
+	 * @param updateGradientMap
+	 *            If set to true, it will update the gradient map as well
+	 */
+	public void addColor(Color color, boolean updateGradientMap) {
 
-		addColors(new Color[] { color });
+		addColors(new Color[] { color }, updateGradientMap);
 
 	}
 
-	public void addColors(Color[] colors) {
+	/**
+	 * Adds an array of colors to the end of the color array
+	 * 
+	 * @param colors
+	 *            The array of colors to be added at the end
+	 * @param updateGradientMap
+	 *            If set to true, it will update the gradient map as well
+	 */
+	public void addColors(Color[] colors, boolean updateGradientMap) {
 
 		// Create new array
 		Color[] colorArray = new Color[this.colorArray.length + colors.length];
@@ -148,8 +189,18 @@ public class LinearColorScheme {
 
 		this.colorArray = colorArray;
 
+		generateGradientMap();
+
 	}
 
+	/**
+	 * Returns the value in the gradient map that corresponds to the
+	 * referenceNumber.
+	 * 
+	 * @param referenceNumber
+	 *            The position in the array
+	 * @return The color that corresponds to that position in the array
+	 */
 	public int getRGBValue(double referenceNumber) {
 
 		return gradientMap[(int) referenceNumber];
