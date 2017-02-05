@@ -15,7 +15,6 @@ public class MandleBrotFractal extends AbstractFractal {
 		maxIterations = 512;
 		mandleBrotColoring = new MandelbrotColorScheme();
 		
-		// test for github
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class MandleBrotFractal extends AbstractFractal {
 				double x = scaling.getxMin() + j * xTransformFactor;
 				double y = scaling.getyMin() + i * yTransformFactor;
 
-				Complex constant = new Complex(x, y);
+				Complex constant = Complex.createFromCartesianForm(x, y);
 				
 				int escapeNumber = getEscapeValue(constant);
 				int colorValue = mandleBrotColoring.getRGBValue(new Object[] {escapeNumber});
@@ -52,9 +51,9 @@ public class MandleBrotFractal extends AbstractFractal {
 		Complex value = new Complex(0, 0);
 		
 		int i;
-		for (i = 0; i < maxIterations && value.getMagnitude() < 2; i++) {
+		for (i = 0; i < maxIterations && value.getModulus() < 2; i++) {
 			
-			value.square().add(constant);
+			value.power(2).add(constant);
 			
 		}
 		

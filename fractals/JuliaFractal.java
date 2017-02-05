@@ -19,7 +19,7 @@ public class JuliaFractal extends AbstractFractal {
 		constant = new Complex(-0.7269, 0.1889);
 		constant = new Complex(0.285, 0.01);
 		constant = Complex.createFromCartesianForm(0.285, 0.01);
-		maxIterations = 512;
+		maxIterations = 256;
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();

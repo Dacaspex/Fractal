@@ -1,6 +1,5 @@
 package main;
 
-import complex.Complex;
 import gui.Display;
 
 public class Main {

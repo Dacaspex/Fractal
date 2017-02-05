@@ -162,26 +162,10 @@ public class Complex {
 
 	}
 
-	public Complex square() {
-
-		double real = Math.pow(getReal(), 2) - Math.pow(getImaginary(), 2);
-		double imaginary = 2 * getReal() * getImaginary();
-
-		set(real, imaginary);
-
-		return this;
-
-	}
-
-	public Complex power(int power) {
-
-		Complex complex = clone();
-
-		for (int i = 0; i < power - 1; i++) {
-
-			this.multiply(complex);
-
-		}
+	public Complex power(double power) {
+		
+		modulus = Math.pow(modulus, power);
+		argument = argument * power;
 
 		return this;
 

@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
+import fractals.MandleBrotFractal;
 import fractals.Scale;
 import timers.ResizeDelayTimer;
 
@@ -32,9 +33,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		fractal = new JuliaFractal();
-//		fractal = new MandleBrotFractal();
+		fractal = new MandleBrotFractal();
 		scale = new Scale(-1, 1, -1, 1);
-//		scaling = new Scale(-1.5, 0.5, -1, 1);
+		scale = new Scale(-1.5, 0.5, -1, 1);
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
