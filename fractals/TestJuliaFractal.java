@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import complex.Complex;
 import fractals.colorSchemes.JuliaColorScheme;
 
-public class JuliaFractal extends AbstractFractal {
+public class TestJuliaFractal extends AbstractFractal {
 
 	private Complex constant;
 	private int maxIterations;
@@ -14,7 +14,7 @@ public class JuliaFractal extends AbstractFractal {
 	
 	private Complex lastEscapeComplexValue;
 
-	public JuliaFractal() {
+	public TestJuliaFractal() {
 
 		constant = new Complex(-0.7269, 0.1889);
 		constant = new Complex(0.285, 0.01);
@@ -79,9 +79,9 @@ public class JuliaFractal extends AbstractFractal {
 				
 				double x = scaling.getxMin() + j * xTransformFactor;
 				double y = scaling.getyMin() + i * yTransformFactor;
-				
-				long time = System.currentTimeMillis();
 
+				long time = System.currentTimeMillis();
+				
 				int escapeNumber = getEscapeNumber(Complex.createFromCartesianForm(x, y));
 				
 				this.time += System.currentTimeMillis() - time;
