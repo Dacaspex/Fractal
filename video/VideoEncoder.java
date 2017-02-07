@@ -11,7 +11,6 @@ import org.jcodec.common.model.Rational;
 import org.jcodec.scale.AWTUtil;
 
 import fractals.JuliaFractal;
-import fractals.Scale;
 
 public class VideoEncoder {
 
@@ -67,7 +66,7 @@ public class VideoEncoder {
 			time = System.currentTimeMillis();
 
 			animator.animate();
-			rawImage = fractal.getImage(new Scale(-1, 1, -1, 1), 1000, 1000);
+			rawImage = fractal.getImage(1000, 1000);
 			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
 			encoder.encodeNativeFrame(picture);
 

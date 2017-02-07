@@ -14,9 +14,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import fractals.AbstractFractal;
-import fractals.JuliaFractal;
-import fractals.MandleBrotFractal;
+import fractals.FractalManager;
 import fractals.Scale;
 import timers.ResizeDelayTimer;
 
@@ -24,18 +22,16 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	private static final long serialVersionUID = 11274784860690473L;
 
-	private Scale scale;
 	private BufferedImage image;
-	private AbstractFractal fractal;
 	private ResizeDelayTimer resizeDelayTimer;
+	
+	private FractalManager fractalManager;
 
 	public FractalPanel() {
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
-		fractal = new JuliaFractal();
-		fractal = new MandleBrotFractal();
-		scale = new Scale(-1, 1, -1, 1);
-		scale = new Scale(-1.5, 0.5, -1, 1);
+		
+		fractalManager = new FractalManager();
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -43,26 +39,21 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	}
 
-	public void setScaling(Scale scaling) {
-
-		this.scale = scaling;
-
-	}
-
 	public void draw() {
 		
-		image = fractal.getImage(scale, getWidth(), getHeight());
+		image = fractalManager.generateImage(getWidth(), getHeight());
 		repaint();
 
 	}
 
 	public void zoom(Point centerPoint) {
 
-		double zoomFactor = 2.0;
+		double zoomFactor = 3.0;
+		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
 		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
 		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
-		Point2D.Double pointInScale = windowScale.getPointInScale(scale, point);
-		scale.zoomAtPoint(pointInScale, zoomFactor);
+		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
+		fractalManager.getSelectedFractal().getScale().zoomAtPoint(pointInScale, zoomFactor);
 		draw();
 
 	}
@@ -79,9 +70,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent event) {
 
-		zoom(e.getPoint());
+		zoom(event.getPoint());
 
 	}
 

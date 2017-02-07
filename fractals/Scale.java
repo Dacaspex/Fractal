@@ -18,6 +18,12 @@ public class Scale {
 
 	}
 
+	public Scale() {
+		
+		this(0, 0, 0, 0);
+		
+	}
+
 	public double getxMin() {
 
 		return xMin;

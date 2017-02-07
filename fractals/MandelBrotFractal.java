@@ -5,32 +5,33 @@ import java.awt.image.BufferedImage;
 import complex.Complex;
 import fractals.colorSchemes.MandelbrotColorScheme;
 
-public class MandleBrotFractal extends AbstractFractal {
+public class MandelBrotFractal extends AbstractFractal {
 	
 	private int maxIterations;
 	private MandelbrotColorScheme mandleBrotColoring;
 	
-	public MandleBrotFractal() {
+	public MandelBrotFractal() {
 		
 		maxIterations = 512;
 		mandleBrotColoring = new MandelbrotColorScheme();
+		scale = new Scale(-1.5, 0.5, -1, 1);
 		
 	}
 
 	@Override
-	public BufferedImage getImage(Scale scaling, int imageWidth, int imageHeight) {
+	public BufferedImage getImage(int imageWidth, int imageHeight) {
 
 		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 
-		double xTransformFactor = ((scaling.getxDifference()) / (double) (imageWidth - 1));
-		double yTransformFactor = ((scaling.getyDifference()) / (double) (imageHeight - 1));
+		double xTransformFactor = ((scale.getxDifference()) / (double) (imageWidth - 1));
+		double yTransformFactor = ((scale.getyDifference()) / (double) (imageHeight - 1));
 
 		for (double i = 0; i < imageHeight; i++) {
 
 			for (double j = 0; j < imageWidth; j++) {
 
-				double x = scaling.getxMin() + j * xTransformFactor;
-				double y = scaling.getyMin() + i * yTransformFactor;
+				double x = scale.getxMin() + j * xTransformFactor;
+				double y = scale.getyMin() + i * yTransformFactor;
 
 				Complex constant = new Complex(x, y);
 				

@@ -38,14 +38,12 @@ public abstract class AbstractFractal {
 	 * scaling and screen width and height. The implementation differs per
 	 * fractal.
 	 * 
-	 * @param scaling
-	 *            The mathematical scale the fractal should be drawn in
 	 * @param imageWidth
 	 *            The width of the output image
 	 * @param imageHeight
 	 *            The height of the output image
 	 * @return Returns an image with the current scale.
 	 */
-	public abstract BufferedImage getImage(Scale scale, int imageWidth, int imageHeight);
+	public abstract BufferedImage getImage(int imageWidth, int imageHeight);
 
 }
