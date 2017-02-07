@@ -16,9 +16,7 @@ import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
-import fractals.MandleBrotFractal;
 import fractals.Scale;
-import fractals.TestJuliaFractal;
 import timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
@@ -29,9 +27,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	private BufferedImage image;
 	private AbstractFractal fractal;
 	private ResizeDelayTimer resizeDelayTimer;
-	
-	// debug
-	private TestJuliaFractal test;
 
 	public FractalPanel() {
 
@@ -40,15 +35,10 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 //		fractal = new MandleBrotFractal();
 		scale = new Scale(-1, 1, -1, 1);
 //		scale = new Scale(-1.5, 0.5, -1, 1);
-		
-		// debug
-		test = new TestJuliaFractal();
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
 		addComponentListener(this);
-		
-		debug();
 
 	}
 
@@ -57,29 +47,11 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		this.scale = scaling;
 
 	}
-	
-	public void debug() {
-		
-		System.out.println("-- Starting timer --");
-		
-		System.out.println("Old complex number system: ");
-		long time = System.currentTimeMillis();
-		test.getImage(scale, 1000, 1000);
-		System.out.println("time 1: " + (System.currentTimeMillis() - time));
-		
-		System.out.println();
-		
-		System.out.println("New complex number system: ");
-		time = System.currentTimeMillis();
-		fractal.getImage(scale, 1000, 1000);
-		System.out.println("time 2: " + (System.currentTimeMillis() - time));
-		
-	}
 
 	public void draw() {
 		
-//		image = fractal.getImage(scale, getWidth(), getHeight());
-//		repaint();
+		image = fractal.getImage(scale, getWidth(), getHeight());
+		repaint();
 
 	}
 

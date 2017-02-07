@@ -18,7 +18,6 @@ public class JuliaFractal extends AbstractFractal {
 
 		constant = new Complex(-0.7269, 0.1889);
 		constant = new Complex(0.285, 0.01);
-		constant = Complex.createFromCartesianForm(0.285, 0.01);
 		maxIterations = 256;
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
@@ -61,9 +60,6 @@ public class JuliaFractal extends AbstractFractal {
 		this.juliaColoring = juliaColoring;
 
 	}
-	
-	long time = System.currentTimeMillis();
-	long timerCount = 0;
 
 	@Override
 	public BufferedImage getImage(Scale scaling, int imageWidth, int imageHeight) {
@@ -79,13 +75,8 @@ public class JuliaFractal extends AbstractFractal {
 				
 				double x = scaling.getxMin() + j * xTransformFactor;
 				double y = scaling.getyMin() + i * yTransformFactor;
-				
-				long time = System.currentTimeMillis();
 
-				int escapeNumber = getEscapeNumber(Complex.createFromCartesianForm(x, y));
-				
-				this.time += System.currentTimeMillis() - time;
-				timerCount++;
+				int escapeNumber = getEscapeNumber(new Complex(x, y));
 				
 				double continuousIndex = escapeNumber + 1
 						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
@@ -96,9 +87,6 @@ public class JuliaFractal extends AbstractFractal {
 			}
 
 		}
-		
-		System.out.println("average escape number time: ");
-		System.out.println(this.time / timerCount);
 
 		return image;
 
