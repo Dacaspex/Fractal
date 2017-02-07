@@ -9,4 +9,22 @@
 		Alpha-1.0
 	</version>
 	
+	<fractals>
+		
+		<fractal>
+			<name>Julia Set</name>
+			<defaultSettings>
+				<constant>
+					<complex>
+						<real>0.5</real>
+						<imaginary>-0.5</imaginary>
+					</complex>
+				</constant>
+				<maxIterations>512</maxIterations>
+				<escapeValue>2.0</escapeValue>
+			</defaultSettings>
+		</fractal>
+		
+	</fractals>
+	
 </settings>

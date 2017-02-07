@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
-public class Settings {
+public abstract class Settings {
 	
 	private static String file;
 	private static String defaultFile = "src/resource/settings.xml";
