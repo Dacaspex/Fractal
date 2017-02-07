@@ -32,7 +32,7 @@ public class MandleBrotFractal extends AbstractFractal {
 				double x = scaling.getxMin() + j * xTransformFactor;
 				double y = scaling.getyMin() + i * yTransformFactor;
 
-				Complex constant = Complex.createFromCartesianForm(x, y);
+				Complex constant = new Complex(x, y);
 				
 				int escapeNumber = getEscapeValue(constant);
 				int colorValue = mandleBrotColoring.getRGBValue(new Object[] {escapeNumber});

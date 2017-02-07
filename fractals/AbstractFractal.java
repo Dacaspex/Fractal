@@ -14,11 +14,11 @@ public abstract class AbstractFractal {
 	 * Scaling used to determine where to draw the fractal.
 	 */
 	protected Scale scale;
-	
+
 	public String getName() {
-		
+
 		return name;
-		
+
 	}
 
 	public Scale getScale() {

@@ -18,7 +18,6 @@ public class JuliaFractal extends AbstractFractal {
 
 		constant = new Complex(-0.7269, 0.1889);
 		constant = new Complex(0.285, 0.01);
-		constant = Complex.createFromCartesianForm(0.285, 0.01);
 		maxIterations = 256;
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
@@ -77,7 +76,7 @@ public class JuliaFractal extends AbstractFractal {
 				double x = scaling.getxMin() + j * xTransformFactor;
 				double y = scaling.getyMin() + i * yTransformFactor;
 
-				int escapeNumber = getEscapeNumber(Complex.createFromCartesianForm(x, y));
+				int escapeNumber = getEscapeNumber(new Complex(x, y));
 				
 				double continuousIndex = escapeNumber + 1
 						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
