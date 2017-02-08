@@ -3,7 +3,7 @@ package video;
 import fractals.JuliaFractal;
 import fractals.colorSchemes.JuliaColorScheme;
 
-public class TestAnimator implements Animator {
+public class TestAnimator extends Animator {
 	
 	private JuliaFractal fractal;
 	
