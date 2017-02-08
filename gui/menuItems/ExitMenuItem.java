@@ -7,9 +7,6 @@ import javax.swing.JMenuItem;
 
 public class ExitMenuItem extends JMenuItem implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3584786912157820751L;
 	
 	public ExitMenuItem() {

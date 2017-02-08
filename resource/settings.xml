@@ -9,6 +9,10 @@
 		Alpha-1.0
 	</version>
 	
+	<defaultFractal>
+		Julia Set
+	</defaultFractal>
+	
 	<fractals>
 		
 		<fractal>
@@ -23,6 +27,10 @@
 				<maxIterations>512</maxIterations>
 				<escapeValue>2.0</escapeValue>
 			</defaultSettings>
+		</fractal>
+		
+		<fractal>
+			<name>Mandelbrot Set</name>
 		</fractal>
 		
 	</fractals>

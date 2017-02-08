@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public abstract class Settings {
 	
@@ -38,7 +40,7 @@ public abstract class Settings {
 
 	}
 	
-	public static void loadDefaultSettigns() {
+	public static void loadDefaultSettignsFile() {
 
 		try {
 
@@ -66,6 +68,30 @@ public abstract class Settings {
 	public static String getVersion() {
 		
 		return doc.getElementsByTagName("version").item(0).getTextContent().trim();
+		
+	}
+	
+	public static String getDefaultFractal() {
+		
+		return doc.getElementsByTagName("defaultFractal").item(0).getTextContent().trim();
+		
+	}
+	
+	public static String[] getFractalNameList() {
+		
+		NodeList fractalNodeList = doc.getElementsByTagName("fractal");
+		int length = fractalNodeList.getLength();
+		String[] fractalNameList = new String[length];
+		
+		for (int i = 0; i < length; i++) {
+			
+			Element fractalNode = (Element) fractalNodeList.item(i);
+			String name = fractalNode.getElementsByTagName("name").item(0).getTextContent();
+			fractalNameList[i] = name;
+			
+		}
+		
+		return fractalNameList;
 		
 	}
 

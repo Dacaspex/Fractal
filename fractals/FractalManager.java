@@ -3,11 +3,16 @@ package fractals;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import gui.FractalPanel;
+import util.Settings;
+
 public class FractalManager {
 	
 	private HashMap<String, AbstractFractal> fractalList;
 	
 	private AbstractFractal selectedFractal;
+	
+	private FractalPanel fractalPanel;
 	
 	public FractalManager() {
 		
@@ -33,7 +38,7 @@ public class FractalManager {
 	
 	public void setDefaultFractal() {
 		
-		selectedFractal = fractalList.get("Julia Set");		
+		selectedFractal = fractalList.get(Settings.getDefaultFractal());
 		
 	}
 	
@@ -52,6 +57,26 @@ public class FractalManager {
 	public void setSelectedFractal(String name) {
 		
 		selectedFractal = fractalList.get(name);
+		updateFractalPanel();
+		
+	}
+	
+	public String[] getLoadedFractals() {
+		
+		String[] fractalNames = new String[fractalList.size()];
+		return fractalList.keySet().toArray(fractalNames);
+		
+	}
+	
+	public void setFractalPanel(FractalPanel fractalPanel) {
+		
+		this.fractalPanel = fractalPanel;
+		
+	}
+	
+	public void updateFractalPanel() {
+		
+		fractalPanel.draw();
 		
 	}
 
