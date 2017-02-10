@@ -2,6 +2,10 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 
+import org.w3c.dom.Element;
+
+import util.Settings;
+
 public abstract class AbstractFractal {
 
 	/**
@@ -45,5 +49,13 @@ public abstract class AbstractFractal {
 	 * @return Returns an image with the current scale.
 	 */
 	public abstract BufferedImage getImage(int imageWidth, int imageHeight);
+	
+	public void loadDefaultSettigns() {
+		
+		Element fractalElement = Settings.getFractalSettingsDOM(name);
+		
+		
+		
+	}
 
 }

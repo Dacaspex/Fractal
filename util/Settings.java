@@ -98,6 +98,28 @@ public abstract class Settings {
 		
 	}
 	
+	public static Element getFractalSettingsDOM(String name) {
+
+		NodeList fractalNodeList = doc.getElementsByTagName("fractal");
+		
+		for (int i = 0; i < fractalNodeList.getLength(); i++) {
+			
+			Element fractalElement = (Element) fractalNodeList.item(i);
+			String currentName = fractalElement.getElementsByTagName("name").item(0).getTextContent();
+			
+			if (name.equals(currentName)) {
+				
+				Element defaultSettingsELement = (Element) fractalElement.getElementsByTagName("defaultSettings").item(0);
+				return defaultSettingsELement;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public static String[] getFractalNameList() {
 		
 		NodeList fractalNodeList = doc.getElementsByTagName("fractal");
