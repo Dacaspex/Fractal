@@ -55,7 +55,7 @@ public class FractalManager {
 	 */
 	public void setDefaultFractal() {
 
-		selectedFractal = fractalList.get(Settings.getDefaultFractal());
+		selectedFractal = Settings.getDefaultFractal(this);
 
 	}
 
@@ -126,6 +126,12 @@ public class FractalManager {
 
 		fractalPanel.draw();
 
+	}
+	
+	public AbstractFractal getFractalByName(String name) {
+		
+		return fractalList.get(name);
+		
 	}
 
 }

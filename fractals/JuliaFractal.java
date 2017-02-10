@@ -22,7 +22,6 @@ public class JuliaFractal extends AbstractFractal {
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();
-		scale = new Scale(-1, 1, -1, 1);
 
 	}
 

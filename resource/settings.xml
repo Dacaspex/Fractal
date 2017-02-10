@@ -10,7 +10,13 @@
 	</version>
 	
 	<defaultFractal>
-		Julia Set
+		<name>Julia Set</name>
+		<scale>
+			<xMin>-1.0</xMin>
+			<xMax>1.0</xMax>
+			<yMin>-1.0</yMin>
+			<yMax>1.0</yMax>
+		</scale>
 	</defaultFractal>
 	
 	<fractals>
