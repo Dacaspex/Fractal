@@ -11,12 +11,6 @@
 	
 	<defaultFractal>
 		<name>Julia Set</name>
-		<scale>
-			<xMin>-1.0</xMin>
-			<xMax>1.0</xMax>
-			<yMin>-1.0</yMin>
-			<yMax>1.0</yMax>
-		</scale>
 	</defaultFractal>
 	
 	<fractals>
@@ -24,6 +18,12 @@
 		<fractal>
 			<name>Julia Set</name>
 			<defaultSettings>
+				<scale>
+					<xMin>-3.0</xMin>
+					<xMax>1.0</xMax>
+					<yMin>-3.0</yMin>
+					<yMax>1.0</yMax>
+				</scale>
 				<constant>
 					<complex>
 						<real>0.5</real>

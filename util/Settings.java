@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import fractals.AbstractFractal;
 import fractals.FractalManager;
-import fractals.Scale;
 
 public abstract class Settings {
 	
@@ -78,27 +77,21 @@ public abstract class Settings {
 	public static AbstractFractal getDefaultFractal(FractalManager fractalManager) {
 		
 		// TODO should throw an error when the parsing throws an error
-		
 		Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
-		Element scaleNode = (Element) defaultFractalNode.getElementsByTagName("scale").item(0);
-		
 		String name = defaultFractalNode.getElementsByTagName("name").item(0).getTextContent();
-		
-		double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());
-		double xMax = Double.parseDouble(scaleNode.getElementsByTagName("xMax").item(0).getTextContent());
-		double yMin = Double.parseDouble(scaleNode.getElementsByTagName("yMin").item(0).getTextContent());
-		double yMax = Double.parseDouble(scaleNode.getElementsByTagName("yMax").item(0).getTextContent());
-		
-		Scale scale = new Scale(xMin, xMax, yMin, yMax);
-		
 		AbstractFractal fractal = fractalManager.getFractalByName(name);
-		fractal.setScale(scale);
 		
 		return fractal;
 		
 	}
 	
 	public static Element getFractalSettingsDOM(String name) {
+		
+		if (name == null) {
+			
+			return null;
+			
+		}
 
 		NodeList fractalNodeList = doc.getElementsByTagName("fractal");
 		

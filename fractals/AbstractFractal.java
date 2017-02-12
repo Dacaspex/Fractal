@@ -49,13 +49,31 @@ public abstract class AbstractFractal {
 	 * @return Returns an image with the current scale.
 	 */
 	public abstract BufferedImage getImage(int imageWidth, int imageHeight);
-	
+
+	/**
+	 * Loads the default settings from the settings xml file. By default it only
+	 * resets the scale variable. This method can be overriden to reset more
+	 * settings
+	 */
 	public void loadDefaultSettigns() {
-		
-		Element fractalElement = Settings.getFractalSettingsDOM(name);
-		
-		
-		
+
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+
+		if (defaultSettingsElement == null) {
+
+			return;
+
+		}
+
+		Element scaleNode = (Element) defaultSettingsElement.getElementsByTagName("scale").item(0);
+
+		double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());
+		double xMax = Double.parseDouble(scaleNode.getElementsByTagName("xMax").item(0).getTextContent());
+		double yMin = Double.parseDouble(scaleNode.getElementsByTagName("yMin").item(0).getTextContent());
+		double yMax = Double.parseDouble(scaleNode.getElementsByTagName("yMax").item(0).getTextContent());
+
+		scale = new Scale(xMin, xMax, yMin, yMax);
+
 	}
 
 }
