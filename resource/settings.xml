@@ -25,9 +25,19 @@
 					<yMax>1.0</yMax>
 				</scale>
 				<constant>
+					<!-- Other nice complex values
 					<complex>
-						<real>0.5</real>
+						<real>0.35</real>
 						<imaginary>-0.5</imaginary>
+					</complex>
+					<complex>
+						<real>-0.7269</real>
+						<imaginary>0.1889</imaginary>
+					</complex>
+					-->
+					<complex>
+						<real>0.285</real>
+						<imaginary>0.01</imaginary>
 					</complex>
 				</constant>
 				<maxIterations>512</maxIterations>

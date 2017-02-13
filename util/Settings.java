@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import complex.Complex;
 import fractals.AbstractFractal;
 import fractals.FractalManager;
 
@@ -109,6 +110,25 @@ public abstract class Settings {
 			
 		}
 		
+		return null;
+		
+	}
+	
+	public static Complex getComplexFromElement(Element complexNode) {
+		
+		Element realNode = (Element) complexNode.getElementsByTagName("real").item(0);
+		Element imaginaryNode = (Element) complexNode.getElementsByTagName("imaginary").item(0);
+		
+		if (!(realNode == null && imaginaryNode == null)) {
+			
+			double real = Double.parseDouble(realNode.getTextContent());
+			double imaginary = Double.parseDouble(imaginaryNode.getTextContent());
+			
+			return new Complex(real, imaginary);
+			
+		}
+		
+		// TODO throw error for unaccessible nodes
 		return null;
 		
 	}

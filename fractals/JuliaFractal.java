@@ -2,8 +2,11 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 
+import org.w3c.dom.Element;
+
 import complex.Complex;
 import fractals.colorSchemes.JuliaColorScheme;
+import util.Settings;
 
 public class JuliaFractal extends AbstractFractal {
 
@@ -17,14 +20,12 @@ public class JuliaFractal extends AbstractFractal {
 	public JuliaFractal() {
 
 		name = "Julia Set";
-		constant = new Complex(-0.7269, 0.1889);
-		constant = new Complex(0.285, 0.01);
 		maxIterations = 256;
 		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();
 		
-		loadDefaultSettigns();
+		loadDefaultSettings();
 
 	}
 
@@ -116,6 +117,21 @@ public class JuliaFractal extends AbstractFractal {
 
 		return juliaColoring.getRGBValue(continuousIndex);
 
+	}
+	
+	@Override
+	public void loadDefaultSettings() {
+		
+		super.loadDefaultSettings();
+		
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+		Element constantNode = (Element) defaultSettingsElement.getElementsByTagName("constant").item(0);
+		Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
+		
+		Complex constant = Settings.getComplexFromElement(complexNode);
+		
+		this.constant = constant;
+		
 	}
 	
 }

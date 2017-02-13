@@ -55,7 +55,7 @@ public abstract class AbstractFractal {
 	 * resets the scale variable. This method can be overriden to reset more
 	 * settings
 	 */
-	public void loadDefaultSettigns() {
+	public void loadDefaultSettings() {
 
 		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
 
