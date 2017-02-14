@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import fractals.FractalManager;
+import gui.menuItems.AboutMenuItem;
 import gui.menuItems.ExitMenuItem;
 import gui.menuItems.FractalMenuItem;
 import util.Settings;
@@ -70,6 +71,12 @@ public class Display extends JFrame {
 		}
 		
 		menuBar.add(fractalMenu);
+		
+		// About menu
+		JMenu aboutMenu = new JMenu("About");
+		AboutMenuItem aboutMenuItem = new AboutMenuItem();
+		aboutMenu.add(aboutMenuItem);
+		menuBar.add(aboutMenu);
 
 		setJMenuBar(menuBar);
 
