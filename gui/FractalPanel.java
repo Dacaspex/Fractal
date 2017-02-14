@@ -50,11 +50,14 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	public void zoomIn(Point centerPoint) {
 
 		double zoomFactor = 3.0;
+		
 		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
 		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
+		
 		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
 		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
-		fractalManager.getSelectedFractal().getScale().zoomAtPoint(pointInScale, zoomFactor);
+		
+		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
 		draw();
 
 	}
@@ -62,11 +65,27 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	public void zoomOut(Point centerPoint) {
 		
 		double zoomFactor = 0.3;
+		
 		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
 		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
+		
 		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
 		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
-		fractalManager.getSelectedFractal().getScale().zoomAtPoint(pointInScale, zoomFactor);
+		
+		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
+		draw();
+		
+	}
+	
+	public void translate(Point targetPoint) {
+		
+		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
+		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
+		
+		Point2D.Double point = new Point2D.Double(targetPoint.getX(), targetPoint.getY());
+		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
+		
+		fractalScale.translateCenterToPoint(pointInScale);
 		draw();
 		
 	}
@@ -89,6 +108,10 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		
 		case MouseEvent.BUTTON1:
 			zoomIn(event.getPoint());
+			break;
+			
+		case MouseEvent.BUTTON2:
+			translate(event.getPoint());
 			break;
 			
 		case MouseEvent.BUTTON3:
