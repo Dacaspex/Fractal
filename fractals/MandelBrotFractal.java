@@ -2,19 +2,25 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 
+import org.w3c.dom.Element;
+
 import complex.Complex;
 import fractals.colorSchemes.MandelbrotColorScheme;
+import util.Settings;
 
 public class MandelBrotFractal extends AbstractFractal {
 	
 	private int maxIterations;
+	private double escapeValue;
+	
 	private MandelbrotColorScheme mandleBrotColoring;
 	
 	public MandelBrotFractal() {
 		
-		maxIterations = 512;
+		name = "Mandelbrot Set";
 		mandleBrotColoring = new MandelbrotColorScheme();
-		scale = new Scale(-1.5, 0.5, -1, 1);
+		
+		loadDefaultSettings();
 		
 	}
 
@@ -52,13 +58,28 @@ public class MandelBrotFractal extends AbstractFractal {
 		Complex value = new Complex(0, 0);
 		
 		int i;
-		for (i = 0; i < maxIterations && value.getModulus() < 2; i++) {
+		for (i = 0; i < maxIterations && value.getModulus() < escapeValue; i++) {
 			
 			value.power(2).add(constant);
 			
 		}
 		
 		return i;
+		
+	}
+	
+	@Override
+	public void loadDefaultSettings() {
+		
+		super.loadDefaultSettings();
+		
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+		
+		int maxIterations = Integer.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
+		double escapeValue = Double.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
+		
+		this.maxIterations = maxIterations;
+		this.escapeValue = escapeValue;
 		
 	}
 

@@ -47,6 +47,16 @@
 		
 		<fractal>
 			<name>Mandelbrot Set</name>
+			<defaultSettings>
+				<scale>
+					<xMin>-1.5</xMin>
+					<xMax>0.5</xMax>
+					<yMin>-1.0</yMin>
+					<yMax>1.0</yMax>
+				</scale>
+				<maxIterations>512</maxIterations>
+				<escapeValue>2.0</escapeValue>
+			</defaultSettings>
 		</fractal>
 		
 	</fractals>

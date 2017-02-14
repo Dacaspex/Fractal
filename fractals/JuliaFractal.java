@@ -20,8 +20,6 @@ public class JuliaFractal extends AbstractFractal {
 	public JuliaFractal() {
 
 		name = "Julia Set";
-		maxIterations = 256;
-		escapeValue = 2.0;
 		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();
 		
@@ -129,8 +127,12 @@ public class JuliaFractal extends AbstractFractal {
 		Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
 		
 		Complex constant = Settings.getComplexFromElement(complexNode);
+		int maxIterations = Integer.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
+		double escapeValue = Double.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
 		
 		this.constant = constant;
+		this.maxIterations = maxIterations;
+		this.escapeValue = escapeValue;
 		
 	}
 	
