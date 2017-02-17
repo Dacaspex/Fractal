@@ -1,6 +1,7 @@
 package fractals;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
@@ -74,6 +75,20 @@ public abstract class AbstractFractal {
 
 		scale = new Scale(xMin, xMax, yMin, yMax);
 
+	}
+	
+	public HashMap<String, String> getInformation() {
+		
+		HashMap<String, String> informationMap = new HashMap<String, String>();
+		
+		informationMap.put("Name", name);
+		informationMap.put("X-min", Double.toString(scale.getxMin()));
+		informationMap.put("X-max", Double.toString(scale.getxMax()));
+		informationMap.put("Y-min", Double.toString(scale.getyMin()));
+		informationMap.put("Y-max", Double.toString(scale.getyMax()));
+		
+		return informationMap;
+		
 	}
 
 }

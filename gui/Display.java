@@ -39,7 +39,7 @@ public class Display extends JFrame {
 
 		// Initialize the display
 		buildGUI();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
 
