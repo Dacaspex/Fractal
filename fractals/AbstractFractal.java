@@ -38,18 +38,7 @@ public abstract class AbstractFractal {
 
 	}
 
-	/**
-	 * This method returns the image that should be rendered based of the
-	 * scaling and screen width and height. The implementation differs per
-	 * fractal.
-	 * 
-	 * @param imageWidth
-	 *            The width of the output image
-	 * @param imageHeight
-	 *            The height of the output image
-	 * @return Returns an image with the current scale.
-	 */
-	public abstract BufferedImage getImage(int imageWidth, int imageHeight);
+	public abstract void requestImage(int imageWidth, int imageHeight);
 
 	/**
 	 * Loads the default settings from the settings xml file. By default it only

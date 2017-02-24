@@ -65,22 +65,22 @@ public class JuliaFractal extends AbstractFractal {
 	}
 
 	@Override
-	public BufferedImage getImage(int width, int height) {
-
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	public void requestImage(int width, int height) {
+		
+		System.out.println(width + ", " + height);
 
 		Worker worker1 = new Worker(
-				new Scale(scale.getxMin(), scale.getxDifference() / 2, scale.getyMin(), scale.getyDifference() / 2),
-				width / 2, height / 2, image, this);
+				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2, scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2),
+				width / 2, height / 2, this, 0);
 		Worker worker2 = new Worker(
-				new Scale(scale.getxDifference() / 2, scale.getxMax(), scale.getyMin(), scale.getyDifference() / 2),
-				width / 2, height / 2, image, this);
+				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(), scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2),
+				width / 2, height / 2, this, 1);
 		Worker worker3 = new Worker(
-				new Scale(scale.getxMin(), scale.getxDifference() / 2, scale.getyDifference() / 2, scale.getyMax()),
-				width / 2, height / 2, image, this);
+				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2, (scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+				width / 2, height / 2, this, 2);
 		Worker worker4 = new Worker(
-				new Scale(scale.getxDifference() / 2, scale.getxMax(), scale.getyDifference() / 2, scale.getyMax()),
-				width / 2, height / 2, image, this);
+				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(), (scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+				width / 2, height / 2, this, 3);
 		
 		worker1.start();
 		worker2.start();
@@ -91,8 +91,6 @@ public class JuliaFractal extends AbstractFractal {
 		worker2.run();
 		worker3.run();
 		worker4.run();
-
-		return image;
 
 	}
 
