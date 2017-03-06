@@ -30,12 +30,7 @@ public class Worker extends Thread {
 
 	public void run() {
 
-		long time = System.currentTimeMillis();
-
 		BufferedImage image = fractal.generateImage(width, height, scale);
-
-		System.out.println("Thread " + number + " took " + (System.currentTimeMillis() - time));
-
 		notifyDone(image);
 
 	}

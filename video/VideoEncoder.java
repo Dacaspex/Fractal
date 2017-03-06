@@ -1,14 +1,11 @@
 package video;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import org.jcodec.api.SequenceEncoder8Bit;
 import org.jcodec.common.io.NIOUtils;
-import org.jcodec.common.model.Picture8Bit;
 import org.jcodec.common.model.Rational;
-import org.jcodec.scale.AWTUtil;
 
 import fractals.JuliaFractal;
 
@@ -55,8 +52,8 @@ public class VideoEncoder {
 
 	public void render() throws IOException {
 
-		BufferedImage rawImage;
-		Picture8Bit picture;
+//		BufferedImage rawImage;
+//		Picture8Bit picture;
 
 		long time;
 

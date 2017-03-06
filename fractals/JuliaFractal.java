@@ -6,7 +6,6 @@ import org.w3c.dom.Element;
 
 import complex.Complex;
 import fractals.colorSchemes.JuliaColorScheme;
-import fractals.threads.Worker;
 import util.Settings;
 
 public class JuliaFractal extends AbstractFractal {

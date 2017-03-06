@@ -15,66 +15,74 @@ public class FractalManager {
 	private AbstractFractal selectedFractal;
 
 	private FractalPanel fractalPanel;
-	
+
 	private BufferedImage[] imageList;
-	private int count;
+	private int threadCount;
 	private int requestedWidth;
 	private int requestedHeight;
+
+	private boolean isGenerating;
 
 	public FractalManager() {
 
 		fractalList = new HashMap<String, AbstractFractal>();
 		imageList = new BufferedImage[4];
-		count = 4; // Number of workers
+		// TODO Create threads dynamicly according to settings
+		threadCount = 4; // Number of threads
 		requestedWidth = 0;
 		requestedHeight = 0;
+		isGenerating = false;
 
 		loadDefaultFractals();
 		setDefaultFractal();
-		
+
 		Worker.fractalManager = this;
 
 	}
 
 	public void requestImage(int width, int height) {
-		
-		requestedWidth = width;
-		requestedHeight = height;
-		selectedFractal.requestImage(width, height);
+
+		if (!isGenerating) {
+
+			requestedWidth = width;
+			requestedHeight = height;
+			isGenerating = true;
+			selectedFractal.requestImage(width, height);
+
+		}
 
 	}
-	
+
 	public void updateProgress(BufferedImage intermediateResult, int number) {
-		
+
 		imageList[number] = intermediateResult;
-		count--;
-		
-		if (count <= 0) {
-			
-			generateImage();
-			
+		threadCount--;
+
+		if (threadCount <= 0) {
+
+			// Reset counter for cleaner transitions, then stitch images
+			threadCount = 4;
+			stitchImages();
+			isGenerating = false;
+
 		}
-		
+
 	}
-	
-	public void generateImage() {
-		
+
+	public void stitchImages() {
+
 		BufferedImage image = new BufferedImage(requestedWidth, requestedHeight, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
-		
+
 		g.drawImage(imageList[0], 1, 1, null);
 		g.drawImage(imageList[1], requestedWidth / 2, 1, null);
 		g.drawImage(imageList[2], 1, requestedHeight / 2, null);
 		g.drawImage(imageList[3], requestedWidth / 2, requestedHeight / 2, null);
 		
+		g.dispose();
+
 		fractalPanel.showImage(image);
-		
-	}
-	
-	public void drawImage() {
-		
-		
-		
+
 	}
 
 	/**
@@ -165,11 +173,11 @@ public class FractalManager {
 		fractalPanel.draw();
 
 	}
-	
+
 	public AbstractFractal getFractalByName(String name) {
-		
+
 		return fractalList.get(name);
-		
+
 	}
 
 }

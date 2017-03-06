@@ -9,6 +9,11 @@
 		Alpha-2.0
 	</version>
 	
+	<!-- Used later for dynamic thread allocation -->
+	<threads>
+		<amount>4</amount>
+	</threads>
+	
 	<defaultFractal>
 		<name>Julia Set</name>
 	</defaultFractal>
