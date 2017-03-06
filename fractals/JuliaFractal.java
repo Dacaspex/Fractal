@@ -65,32 +65,33 @@ public class JuliaFractal extends AbstractFractal {
 	}
 
 	@Override
-	public void requestImage(int width, int height) {
-		
-		System.out.println(width + ", " + height);
+	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
 
-		Worker worker1 = new Worker(
-				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2, scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2),
-				width / 2, height / 2, this, 0);
-		Worker worker2 = new Worker(
-				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(), scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2),
-				width / 2, height / 2, this, 1);
-		Worker worker3 = new Worker(
-				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2, (scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				width / 2, height / 2, this, 2);
-		Worker worker4 = new Worker(
-				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(), (scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				width / 2, height / 2, this, 3);
-		
-		worker1.start();
-		worker2.start();
-		worker3.start();
-		worker4.start();
-		
-		worker1.run();
-		worker2.run();
-		worker3.run();
-		worker4.run();
+		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+
+		double xTransformFactor = ((scale.getxDifference()) / (double) (imageWidth - 1));
+		double yTransformFactor = ((scale.getyDifference()) / (double) (imageHeight - 1));
+
+		for (double i = 0; i < imageHeight - 1; i++) {
+
+			for (double j = 0; j < imageWidth - 1; j++) {
+
+				double x = scale.getxMin() + j * xTransformFactor;
+				double y = scale.getyMin() + i * yTransformFactor;
+
+				int escapeNumber = getEscapeNumber(new Complex(x, y));
+
+				double continuousIndex = escapeNumber + 1
+						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+
+				int colorValue = getRGBValue(continuousIndex);
+				image.setRGB((int) j, (int) i, colorValue);
+
+			}
+
+		}
+
+		return image;
 
 	}
 

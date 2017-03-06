@@ -2,72 +2,49 @@ package fractals.threads;
 
 import java.awt.image.BufferedImage;
 
-import complex.Complex;
+import fractals.AbstractFractal;
 import fractals.FractalManager;
-import fractals.JuliaFractal;
 import fractals.Scale;
 
 public class Worker extends Thread {
-	
-	private Scale scale;
-	private BufferedImage image;
-	
+
 	private int width;
 	private int height;
-	
 	private int number;
-	
-	private JuliaFractal fractal;
-	
+
+	private Scale scale;
+
+	private AbstractFractal fractal;
+
 	public static FractalManager fractalManager;
-	
-	public Worker(Scale scale, int width, int height, JuliaFractal fractal, int number) {
-		
-		scale.debugOut();
-		
+
+	public Worker(Scale scale, int width, int height, AbstractFractal fractal, int number) {
+
 		this.scale = scale;
 		this.width = width;
 		this.height = height;
 		this.fractal = fractal;
 		this.number = number;
-		
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		
+
 	}
-	
+
 	public void run() {
-		
-		double xTransformFactor = ((scale.getxDifference()) / (double) (width - 1));
-		double yTransformFactor = ((scale.getyDifference()) / (double) (height - 1));
 
-		for (double i = 0; i < height - 1; i++) {
+		long time = System.currentTimeMillis();
 
-			for (double j = 0; j < width - 1; j++) {
-				
-				double x = scale.getxMin() + j * xTransformFactor;
-				double y = scale.getyMin() + i * yTransformFactor;
+		BufferedImage image = fractal.generateImage(width, height, scale);
 
-				int escapeNumber = fractal.getEscapeNumber(new Complex(x, y));
-				
-				double continuousIndex = escapeNumber;
-				
-				int colorValue = fractal.getRGBValue(continuousIndex);
-//				System.out.println(number + ", " + j + ", " + i);
-				image.setRGB((int) j, (int) i, colorValue);
+		System.out.println("Thread " + number + " took " + (System.currentTimeMillis() - time));
 
-			}
+		notifyDone(image);
 
-		}
-		
-		notifyDone();
-		
 	}
-	
-	public void notifyDone() {
-		
+
+	public void notifyDone(BufferedImage image) {
+
 		fractalManager.updateProgress(image, number);
 		this.interrupt();
-		
+
 	}
 
 }

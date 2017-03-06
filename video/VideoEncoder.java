@@ -66,9 +66,9 @@ public class VideoEncoder {
 			time = System.currentTimeMillis();
 
 			animator.animate();
-			rawImage = fractal.getImage(1000, 1000);
-			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
-			encoder.encodeNativeFrame(picture);
+//			rawImage = fractal.getImage(1000, 1000);
+//			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
+//			encoder.encodeNativeFrame(picture);
 
 			System.out.println("Finished in: " + (System.currentTimeMillis() - time));
 			System.out.println();
