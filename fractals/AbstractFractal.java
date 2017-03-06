@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
-import fractals.threads.Worker;
+import fractals.threading.ImageGenerator;
 import util.Settings;
 
 public abstract class AbstractFractal {
@@ -39,26 +39,55 @@ public abstract class AbstractFractal {
 
 	}
 
+	/**
+	 * Handles the request for an image. It separates the task of generating
+	 * into smaller tasks using threads for better performance. This only starts
+	 * the threads and does not yet yield any image.
+	 * 
+	 * @param imageWidth
+	 *            The requested image width
+	 * @param imageHeight
+	 *            The requested image height
+	 */
 	public void requestImage(int imageWidth, int imageHeight) {
-		
-		Worker worker1 = new Worker(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2, scale.getyMin(),
-				(scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
-		Worker worker2 = new Worker(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(), scale.getyMin(),
-				(scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
-		Worker worker3 = new Worker(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-				(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()), imageWidth / 2, imageHeight / 2, this, 2);
-		Worker worker4 = new Worker(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-				(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()), imageWidth / 2, imageHeight / 2, this, 3);
+
+		// TODO make this more pretty...
+		ImageGenerator worker1 = new ImageGenerator(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
+				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
+		ImageGenerator worker2 = new ImageGenerator(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
+				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
+		ImageGenerator worker3 = new ImageGenerator(
+				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
+						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+				imageWidth / 2, imageHeight / 2, this, 2);
+		ImageGenerator worker4 = new ImageGenerator(
+				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
+						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+				imageWidth / 2, imageHeight / 2, this, 3);
 
 		worker1.start();
 		worker2.start();
 		worker3.start();
 		worker4.start();
-		
+
 	}
 
+	/**
+	 * Method to be implemented that should generate an image of the fractal
+	 * using the given dimensions and scale. Not this scale is smaller or equal
+	 * to the normal scale since this method is being called from a method that
+	 * only has partial work.
+	 * 
+	 * @param imagewidth
+	 *            The width of the image
+	 * @param imageHeight
+	 *            The height of the image
+	 * @param scale
+	 *            The scale to use
+	 * @return An image with the fractal rendered on top of it
+	 */
 	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Scale scale);
-	
+
 	/**
 	 * Loads the default settings from the settings xml file. By default it only
 	 * resets the scale variable. This method can be overriden to reset more
@@ -85,6 +114,9 @@ public abstract class AbstractFractal {
 
 	}
 
+	/**
+	 * @return A HashMap with information about the fractal
+	 */
 	public HashMap<String, String> getInformation() {
 
 		HashMap<String, String> informationMap = new HashMap<String, String>();

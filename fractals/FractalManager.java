@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import fractals.threads.Worker;
+import fractals.threading.ImageGenerator;
 import gui.FractalPanel;
 import util.Settings;
 
@@ -36,7 +36,7 @@ public class FractalManager {
 		loadDefaultFractals();
 		setDefaultFractal();
 
-		Worker.fractalManager = this;
+		ImageGenerator.fractalManager = this;
 
 	}
 
@@ -78,7 +78,7 @@ public class FractalManager {
 		g.drawImage(imageList[1], requestedWidth / 2, 1, null);
 		g.drawImage(imageList[2], 1, requestedHeight / 2, null);
 		g.drawImage(imageList[3], requestedWidth / 2, requestedHeight / 2, null);
-		
+
 		g.dispose();
 
 		fractalPanel.showImage(image);

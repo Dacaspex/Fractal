@@ -1,4 +1,4 @@
-package fractals.threads;
+package fractals.threading;
 
 import java.awt.image.BufferedImage;
 
@@ -6,7 +6,7 @@ import fractals.AbstractFractal;
 import fractals.FractalManager;
 import fractals.Scale;
 
-public class Worker extends Thread {
+public class ImageGenerator extends Thread {
 
 	private int width;
 	private int height;
@@ -18,7 +18,7 @@ public class Worker extends Thread {
 
 	public static FractalManager fractalManager;
 
-	public Worker(Scale scale, int width, int height, AbstractFractal fractal, int number) {
+	public ImageGenerator(Scale scale, int width, int height, AbstractFractal fractal, int number) {
 
 		this.scale = scale;
 		this.width = width;
@@ -31,13 +31,18 @@ public class Worker extends Thread {
 	public void run() {
 
 		BufferedImage image = fractal.generateImage(width, height, scale);
-		notifyDone(image);
+		finilize(image);
 
 	}
 
-	public void notifyDone(BufferedImage image) {
+	private void finilize(BufferedImage image) {
 
-		fractalManager.updateProgress(image, number);
+		synchronized (fractalManager) {
+
+			fractalManager.updateProgress(image, number);
+
+		}
+
 		this.interrupt();
 
 	}

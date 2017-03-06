@@ -106,7 +106,6 @@ public class JuliaFractal extends AbstractFractal {
 		}
 
 		lastEscapeComplexValue = currentValue;
-
 		return i;
 
 	}
