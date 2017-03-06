@@ -14,13 +14,17 @@ public class AnimatorQueue {
 		
 	}
 	
+	public void initAnimators(int framesPerSecond, int numberOfFrames, int currentFrameNumber) {
+		
+		AbstractAnimator.setFramesPerSecond(framesPerSecond);
+		AbstractAnimator.setNumberOfFrames(numberOfFrames);
+		AbstractAnimator.setCurrentFrameNumber(currentFrameNumber);
+		
+	}
+	
 	public void update(int currentFrameNumber) {
 		
-		for (AbstractAnimator animator : queue) {
-			
-			animator.setCurrentFrameNumber(currentFrameNumber);
-			
-		}
+		AbstractAnimator.setCurrentFrameNumber(currentFrameNumber);
 		
 	}
 	

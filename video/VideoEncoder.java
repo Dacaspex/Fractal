@@ -29,6 +29,13 @@ public class VideoEncoder {
 		
 	}
 	
+	public void initialize() {
+		
+		initEncoder();
+		animatorQueue.initAnimators(framesPerSecond, numberOfFrames, numberOfFrames);
+		
+	}
+	
 	public boolean initEncoder() {
 		
 		try {
