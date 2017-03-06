@@ -62,9 +62,9 @@ public class FractalManager {
 		BufferedImage image = new BufferedImage(requestedWidth, requestedHeight, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		
-		g.drawImage(imageList[0], 0, 0, null);
-		g.drawImage(imageList[1], requestedWidth / 2, 0, null);
-		g.drawImage(imageList[2], 0, requestedHeight / 2, null);
+		g.drawImage(imageList[0], 1, 1, null);
+		g.drawImage(imageList[1], requestedWidth / 2, 1, null);
+		g.drawImage(imageList[2], 1, requestedHeight / 2, null);
 		g.drawImage(imageList[3], requestedWidth / 2, requestedHeight / 2, null);
 		
 		fractalPanel.showImage(image);
