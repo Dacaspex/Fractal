@@ -4,7 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import fractals.threading.ImageGenerator;
+import fractals.threading.ImageGeneratorThread;
+import fractals.threading.ThreadFactory;
 import gui.FractalPanel;
 import util.Settings;
 
@@ -27,7 +28,7 @@ public class FractalManager {
 
 		fractalList = new HashMap<String, AbstractFractal>();
 		imageList = new BufferedImage[4];
-		// TODO Create threads dynamicly according to settings
+		// TODO Create threads dynamically according to settings
 		threadCount = 4; // Number of threads
 		requestedWidth = 0;
 		requestedHeight = 0;
@@ -36,7 +37,7 @@ public class FractalManager {
 		loadDefaultFractals();
 		setDefaultFractal();
 
-		ImageGenerator.fractalManager = this;
+		ImageGeneratorThread.fractalManager = this;
 
 	}
 

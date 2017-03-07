@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
-import fractals.threading.ImageGenerator;
+import fractals.threading.ThreadFactory;
 import util.Settings;
 
 public abstract class AbstractFractal {
@@ -51,24 +51,27 @@ public abstract class AbstractFractal {
 	 */
 	public void requestImage(int imageWidth, int imageHeight) {
 
-		// TODO make this more pretty...
-		ImageGenerator worker1 = new ImageGenerator(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
-		ImageGenerator worker2 = new ImageGenerator(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
-		ImageGenerator worker3 = new ImageGenerator(
-				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				imageWidth / 2, imageHeight / 2, this, 2);
-		ImageGenerator worker4 = new ImageGenerator(
-				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				imageWidth / 2, imageHeight / 2, this, 3);
-
-		worker1.start();
-		worker2.start();
-		worker3.start();
-		worker4.start();
+//		// TODO make this more pretty...
+//		ImageGeneratorThread worker1 = new ImageGeneratorThread(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
+//				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
+//		ImageGeneratorThread worker2 = new ImageGeneratorThread(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
+//				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
+//		ImageGeneratorThread worker3 = new ImageGeneratorThread(
+//				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
+//						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+//				imageWidth / 2, imageHeight / 2, this, 2);
+//		ImageGeneratorThread worker4 = new ImageGeneratorThread(
+//				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
+//						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
+//				imageWidth / 2, imageHeight / 2, this, 3);
+//
+//		worker1.start();
+//		worker2.start();
+//		worker3.start();
+//		worker4.start();
+		
+		ThreadFactory threadFactory = new ThreadFactory();
+		threadFactory.createThreads(9, scale, imageWidth, imageHeight, this);
 
 	}
 
