@@ -18,7 +18,7 @@ public class FractalManager {
 	private FractalPanel fractalPanel;
 
 	private BufferedImage[] imageList;
-	private int threadCount;
+	private int numberOfThreads;
 	private int requestedWidth;
 	private int requestedHeight;
 
@@ -28,8 +28,7 @@ public class FractalManager {
 
 		fractalList = new HashMap<String, AbstractFractal>();
 		imageList = new BufferedImage[4];
-		// TODO Create threads dynamically according to settings
-		threadCount = 4; // Number of threads
+		numberOfThreads = 4;
 		requestedWidth = 0;
 		requestedHeight = 0;
 		isGenerating = false;
@@ -48,7 +47,8 @@ public class FractalManager {
 			requestedWidth = width;
 			requestedHeight = height;
 			isGenerating = true;
-			selectedFractal.requestImage(width, height);
+			ThreadFactory threadFactory = new ThreadFactory(numberOfThreads);
+			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
 
@@ -57,12 +57,12 @@ public class FractalManager {
 	public void updateProgress(BufferedImage intermediateResult, int number) {
 
 		imageList[number] = intermediateResult;
-		threadCount--;
+		numberOfThreads--;
 
-		if (threadCount <= 0) {
+		if (numberOfThreads <= 0) {
 
 			// Reset counter for cleaner transitions, then stitch images
-			threadCount = 4;
+			numberOfThreads = 4;
 			stitchImages();
 			isGenerating = false;
 

@@ -5,29 +5,34 @@ import fractals.Scale;
 
 public class ThreadFactory {
 
+	private int numberOfThreads;
 	private ImageGeneratorThread[] threads;
+	
+	public ThreadFactory(int numberOfThreads) {
+		
+		this.numberOfThreads = numberOfThreads;
+		
+	}
 
-	public void createThreads(int amount, Scale scale, int width, int height, AbstractFractal fractal) {
+	public void createThreads(Scale scale, int width, int height, AbstractFractal fractal) {
 
-		threads = new ImageGeneratorThread[amount];
+		threads = new ImageGeneratorThread[numberOfThreads];
 		ImageGeneratorThread thread;
 
-		int partialWidth = (int) (width / Math.sqrt(amount));
-		int partialHeight = (int) (height / Math.sqrt(amount));
+		int partialWidth = (int) (width / Math.sqrt(numberOfThreads));
+		int partialHeight = (int) (height / Math.sqrt(numberOfThreads));
 
-		double xScaleStep = (scale.getxMax() - scale.getxMin()) / Math.sqrt(amount);
-		double yScaleStep = (scale.getyMax() - scale.getyMin()) / Math.sqrt(amount);
+		double xScaleStep = (scale.getxMax() - scale.getxMin()) / Math.sqrt(numberOfThreads);
+		double yScaleStep = (scale.getyMax() - scale.getyMin()) / Math.sqrt(numberOfThreads);
 
-		for (int i = 0; i < amount; i++) {
+		for (int i = 0; i < numberOfThreads; i++) {
 
-			int xFactor = Math.floorMod(i, (int) Math.sqrt(amount));
-			int yFactor = Math.floorDiv(i, (int) Math.sqrt(amount));
+			int xFactor = Math.floorMod(i, (int) Math.sqrt(numberOfThreads));
+			int yFactor = Math.floorDiv(i, (int) Math.sqrt(numberOfThreads));
 
 			Scale _scale = new Scale(scale.getxMin() + xFactor * xScaleStep,
 					scale.getxMin() + (xFactor + 1) * xScaleStep, scale.getyMin() + yFactor * yScaleStep,
 					scale.getyMin() + (yFactor + 1) * yScaleStep);
-			
-			_scale.debugOut();
 
 			thread = new ImageGeneratorThread(_scale, partialWidth, partialHeight, fractal, i);
 			thread.start();
@@ -39,7 +44,7 @@ public class ThreadFactory {
 
 	public void destroyThreads() {
 
-		this.threads = new ImageGeneratorThread[0];
+		this.threads = null;
 
 	}
 

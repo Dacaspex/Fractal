@@ -44,34 +44,17 @@ public abstract class AbstractFractal {
 	 * into smaller tasks using threads for better performance. This only starts
 	 * the threads and does not yet yield any image.
 	 * 
+	 * @param threadFactory
+	 *            Specify which thread factory to use in order to render the
+	 *            image
 	 * @param imageWidth
 	 *            The requested image width
 	 * @param imageHeight
 	 *            The requested image height
 	 */
-	public void requestImage(int imageWidth, int imageHeight) {
+	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
 
-//		// TODO make this more pretty...
-//		ImageGeneratorThread worker1 = new ImageGeneratorThread(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-//				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
-//		ImageGeneratorThread worker2 = new ImageGeneratorThread(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-//				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
-//		ImageGeneratorThread worker3 = new ImageGeneratorThread(
-//				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-//						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-//				imageWidth / 2, imageHeight / 2, this, 2);
-//		ImageGeneratorThread worker4 = new ImageGeneratorThread(
-//				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-//						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-//				imageWidth / 2, imageHeight / 2, this, 3);
-//
-//		worker1.start();
-//		worker2.start();
-//		worker3.start();
-//		worker4.start();
-		
-		ThreadFactory threadFactory = new ThreadFactory();
-		threadFactory.createThreads(9, scale, imageWidth, imageHeight, this);
+		threadFactory.createThreads(scale, imageWidth, imageHeight, this);
 
 	}
 
