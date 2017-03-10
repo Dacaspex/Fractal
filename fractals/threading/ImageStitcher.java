@@ -13,7 +13,7 @@ public class ImageStitcher {
 		int xScaleStep = (int) (width / Math.sqrt(images.length));
 		int yScaleStep = (int) (height / Math.sqrt(images.length));
 		
-		for (int i = 0; i < (int) Math.sqrt(images.length); i++) {
+		for (int i = 0; i < images.length; i++) {
 			
 			int xFactor = Math.floorMod(i, (int) Math.sqrt(images.length));
 			int yFactor = Math.floorDiv(i, (int) Math.sqrt(images.length));

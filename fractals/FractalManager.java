@@ -27,8 +27,8 @@ public class FractalManager {
 	public FractalManager() {
 
 		fractalList = new HashMap<String, AbstractFractal>();
-		imageList = new BufferedImage[4];
-		numberOfThreads = 4;
+		imageList = new BufferedImage[9];
+		numberOfThreads = 9;
 		requestedWidth = 0;
 		requestedHeight = 0;
 		isGenerating = false;
@@ -62,7 +62,7 @@ public class FractalManager {
 		if (numberOfThreads <= 0) {
 
 			// Reset counter for cleaner transitions, then stitch images
-			numberOfThreads = 4;
+			numberOfThreads = 9;
 			stitchImages();
 			isGenerating = false;
 
