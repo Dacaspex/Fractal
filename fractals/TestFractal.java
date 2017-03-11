@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 public class TestFractal extends AbstractFractal {
 
 	@Override
-	public BufferedImage getImage(int imageWidth, int imageHeight) {
+	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
 		
 		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 		

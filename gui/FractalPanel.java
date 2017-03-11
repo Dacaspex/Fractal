@@ -42,9 +42,15 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	public void draw() {
 		
-		image = fractalManager.generateImage(getWidth(), getHeight());
-		repaint();
+		fractalManager.requestImage(getWidth(), getHeight());
 
+	}
+	
+	public void showImage(BufferedImage image) {
+		
+		this.image = image;
+		repaint();
+		
 	}
 
 	public void zoomIn(Point centerPoint) {

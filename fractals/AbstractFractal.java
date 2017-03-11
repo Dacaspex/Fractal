@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
+import fractals.threading.ThreadFactory;
 import util.Settings;
 
 public abstract class AbstractFractal {
@@ -39,17 +40,39 @@ public abstract class AbstractFractal {
 	}
 
 	/**
-	 * This method returns the image that should be rendered based of the
-	 * scaling and screen width and height. The implementation differs per
-	 * fractal.
+	 * Handles the request for an image. It separates the task of generating
+	 * into smaller tasks using threads for better performance. This only starts
+	 * the threads and does not yet yield any image.
 	 * 
+	 * @param threadFactory
+	 *            Specify which thread factory to use in order to render the
+	 *            image
 	 * @param imageWidth
-	 *            The width of the output image
+	 *            The requested image width
 	 * @param imageHeight
-	 *            The height of the output image
-	 * @return Returns an image with the current scale.
+	 *            The requested image height
 	 */
-	public abstract BufferedImage getImage(int imageWidth, int imageHeight);
+	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
+
+		threadFactory.createThreads(scale, imageWidth, imageHeight, this);
+
+	}
+
+	/**
+	 * Method to be implemented that should generate an image of the fractal
+	 * using the given dimensions and scale. Not this scale is smaller or equal
+	 * to the normal scale since this method is being called from a method that
+	 * only has partial work.
+	 * 
+	 * @param imagewidth
+	 *            The width of the image
+	 * @param imageHeight
+	 *            The height of the image
+	 * @param scale
+	 *            The scale to use
+	 * @return An image with the fractal rendered on top of it
+	 */
+	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Scale scale);
 
 	/**
 	 * Loads the default settings from the settings xml file. By default it only
@@ -76,19 +99,22 @@ public abstract class AbstractFractal {
 		scale = new Scale(xMin, xMax, yMin, yMax);
 
 	}
-	
+
+	/**
+	 * @return A HashMap with information about the fractal
+	 */
 	public HashMap<String, String> getInformation() {
-		
+
 		HashMap<String, String> informationMap = new HashMap<String, String>();
-		
+
 		informationMap.put("Name", name);
 		informationMap.put("X-min", Double.toString(scale.getxMin()));
 		informationMap.put("X-max", Double.toString(scale.getxMax()));
 		informationMap.put("Y-min", Double.toString(scale.getyMin()));
 		informationMap.put("Y-max", Double.toString(scale.getyMax()));
-		
+
 		return informationMap;
-		
+
 	}
 
 }

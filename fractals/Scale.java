@@ -182,5 +182,11 @@ public class Scale {
 		return new Scale(0, windowWith, 0, windowHeight);
 
 	}
+	
+	public void debugOut() {
+		
+		System.out.println("xMin: " + xMin + " xMax: " + xMax + " yMin: " + yMin + " yMax: " + yMax);
+		
+	}
 
 }
