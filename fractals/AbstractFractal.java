@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
-import fractals.threading.ImageGenerator;
+import fractals.threading.ThreadFactory;
 import util.Settings;
 
 public abstract class AbstractFractal {
@@ -44,31 +44,17 @@ public abstract class AbstractFractal {
 	 * into smaller tasks using threads for better performance. This only starts
 	 * the threads and does not yet yield any image.
 	 * 
+	 * @param threadFactory
+	 *            Specify which thread factory to use in order to render the
+	 *            image
 	 * @param imageWidth
 	 *            The requested image width
 	 * @param imageHeight
 	 *            The requested image height
 	 */
-	public void requestImage(int imageWidth, int imageHeight) {
+	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
 
-		// TODO make this more pretty...
-		ImageGenerator worker1 = new ImageGenerator(new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 0);
-		ImageGenerator worker2 = new ImageGenerator(new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-				scale.getyMin(), (scale.getyMax() + scale.getyMin()) / 2), imageWidth / 2, imageHeight / 2, this, 1);
-		ImageGenerator worker3 = new ImageGenerator(
-				new Scale(scale.getxMin(), (scale.getxMax() + scale.getxMin()) / 2,
-						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				imageWidth / 2, imageHeight / 2, this, 2);
-		ImageGenerator worker4 = new ImageGenerator(
-				new Scale((scale.getxMax() + scale.getxMin()) / 2, scale.getxMax(),
-						(scale.getyMax() + scale.getyMin()) / 2, scale.getyMax()),
-				imageWidth / 2, imageHeight / 2, this, 3);
-
-		worker1.start();
-		worker2.start();
-		worker3.start();
-		worker4.start();
+		threadFactory.createThreads(scale, imageWidth, imageHeight, this);
 
 	}
 

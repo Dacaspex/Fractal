@@ -6,7 +6,7 @@ import fractals.AbstractFractal;
 import fractals.FractalManager;
 import fractals.Scale;
 
-public class ImageGenerator extends Thread {
+public class ImageGeneratorThread extends Thread {
 
 	private int width;
 	private int height;
@@ -18,7 +18,7 @@ public class ImageGenerator extends Thread {
 
 	public static FractalManager fractalManager;
 
-	public ImageGenerator(Scale scale, int width, int height, AbstractFractal fractal, int number) {
+	public ImageGeneratorThread(Scale scale, int width, int height, AbstractFractal fractal, int number) {
 
 		this.scale = scale;
 		this.width = width;

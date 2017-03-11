@@ -1,10 +1,11 @@
 package fractals;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-import fractals.threading.ImageGenerator;
+import fractals.threading.ImageGeneratorThread;
+import fractals.threading.ImageStitcher;
+import fractals.threading.ThreadFactory;
 import gui.FractalPanel;
 import util.Settings;
 
@@ -17,26 +18,24 @@ public class FractalManager {
 	private FractalPanel fractalPanel;
 
 	private BufferedImage[] imageList;
-	private int threadCount;
 	private int requestedWidth;
 	private int requestedHeight;
+
+	private int threadsRunning;
+	private final int NUMBER_OF_THREADS = 9;
 
 	private boolean isGenerating;
 
 	public FractalManager() {
 
 		fractalList = new HashMap<String, AbstractFractal>();
-		imageList = new BufferedImage[4];
-		// TODO Create threads dynamicly according to settings
-		threadCount = 4; // Number of threads
-		requestedWidth = 0;
-		requestedHeight = 0;
+		imageList = new BufferedImage[NUMBER_OF_THREADS];
 		isGenerating = false;
 
 		loadDefaultFractals();
 		setDefaultFractal();
 
-		ImageGenerator.fractalManager = this;
+		ImageGeneratorThread.fractalManager = this;
 
 	}
 
@@ -47,7 +46,9 @@ public class FractalManager {
 			requestedWidth = width;
 			requestedHeight = height;
 			isGenerating = true;
-			selectedFractal.requestImage(width, height);
+			threadsRunning = NUMBER_OF_THREADS;
+			ThreadFactory threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
+			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
 
@@ -56,12 +57,11 @@ public class FractalManager {
 	public void updateProgress(BufferedImage intermediateResult, int number) {
 
 		imageList[number] = intermediateResult;
-		threadCount--;
+		threadsRunning--;
 
-		if (threadCount <= 0) {
+		if (threadsRunning <= 0) {
 
 			// Reset counter for cleaner transitions, then stitch images
-			threadCount = 4;
 			stitchImages();
 			isGenerating = false;
 
@@ -70,19 +70,11 @@ public class FractalManager {
 	}
 
 	public void stitchImages() {
-
-		BufferedImage image = new BufferedImage(requestedWidth, requestedHeight, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = (Graphics2D) image.getGraphics();
-
-		g.drawImage(imageList[0], 1, 1, null);
-		g.drawImage(imageList[1], requestedWidth / 2, 1, null);
-		g.drawImage(imageList[2], 1, requestedHeight / 2, null);
-		g.drawImage(imageList[3], requestedWidth / 2, requestedHeight / 2, null);
-
-		g.dispose();
-
-		fractalPanel.showImage(image);
-
+		
+		ImageStitcher imageStitcher = new ImageStitcher();
+		BufferedImage result = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
+		fractalPanel.showImage(result);
+		
 	}
 
 	/**
