@@ -1,6 +1,6 @@
-package video;
+package video.animation.animators;
 
-public abstract class Animator {
+public abstract class AbstractAnimator {
 	
 	/**
 	 * The frames per second defined by the video encoder
@@ -25,7 +25,7 @@ public abstract class Animator {
 
 	public static void setFramesPerSecond(int framesPerSecond) {
 		
-		Animator.framesPerSecond = framesPerSecond;
+		AbstractAnimator.framesPerSecond = framesPerSecond;
 		
 	}
 
@@ -37,7 +37,7 @@ public abstract class Animator {
 
 	public static void setNumberOfFrames(int numberOfFrames) {
 		
-		Animator.numberOfFrames = numberOfFrames;
+		AbstractAnimator.numberOfFrames = numberOfFrames;
 		
 	}
 
@@ -49,7 +49,7 @@ public abstract class Animator {
 
 	public static void setCurrentFrameNumber(int currentFrameNumber) {
 		
-		Animator.currentFrameNumber = currentFrameNumber;
+		AbstractAnimator.currentFrameNumber = currentFrameNumber;
 		
 	}
 

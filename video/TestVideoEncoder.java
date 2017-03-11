@@ -1,0 +1,83 @@
+package video;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import org.jcodec.api.SequenceEncoder8Bit;
+import org.jcodec.common.io.NIOUtils;
+import org.jcodec.common.model.Picture8Bit;
+import org.jcodec.common.model.Rational;
+import org.jcodec.scale.AWTUtil;
+
+import fractals.JuliaFractal;
+import video.animation.animators.AbstractAnimator;
+
+public class TestVideoEncoder {
+
+	private SequenceEncoder8Bit encoder;
+
+	private int framesPerSecond;
+	private int numberOfFrames;
+
+	private String directory;
+
+	private JuliaFractal fractal;
+
+	private AbstractAnimator animator;
+
+	public TestVideoEncoder() {
+
+		framesPerSecond = 10;
+		numberOfFrames = 100;
+		encoder = null;
+		fractal = new JuliaFractal();
+		directory = "";
+		animator = new TestAnimator(fractal);
+
+		initEncoder();
+
+	}
+
+	public void initEncoder() {
+
+		try {
+
+			encoder = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File(directory + "test.mp4")),
+					Rational.R(framesPerSecond, 1));
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}
+
+	}
+
+	public void render() throws IOException {
+
+		BufferedImage rawImage;
+		Picture8Bit picture;
+
+		long time;
+
+		for (int i = 0; i < numberOfFrames; i++) {
+
+			System.out.println("frame number: " + i);
+			time = System.currentTimeMillis();
+
+			animator.animate();
+			rawImage = fractal.getImage(1000, 1000);
+			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
+			encoder.encodeNativeFrame(picture);
+
+			System.out.println("Finished in: " + (System.currentTimeMillis() - time));
+			System.out.println();
+
+		}
+
+		encoder.finish();
+
+	}
+
+}

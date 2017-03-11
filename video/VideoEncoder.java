@@ -7,36 +7,37 @@ import org.jcodec.api.SequenceEncoder8Bit;
 import org.jcodec.common.io.NIOUtils;
 import org.jcodec.common.model.Rational;
 
-import fractals.JuliaFractal;
+import video.animation.AnimatorQueue;
 
 public class VideoEncoder {
-
+	
 	private SequenceEncoder8Bit encoder;
-
+	
 	private int framesPerSecond;
 	private int numberOfFrames;
-
+	private int currentFrameNumber;
+	
 	private String directory;
-
-	private JuliaFractal fractal;
-
-	private Animator animator;
-
-	public VideoEncoder() {
-
-		framesPerSecond = 10;
-		numberOfFrames = 100;
-		encoder = null;
-		fractal = new JuliaFractal();
-		directory = "";
-		animator = new TestAnimator(fractal);
-
-		initEncoder();
-
+	
+	private AnimatorQueue animatorQueue;
+	
+	public VideoEncoder(int framesPerSecond, int numberOfFrames, String directory) {
+		
+		this.framesPerSecond = framesPerSecond;
+		this.numberOfFrames = numberOfFrames;
+		this.directory = directory;
+		
 	}
-
-	public void initEncoder() {
-
+	
+	public void initialize() {
+		
+		initEncoder();
+		animatorQueue.initAnimators(framesPerSecond, numberOfFrames, numberOfFrames);
+		
+	}
+	
+	public boolean initEncoder() {
+		
 		try {
 
 			encoder = new SequenceEncoder8Bit(NIOUtils.writableChannel(new File(directory + "test.mp4")),
@@ -45,35 +46,18 @@ public class VideoEncoder {
 		} catch (IOException e) {
 
 			e.printStackTrace();
+			return false;
 
 		}
-
+		
+		return true;
+		
 	}
-
-	public void render() throws IOException {
-
-//		BufferedImage rawImage;
-//		Picture8Bit picture;
-
-		long time;
-
-		for (int i = 0; i < numberOfFrames; i++) {
-
-			System.out.println("frame number: " + i);
-			time = System.currentTimeMillis();
-
-			animator.animate();
-//			rawImage = fractal.getImage(1000, 1000);
-//			picture = AWTUtil.fromBufferedImageRGB8Bit(rawImage);
-//			encoder.encodeNativeFrame(picture);
-
-			System.out.println("Finished in: " + (System.currentTimeMillis() - time));
-			System.out.println();
-
-		}
-
-		encoder.finish();
-
+	
+	public void updateAnimators() {
+		
+		animatorQueue.update(currentFrameNumber);
+		
 	}
 
 }
