@@ -43,6 +43,9 @@ public class FractalManager {
 	public void requestImage(int width, int height) {
 
 		if (!isGenerating) {
+			
+			System.out.println("Request width: " + width);
+			System.out.println("Request height: " + height);
 
 			requestedWidth = width;
 			requestedHeight = height;
