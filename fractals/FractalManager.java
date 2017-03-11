@@ -18,19 +18,18 @@ public class FractalManager {
 	private FractalPanel fractalPanel;
 
 	private BufferedImage[] imageList;
-	private int numberOfThreads;
 	private int requestedWidth;
 	private int requestedHeight;
+
+	private int threadsRunning;
+	private final int NUMBER_OF_THREADS = 9;
 
 	private boolean isGenerating;
 
 	public FractalManager() {
 
 		fractalList = new HashMap<String, AbstractFractal>();
-		imageList = new BufferedImage[9];
-		numberOfThreads = 9;
-		requestedWidth = 0;
-		requestedHeight = 0;
+		imageList = new BufferedImage[NUMBER_OF_THREADS];
 		isGenerating = false;
 
 		loadDefaultFractals();
@@ -43,14 +42,12 @@ public class FractalManager {
 	public void requestImage(int width, int height) {
 
 		if (!isGenerating) {
-			
-			System.out.println("Request width: " + width);
-			System.out.println("Request height: " + height);
 
 			requestedWidth = width;
 			requestedHeight = height;
 			isGenerating = true;
-			ThreadFactory threadFactory = new ThreadFactory(numberOfThreads);
+			threadsRunning = NUMBER_OF_THREADS;
+			ThreadFactory threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
 			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
@@ -60,12 +57,11 @@ public class FractalManager {
 	public void updateProgress(BufferedImage intermediateResult, int number) {
 
 		imageList[number] = intermediateResult;
-		numberOfThreads--;
+		threadsRunning--;
 
-		if (numberOfThreads <= 0) {
+		if (threadsRunning <= 0) {
 
 			// Reset counter for cleaner transitions, then stitch images
-			numberOfThreads = 9;
 			stitchImages();
 			isGenerating = false;
 
@@ -74,18 +70,6 @@ public class FractalManager {
 	}
 
 	public void stitchImages() {
-
-//		BufferedImage image = new BufferedImage(requestedWidth, requestedHeight, BufferedImage.TYPE_INT_RGB);
-//		Graphics2D g = (Graphics2D) image.getGraphics();
-//
-//		g.drawImage(imageList[0], 1, 1, null);
-//		g.drawImage(imageList[1], requestedWidth / 2, 1, null);
-//		g.drawImage(imageList[2], 1, requestedHeight / 2, null);
-//		g.drawImage(imageList[3], requestedWidth / 2, requestedHeight / 2, null);
-//
-//		g.dispose();
-//
-//		fractalPanel.showImage(image);
 		
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage result = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
