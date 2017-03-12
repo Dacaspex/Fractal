@@ -5,6 +5,20 @@ import java.awt.image.BufferedImage;
 
 public class ImageStitcher {
 
+	/**
+	 * This method stitches an array of images into a bigger image containing
+	 * these images. It will do this in a raster format defined by the number of
+	 * threads.
+	 * 
+	 * @param images
+	 *            THe array of images that need to be stitched
+	 * @param width
+	 *            The result image width
+	 * @param height
+	 *            The result image height
+	 * @return An image of width * height made up from the images in the images
+	 *         array
+	 */
 	public BufferedImage stitchImages(BufferedImage[] images, int width, int height) {
 
 		BufferedImage resultImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

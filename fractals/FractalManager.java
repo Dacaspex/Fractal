@@ -21,6 +21,7 @@ public class FractalManager {
 	private int requestedWidth;
 	private int requestedHeight;
 
+	private ThreadFactory threadFactory;
 	private int threadsRunning;
 	private final int NUMBER_OF_THREADS = 9;
 
@@ -47,7 +48,7 @@ public class FractalManager {
 			requestedHeight = height;
 			isGenerating = true;
 			threadsRunning = NUMBER_OF_THREADS;
-			ThreadFactory threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
+			threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
 			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
@@ -59,7 +60,11 @@ public class FractalManager {
 		imageList[number] = intermediateResult;
 		threadsRunning--;
 
+		// All threads are done
 		if (threadsRunning <= 0) {
+			
+			// Hard kill threads
+			threadFactory.killThreads();
 
 			// Reset counter for cleaner transitions, then stitch images
 			stitchImages();
