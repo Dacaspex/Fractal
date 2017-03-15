@@ -60,7 +60,7 @@ public class FractalManager {
 		imageList[number] = intermediateResult;
 		threadsRunning--;
 
-		// All threads are done
+		// All threads are done	
 		if (threadsRunning <= 0) {
 			
 			// Hard kill threads
