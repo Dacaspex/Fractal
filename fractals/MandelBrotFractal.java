@@ -5,7 +5,9 @@ import java.awt.image.BufferedImage;
 import org.w3c.dom.Element;
 
 import complex.Complex;
+import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.MandelbrotColorScheme;
+import fractals.colorSchemes.ColorSchemeManager.ColorSchemeSettings;
 import util.Settings;
 
 public class MandelBrotFractal extends AbstractFractal {
@@ -13,14 +15,14 @@ public class MandelBrotFractal extends AbstractFractal {
 	private int maxIterations;
 	private double escapeValue;
 	
-	private MandelbrotColorScheme mandleBrotColoring;
-	
 	public MandelBrotFractal() {
 		
 		name = "Mandelbrot Set";
-		mandleBrotColoring = new MandelbrotColorScheme();
+		colorSchemeManager = new ColorSchemeManager();
 		
 		loadDefaultSettings();
+		
+		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeSettings.SET_AS_ACTIVE);;
 		
 	}
 
@@ -42,7 +44,7 @@ public class MandelBrotFractal extends AbstractFractal {
 				Complex constant = new Complex(x, y);
 				
 				int escapeNumber = getEscapeValue(constant);
-				int colorValue = mandleBrotColoring.getRGBValue(escapeNumber);
+				int colorValue = colorSchemeManager.getActiveColorScheme().getRGBValue(escapeNumber);
 				image.setRGB((int) j, (int) i, colorValue);
 
 			}

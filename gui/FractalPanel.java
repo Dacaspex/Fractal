@@ -54,7 +54,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	}
 
 	public void zoomIn(Point centerPoint) {
-
+		
 		double zoomFactor = 3.0;
 		
 		Scale fractalScale = fractalManager.getSelectedFractal().getScale();

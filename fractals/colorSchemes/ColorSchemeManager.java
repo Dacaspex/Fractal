@@ -6,13 +6,13 @@ public class ColorSchemeManager {
 	
 	public enum ColorSchemeSettings {
 		
-		SET_AS_CURRENT
+		SET_AS_ACTIVE
 		
 	}
 
 	protected HashMap<String, AbstractColorScheme> availableColorSchemes;
 
-	protected AbstractColorScheme colorScheme;
+	protected AbstractColorScheme activeColorScheme;
 
 	public ColorSchemeManager() {
 
@@ -20,15 +20,21 @@ public class ColorSchemeManager {
 
 	}
 
-	public AbstractColorScheme getColorScheme() {
+	public AbstractColorScheme getActiveColorScheme() {
 
-		return colorScheme;
+		return activeColorScheme;
 
 	}
+	
+	public AbstractColorScheme getColorScheme(String identifier) {
+		
+		return availableColorSchemes.get(identifier);
+		
+	}
 
-	public void setColorScheme(String identifier) {
+	public void setActiveColorScheme(String identifier) {
 
-		colorScheme = availableColorSchemes.get(identifier);
+		activeColorScheme = availableColorSchemes.get(identifier);
 
 	}
 
@@ -49,14 +55,12 @@ public class ColorSchemeManager {
 
 		availableColorSchemes.put(colorScheme.getIdentifier(), colorScheme);
 		
-		if (setting == ColorSchemeSettings.SET_AS_CURRENT) {
+		if (setting == ColorSchemeSettings.SET_AS_ACTIVE) {
 			
-			setColorScheme(colorScheme.getIdentifier());
+			setActiveColorScheme(colorScheme.getIdentifier());
 			
 		}
 
 	}
-	
-	
 
 }

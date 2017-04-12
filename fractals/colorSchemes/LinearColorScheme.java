@@ -11,6 +11,9 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	public LinearColorScheme(boolean loadDefaultColors, int steps) {
 
+		identifier = "LinearColorScheme1";
+		name = "Linear Color Scheme";
+		
 		this.steps = steps;
 
 		if (loadDefaultColors) {
@@ -23,6 +26,9 @@ public class LinearColorScheme extends AbstractColorScheme {
 	}
 
 	public LinearColorScheme(boolean loadDefaultColors) {
+		
+		identifier = "LinearColorScheme1";
+		name = "Linear Color Scheme";
 
 		if (loadDefaultColors) {
 
@@ -56,6 +62,19 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 		this.steps = steps;
 
+	}
+	
+	public void setSteps(int steps, boolean generateGradientMap) {
+		
+		this.steps = steps;
+		
+		if (generateGradientMap) {
+			
+			System.out.println("test");
+			generateGradientMap();
+			
+		}
+		
 	}
 
 	/**

@@ -3,6 +3,13 @@ package fractals.colorSchemes;
 import java.awt.Color;
 
 public class JuliaColorScheme extends AbstractColorScheme {
+	
+	public JuliaColorScheme() {
+		
+		identifier = "JuliaColorScheme1";
+		name = "Julia Color Scheme";
+		
+	}
 
 	public int getRGBValue(double continuousIndex) {
 

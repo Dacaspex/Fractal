@@ -23,11 +23,12 @@ public class JuliaFractal extends AbstractFractal {
 
 		name = "Julia Set";
 		lastEscapeComplexValue = new Complex();
-		
 		colorSchemeManager = new ColorSchemeManager();
-		colorSchemeManager.addColorScheme(new JuliaColorScheme());
-		
+
 		loadDefaultSettings();
+
+		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
+		colorSchemeManager.addColorScheme(new JuliaColorScheme(), ColorSchemeSettings.SET_AS_ACTIVE);
 
 	}
 
@@ -40,6 +41,7 @@ public class JuliaFractal extends AbstractFractal {
 	public void setMaxIterations(int maxIterations) {
 
 		this.maxIterations = maxIterations;
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setSteps(maxIterations, true);
 
 	}
 
@@ -71,11 +73,22 @@ public class JuliaFractal extends AbstractFractal {
 				double y = scale.getyMin() + i * yTransformFactor;
 
 				int escapeNumber = getEscapeNumber(new Complex(x, y));
+				int colorValue = 0;
 
-				double continuousIndex = escapeNumber + 1
-						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+				switch (colorSchemeManager.getActiveColorScheme().getIdentifier()) {
 
-				int colorValue = getRGBValue(escapeNumber);
+				case "JuliaColorScheme1":
+					double continuousIndex = escapeNumber + 1
+							- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+					colorValue = getRGBValue(continuousIndex);
+					break;
+
+				case "LinearColorScheme1":
+					colorValue = getRGBValue(escapeNumber);
+					break;
+
+				}
+
 				image.setRGB((int) j, (int) i, colorValue);
 
 			}
@@ -104,7 +117,7 @@ public class JuliaFractal extends AbstractFractal {
 
 	public int getRGBValue(double continuousIndex) {
 
-		return colorSchemeManager.getColorScheme().getRGBValue(continuousIndex);
+		return colorSchemeManager.getActiveColorScheme().getRGBValue(continuousIndex);
 
 	}
 
