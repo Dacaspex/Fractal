@@ -1,10 +1,12 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -22,8 +24,6 @@ public class Display extends JFrame {
 	private final int DEFAULT_DISPLAY_HEIGHT;
 
 	private FractalManager fractalManager;
-
-	private FractalPanel fractalPanel;
 
 	public Display() {
 
@@ -43,15 +43,22 @@ public class Display extends JFrame {
 
 	}
 
-	public void buildGUI() {
+	private void buildGUI() {
 
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
+		
+		buildTopMenu();
+		buildMainPanels();
+		
+		pack();
+		setVisible(true);
 
-		fractalPanel = new FractalPanel(fractalManager);
-		add(fractalPanel);
-
+	}
+	
+	private void buildTopMenu() {
+		
 		JMenuBar menuBar = new JMenuBar();
 
 		// File menu
@@ -79,12 +86,21 @@ public class Display extends JFrame {
 		menuBar.add(aboutMenu);
 
 		setJMenuBar(menuBar);
-
-		pack();
-		setVisible(true);
-
+		
 	}
 
+	private void buildMainPanels() {
+		
+		JPanel explorerPanel = new JPanel(new BorderLayout());
+		JPanel settingsPanel = new SettingsPanel();
+		FractalPanel fractalPanel = new FractalPanel(fractalManager);
+		
+		explorerPanel.add(settingsPanel, BorderLayout.LINE_START);
+		explorerPanel.add(fractalPanel);
+		add(explorerPanel);
+		
+	}
+	
 	public void setLookAndFeel(String className) {
 
 		try {

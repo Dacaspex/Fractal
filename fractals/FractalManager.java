@@ -3,6 +3,7 @@ package fractals;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import fractals.postImageProcessing.PostImageProcessor;
 import fractals.threading.ImageGeneratorThread;
 import fractals.threading.ImageStitcher;
 import fractals.threading.ThreadFactory;
@@ -77,8 +78,11 @@ public class FractalManager {
 	public void stitchImages() {
 		
 		ImageStitcher imageStitcher = new ImageStitcher();
-		BufferedImage result = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
-		fractalPanel.showImage(result);
+		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
+		
+		PostImageProcessor postImageProcessor = new PostImageProcessor();
+		
+		fractalPanel.showImage(resultImage);
 		
 	}
 
