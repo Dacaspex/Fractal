@@ -3,7 +3,7 @@ package fractals.colorSchemes;
 import java.awt.Color;
 import java.util.Arrays;
 
-public class LinearColorScheme {
+public class LinearColorScheme extends AbstractColorScheme {
 
 	private Color[] colorArray;
 	private int[] gradientMap;

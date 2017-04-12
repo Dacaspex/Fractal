@@ -3,26 +3,31 @@ package fractals.colorSchemes;
 public abstract class AbstractColorScheme {
 
 	/**
-	 * Unique name of the color scheme to distinguish between different color
+	 * Unique identifier of the color scheme to distinguish between different color
 	 * schemes.
+	 */
+	protected String identifier;
+	
+	/**
+	 * Name to be displayed on the GUI
 	 */
 	protected String name;
 
+	public String getIdentifier() {
+		
+		return identifier;
+		
+	}
+	
 	public String getName() {
 
-		return name;
+		return identifier;
 
 	}
 
 	/**
-	 * This method should return a integer RGB value for the pixel on the image.
-	 * This can be calculated with a number of different parameters, hence the
-	 * Object list. Objects should be cast to their corresponding type and can
-	 * then be used
-	 * 
-	 * @param object The list of parameters on which the color depends
-	 * @return Returns an integer value of a RGB color. 
+	 * TODO write documentation
 	 */
-	public abstract int getRGBValue(Object[] object);
+	public abstract int getRGBValue(double value);
 
 }

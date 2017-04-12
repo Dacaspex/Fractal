@@ -19,10 +19,6 @@ public class TestAnimator extends AbstractAnimator {
 		int max = fractal.getMaxIterations();
 		fractal.setMaxIterations(max + 10);
 		
-		JuliaColorScheme coloring = fractal.getJuliaColoring();
-		coloring.setSteps(max + 10);
-		coloring.generateGradientMap();
-		
 	}
 
 }

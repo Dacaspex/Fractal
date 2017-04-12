@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.w3c.dom.Element;
 
+import fractals.colorSchemes.ColorSchemeManager;
 import fractals.threading.ThreadFactory;
 import util.Settings;
 
@@ -20,6 +21,8 @@ public abstract class AbstractFractal {
 	 * Scaling used to determine where to draw the fractal.
 	 */
 	protected Scale scale;
+	
+	protected ColorSchemeManager colorSchemeManager;
 
 	public String getName() {
 
@@ -37,6 +40,12 @@ public abstract class AbstractFractal {
 
 		this.scale = scale;
 
+	}
+	
+	public ColorSchemeManager getColorSchemeManager() {
+		
+		return colorSchemeManager;
+		
 	}
 
 	/**

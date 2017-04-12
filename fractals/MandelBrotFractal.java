@@ -42,7 +42,7 @@ public class MandelBrotFractal extends AbstractFractal {
 				Complex constant = new Complex(x, y);
 				
 				int escapeNumber = getEscapeValue(constant);
-				int colorValue = mandleBrotColoring.getRGBValue(new Object[] {escapeNumber});
+				int colorValue = mandleBrotColoring.getRGBValue(escapeNumber);
 				image.setRGB((int) j, (int) i, colorValue);
 
 			}

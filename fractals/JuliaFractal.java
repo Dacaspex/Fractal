@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 import org.w3c.dom.Element;
 
 import complex.Complex;
+import fractals.colorSchemes.ColorSchemeManager;
+import fractals.colorSchemes.ColorSchemeManager.ColorSchemeSettings;
 import fractals.colorSchemes.JuliaColorScheme;
+import fractals.colorSchemes.LinearColorScheme;
 import util.Settings;
 
 public class JuliaFractal extends AbstractFractal {
@@ -13,16 +16,17 @@ public class JuliaFractal extends AbstractFractal {
 	private Complex constant;
 	private int maxIterations;
 	private double escapeValue;
-	private JuliaColorScheme juliaColoring;
 
 	private Complex lastEscapeComplexValue;
 
 	public JuliaFractal() {
 
 		name = "Julia Set";
-		juliaColoring = new JuliaColorScheme(true, 512);
 		lastEscapeComplexValue = new Complex();
-
+		
+		colorSchemeManager = new ColorSchemeManager();
+		colorSchemeManager.addColorScheme(new JuliaColorScheme());
+		
 		loadDefaultSettings();
 
 	}
@@ -51,18 +55,6 @@ public class JuliaFractal extends AbstractFractal {
 
 	}
 
-	public JuliaColorScheme getJuliaColoring() {
-
-		return juliaColoring;
-
-	}
-
-	public void setJuliaColoring(JuliaColorScheme juliaColoring) {
-
-		this.juliaColoring = juliaColoring;
-
-	}
-
 	@Override
 	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
 
@@ -83,7 +75,7 @@ public class JuliaFractal extends AbstractFractal {
 				double continuousIndex = escapeNumber + 1
 						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
 
-				int colorValue = getRGBValue(continuousIndex);
+				int colorValue = getRGBValue(escapeNumber);
 				image.setRGB((int) j, (int) i, colorValue);
 
 			}
@@ -112,7 +104,7 @@ public class JuliaFractal extends AbstractFractal {
 
 	public int getRGBValue(double continuousIndex) {
 
-		return juliaColoring.getRGBValue(continuousIndex);
+		return colorSchemeManager.getColorScheme().getRGBValue(continuousIndex);
 
 	}
 

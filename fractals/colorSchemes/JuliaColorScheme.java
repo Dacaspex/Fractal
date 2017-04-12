@@ -2,21 +2,8 @@ package fractals.colorSchemes;
 
 import java.awt.Color;
 
-public class JuliaColorScheme extends LinearColorScheme {
+public class JuliaColorScheme extends AbstractColorScheme {
 
-	public JuliaColorScheme(boolean loadDefaultColors, int steps) {
-
-		super(loadDefaultColors, steps);
-
-	}
-
-	public JuliaColorScheme(int steps) {
-
-		super(steps);
-
-	}
-
-	@Override
 	public int getRGBValue(double continuousIndex) {
 
 		int r = (int) Math.abs((Math.sin(0.016 * continuousIndex + 4) * 230 + 25));
