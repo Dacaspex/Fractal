@@ -10,12 +10,13 @@
 	</version>
 	
 	<defaultFractal>
-		<name>Julia Set</name>
+		<identifier>JuliaSet1</identifier>
 	</defaultFractal>
 	
 	<fractals>
 		
 		<fractal>
+			<identifier>JuliaSet1</identifier>
 			<name>Julia Set</name>
 			<defaultSettings>
 				<scale>
@@ -46,6 +47,7 @@
 		</fractal>
 		
 		<fractal>
+			<identifier>MandelBrotSet1</identifier>
 			<name>Mandelbrot Set</name>
 			<defaultSettings>
 				<scale>

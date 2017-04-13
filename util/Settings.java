@@ -79,29 +79,23 @@ public abstract class Settings {
 		
 		// TODO should throw an error when the parsing throws an error
 		Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
-		String name = defaultFractalNode.getElementsByTagName("name").item(0).getTextContent();
-		AbstractFractal fractal = fractalManager.getFractalByName(name);
+		String identifier = defaultFractalNode.getElementsByTagName("identifier").item(0).getTextContent();
+		AbstractFractal fractal = fractalManager.getFractalByIdentifier(identifier);
 		
 		return fractal;
 		
 	}
 	
-	public static Element getFractalSettingsDOM(String name) {
-		
-		if (name == null) {
-			
-			return null;
-			
-		}
+	public static Element getFractalSettingsDOM(String identifier) {
 
 		NodeList fractalNodeList = doc.getElementsByTagName("fractal");
 		
 		for (int i = 0; i < fractalNodeList.getLength(); i++) {
 			
 			Element fractalElement = (Element) fractalNodeList.item(i);
-			String currentName = fractalElement.getElementsByTagName("name").item(0).getTextContent();
+			String currentIdentifier = fractalElement.getElementsByTagName("identifier").item(0).getTextContent();
 			
-			if (name.equals(currentName)) {
+			if (identifier.equals(currentIdentifier)) {
 				
 				Element defaultSettingsELement = (Element) fractalElement.getElementsByTagName("defaultSettings").item(0);
 				return defaultSettingsELement;

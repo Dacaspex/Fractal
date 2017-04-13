@@ -3,12 +3,6 @@ package fractals.colorSchemes;
 import java.util.HashMap;
 
 public class ColorSchemeManager {
-	
-	public enum ColorSchemeSettings {
-		
-		SET_AS_ACTIVE
-		
-	}
 
 	protected HashMap<String, AbstractColorScheme> availableColorSchemes;
 
@@ -51,11 +45,11 @@ public class ColorSchemeManager {
 
 	}
 
-	public void addColorScheme(AbstractColorScheme colorScheme, ColorSchemeSettings setting) {
+	public void addColorScheme(AbstractColorScheme colorScheme, ColorSchemeManagerOptions setting) {
 
 		availableColorSchemes.put(colorScheme.getIdentifier(), colorScheme);
 		
-		if (setting == ColorSchemeSettings.SET_AS_ACTIVE) {
+		if (setting == ColorSchemeManagerOptions.SET_AS_ACTIVE) {
 			
 			setActiveColorScheme(colorScheme.getIdentifier());
 			

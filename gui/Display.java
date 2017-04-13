@@ -70,10 +70,10 @@ public class Display extends JFrame {
 		// Fractal menu
 		JMenu fractalMenu = new JMenu("Fractals");
 
-		String[] fractalNames = fractalManager.getLoadedFractals();
-		for (String name : fractalNames) {
+		String[][] fractalIdentificationList = fractalManager.getLoadedFractals();
+		for (String[] fractalIdentification : fractalIdentificationList) {
 
-			fractalMenu.add(new FractalMenuItem(name, fractalManager));
+			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager));
 
 		}
 

@@ -2,6 +2,7 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.Map;
 
 import fractals.postImageProcessing.PostImageProcessor;
 import fractals.threading.ImageGeneratorThread;
@@ -61,9 +62,9 @@ public class FractalManager {
 		imageList[number] = intermediateResult;
 		threadsRunning--;
 
-		// All threads are done	
+		// All threads are done
 		if (threadsRunning <= 0) {
-			
+
 			// Hard kill threads
 			threadFactory.killThreads();
 
@@ -76,14 +77,14 @@ public class FractalManager {
 	}
 
 	public void stitchImages() {
-		
+
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
-		
+
 		PostImageProcessor postImageProcessor = new PostImageProcessor();
-		
+
 		fractalPanel.showImage(resultImage);
-		
+
 	}
 
 	/**
@@ -91,8 +92,8 @@ public class FractalManager {
 	 */
 	public void loadDefaultFractals() {
 
-		fractalList.put("Julia Set", new JuliaFractal());
-		fractalList.put("Mandelbrot Set", new MandelBrotFractal());
+		fractalList.put("JuliaSet1", new JuliaFractal());
+		fractalList.put("MandelBrotSet1", new MandelBrotFractal());
 
 	}
 
@@ -107,17 +108,17 @@ public class FractalManager {
 	}
 
 	/**
-	 * Add a fractal to the list of available fractals by it's name and the
-	 * fractal itself
+	 * Add a fractal to the list of available fractals by it's identifier and
+	 * the fractal itself
 	 * 
-	 * @param name
-	 *            The name of the fractal. Should be a unique name
+	 * @param identifier
+	 *            The identifier of the fractal. Should be a unique identifier
 	 * @param fractal
 	 *            An instance of the fractal
 	 */
-	public void addFractal(String name, AbstractFractal fractal) {
+	public void addFractal(String identifier, AbstractFractal fractal) {
 
-		fractalList.put(name, fractal);
+		fractalList.put(identifier, fractal);
 
 	}
 
@@ -134,12 +135,12 @@ public class FractalManager {
 	 * Sets the selected fractal to be drawn. Also updates the screen to draw
 	 * the new fractal
 	 * 
-	 * @param name
-	 *            The name of the fractal to be selected
+	 * @param identifier
+	 *            The identifier of the fractal to be selected
 	 */
-	public void setSelectedFractal(String name) {
+	public void setSelectedFractal(String identifier) {
 
-		selectedFractal = fractalList.get(name);
+		selectedFractal = fractalList.get(identifier);
 		updateFractalPanel();
 
 	}
@@ -147,11 +148,20 @@ public class FractalManager {
 	/**
 	 * @return A list of names of the loaded fractals
 	 */
-	public String[] getLoadedFractals() {
-
-		String[] fractalNames = new String[fractalList.size()];
-		return fractalList.keySet().toArray(fractalNames);
-
+	public String[][] getLoadedFractals() {
+		
+		String[][] list = new String[fractalList.size()][2];
+		int index = 0;
+		
+		for (Map.Entry<String, AbstractFractal> entry : fractalList.entrySet()) {
+			
+			list[index][0] = entry.getValue().getIdentifier();
+			list[index++][1] = entry.getValue().getName();
+			
+		}
+		
+		return list;
+		
 	}
 
 	/**
@@ -175,9 +185,9 @@ public class FractalManager {
 
 	}
 
-	public AbstractFractal getFractalByName(String name) {
+	public AbstractFractal getFractalByIdentifier(String identifier) {
 
-		return fractalList.get(name);
+		return fractalList.get(identifier);
 
 	}
 

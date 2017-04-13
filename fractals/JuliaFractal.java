@@ -6,7 +6,7 @@ import org.w3c.dom.Element;
 
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
-import fractals.colorSchemes.ColorSchemeManager.ColorSchemeSettings;
+import fractals.colorSchemes.ColorSchemeManagerOptions;
 import fractals.colorSchemes.JuliaColorScheme;
 import fractals.colorSchemes.LinearColorScheme;
 import util.Settings;
@@ -21,6 +21,7 @@ public class JuliaFractal extends AbstractFractal {
 
 	public JuliaFractal() {
 
+		identifier = "JuliaSet1";
 		name = "Julia Set";
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
@@ -28,7 +29,7 @@ public class JuliaFractal extends AbstractFractal {
 		loadDefaultSettings();
 
 		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
-		colorSchemeManager.addColorScheme(new JuliaColorScheme(), ColorSchemeSettings.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(new JuliaColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
 
 	}
 
@@ -126,7 +127,7 @@ public class JuliaFractal extends AbstractFractal {
 
 		super.loadDefaultSettings();
 
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
 		Element constantNode = (Element) defaultSettingsElement.getElementsByTagName("constant").item(0);
 		Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
 

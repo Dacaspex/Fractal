@@ -6,8 +6,8 @@ import org.w3c.dom.Element;
 
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
+import fractals.colorSchemes.ColorSchemeManagerOptions;
 import fractals.colorSchemes.MandelbrotColorScheme;
-import fractals.colorSchemes.ColorSchemeManager.ColorSchemeSettings;
 import util.Settings;
 
 public class MandelBrotFractal extends AbstractFractal {
@@ -17,12 +17,13 @@ public class MandelBrotFractal extends AbstractFractal {
 	
 	public MandelBrotFractal() {
 		
+		identifier = "MandelBrotSet1";
 		name = "Mandelbrot Set";
 		colorSchemeManager = new ColorSchemeManager();
 		
 		loadDefaultSettings();
 		
-		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeSettings.SET_AS_ACTIVE);;
+		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);;
 		
 	}
 
@@ -75,7 +76,7 @@ public class MandelBrotFractal extends AbstractFractal {
 		
 		super.loadDefaultSettings();
 		
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
 		
 		int maxIterations = Integer.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
 		double escapeValue = Double.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());

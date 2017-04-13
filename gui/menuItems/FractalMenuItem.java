@@ -11,13 +11,13 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 	
 	private static final long serialVersionUID = 4134586652779444321L;
 	
-	private String name;
+	private String identifier;
 	private FractalManager fractalManager;
 
-	public FractalMenuItem(String name, FractalManager fractalManager) {
+	public FractalMenuItem(String identifier, String name, FractalManager fractalManager) {
 		
+		this.identifier = identifier;
 		this.fractalManager = fractalManager;
-		this.name = name;
 		
 		setText(name);
 		addActionListener(this);
@@ -27,7 +27,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
-		fractalManager.setSelectedFractal(name);
+		fractalManager.setSelectedFractal(identifier);
 		
 	}
 

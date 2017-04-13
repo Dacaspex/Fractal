@@ -12,8 +12,13 @@ import util.Settings;
 public abstract class AbstractFractal {
 
 	/**
+	 * The identifier of the fractal. This should be unique.
+	 */
+	protected String identifier;
+
+	/**
 	 * The name of the fractal. This name is used in all the context menus. It
-	 * should be a unique and descriptive short name.
+	 * is good practice to keep this name fairly descriptive.
 	 */
 	protected String name;
 
@@ -23,6 +28,12 @@ public abstract class AbstractFractal {
 	protected Scale scale;
 
 	protected ColorSchemeManager colorSchemeManager;
+
+	public String getIdentifier() {
+
+		return identifier;
+
+	}
 
 	public String getName() {
 
@@ -90,7 +101,7 @@ public abstract class AbstractFractal {
 	 */
 	public void loadDefaultSettings() {
 
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(name);
+		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
 
 		if (defaultSettingsElement == null) {
 
