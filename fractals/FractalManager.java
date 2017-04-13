@@ -81,7 +81,8 @@ public class FractalManager {
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
 
-		PostImageProcessor postImageProcessor = new PostImageProcessor();
+		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, true);
+		postImageProcessor.applyEffects(resultImage);
 
 		fractalPanel.showImage(resultImage);
 
