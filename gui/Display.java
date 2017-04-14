@@ -92,7 +92,7 @@ public class Display extends JFrame {
 	private void buildMainPanels() {
 		
 		JPanel explorerPanel = new JPanel(new BorderLayout());
-		JPanel settingsPanel = new SettingsPanel();
+		JPanel settingsPanel = new SettingsPanel(fractalManager);
 		FractalPanel fractalPanel = new FractalPanel(fractalManager);
 		
 		explorerPanel.add(settingsPanel, BorderLayout.LINE_START);
