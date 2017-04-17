@@ -1,10 +1,10 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.HashMap;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
 import gui.settings.InformationPanel;
@@ -13,28 +13,36 @@ public class SettingsPanel extends JPanel {
 
 	private static final long serialVersionUID = -8928464335165056558L;
 
+	private int padding;
+
 	private FractalManager fractalManager;
-	
+	private InformationPanel informationPanel;
+
 	public SettingsPanel(FractalManager fractalManager) {
 
+		padding = 10;
 		this.fractalManager = fractalManager;
-		
-		setLayout(new FlowLayout(FlowLayout.LEFT));
+		informationPanel = new InformationPanel(fractalManager.getSelectedFractal());
+
+		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(200, 0));
 
 		buildGUI();
 
 	}
+	
+	public InformationPanel getInformationPanel() {
+		
+		return informationPanel;
+		
+	}
 
 	private void buildGUI() {
 
-		// Add information panel
-		InformationPanel informationPanel = new InformationPanel(fractalManager.getSelectedFractal());
+		setBorder(new EmptyBorder(padding, padding, padding, padding));
+
+		add(informationPanel, BorderLayout.NORTH);
 		
-		// Add 'change settings' panel
-		
-		
-		add(informationPanel);
 	}
 
 }

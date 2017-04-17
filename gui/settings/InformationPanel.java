@@ -1,7 +1,8 @@
 package gui.settings;
 
-import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,13 +18,22 @@ public class InformationPanel extends JPanel {
 	
 	private static final long serialVersionUID = 8778798234532864944L;
 	
+	private List<JLabel> labels;
+	
 	private AbstractFractal fractal;
 	
 	public InformationPanel(AbstractFractal fractal) {
 		
+		labels = new ArrayList<JLabel>();
 		this.fractal = fractal;
 		
 		buildGUI();
+		
+	}
+	
+	public void setFractal(AbstractFractal fractal) {
+		
+		this.fractal = fractal;
 		
 	}
 	
@@ -34,20 +44,34 @@ public class InformationPanel extends JPanel {
 		TitledBorder titleBorder = BorderFactory.createTitledBorder("Information");
 		setBorder(titleBorder);
 		
-		showInformation();
+		updateInformation();
 				
 	}
 	
-	public void showInformation() {
+	public void updateInformation() {
 		
+		removeLabels();
+		
+		labels = new ArrayList<JLabel>();
 		Iterator<Entry<String, String>> iterator = fractal.getInformation().entrySet().iterator();
+		JLabel label;
 		
 		while (iterator.hasNext()) {
 			
 			Map.Entry<String, String> entry = (Entry<String, String>) iterator.next();
+			label = new JLabel(entry.getKey() + " : " + entry.getValue());
+			labels.add(label);
+			this.add(label);
 			
-			JLabel label = new JLabel(entry.getKey() + " : " + entry.getValue());
-			add(label);
+		}
+		
+	}
+	
+	public void removeLabels() {
+		
+		for (JLabel label : labels) {
+			
+			remove(label);
 			
 		}
 		
