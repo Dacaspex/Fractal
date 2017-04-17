@@ -24,6 +24,7 @@ public class Display extends JFrame {
 	private final int DEFAULT_DISPLAY_HEIGHT;
 
 	private FractalManager fractalManager;
+	private SettingsPanel settingsPanel;
 
 	public Display() {
 
@@ -49,8 +50,8 @@ public class Display extends JFrame {
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
 		
-		buildTopMenu();
 		buildMainPanels();
+		buildTopMenu();
 		
 		pack();
 		setVisible(true);
@@ -73,7 +74,7 @@ public class Display extends JFrame {
 		String[][] fractalIdentificationList = fractalManager.getLoadedFractals();
 		for (String[] fractalIdentification : fractalIdentificationList) {
 
-			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager));
+			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager, settingsPanel));
 
 		}
 
@@ -92,7 +93,7 @@ public class Display extends JFrame {
 	private void buildMainPanels() {
 		
 		JPanel explorerPanel = new JPanel(new BorderLayout());
-		JPanel settingsPanel = new SettingsPanel(fractalManager);
+		settingsPanel = new SettingsPanel(fractalManager);
 		FractalPanel fractalPanel = new FractalPanel(fractalManager);
 		
 		explorerPanel.add(settingsPanel, BorderLayout.LINE_START);

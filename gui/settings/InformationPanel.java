@@ -15,66 +15,67 @@ import javax.swing.border.TitledBorder;
 import fractals.AbstractFractal;
 
 public class InformationPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 8778798234532864944L;
-	
+
 	private List<JLabel> labels;
-	
 	private AbstractFractal fractal;
-	
+
 	public InformationPanel(AbstractFractal fractal) {
-		
+
 		labels = new ArrayList<JLabel>();
 		this.fractal = fractal;
-		
+
 		buildGUI();
-		
+
 	}
-	
+
 	public void setFractal(AbstractFractal fractal) {
-		
+
 		this.fractal = fractal;
-		
+
 	}
-	
+
 	private void buildGUI() {
-		
+
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
 		TitledBorder titleBorder = BorderFactory.createTitledBorder("Information");
 		setBorder(titleBorder);
-		
+
 		updateInformation();
-				
+
 	}
-	
+
 	public void updateInformation() {
-		
+
 		removeLabels();
-		
+
 		labels = new ArrayList<JLabel>();
 		Iterator<Entry<String, String>> iterator = fractal.getInformation().entrySet().iterator();
 		JLabel label;
-		
+
 		while (iterator.hasNext()) {
-			
+
 			Map.Entry<String, String> entry = (Entry<String, String>) iterator.next();
 			label = new JLabel(entry.getKey() + " : " + entry.getValue());
 			labels.add(label);
 			this.add(label);
-			
+
 		}
-		
+
+		revalidate();
+		repaint();
+
 	}
-	
+
 	public void removeLabels() {
-		
+
 		for (JLabel label : labels) {
-			
+
 			remove(label);
-			
+
 		}
-		
+
 	}
 
 }
