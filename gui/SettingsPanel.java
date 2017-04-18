@@ -30,11 +30,11 @@ public class SettingsPanel extends JPanel {
 		buildGUI();
 
 	}
-	
+
 	public InformationPanel getInformationPanel() {
-		
+
 		return informationPanel;
-		
+
 	}
 
 	private void buildGUI() {
@@ -42,7 +42,7 @@ public class SettingsPanel extends JPanel {
 		setBorder(new EmptyBorder(padding, padding, padding, padding));
 
 		add(informationPanel, BorderLayout.NORTH);
-		
+
 	}
 
 }
