@@ -8,6 +8,7 @@ public class MandelbrotColorScheme extends SimpleWaveColorScheme {
 
 	public MandelbrotColorScheme() {
 
+		identifier = "MandelBrotColorScheme1";
 		name = "MandelBrot Colorscheme";
 		blackThreshold = 0.1;
 

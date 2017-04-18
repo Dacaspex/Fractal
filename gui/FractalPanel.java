@@ -24,12 +24,13 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
-	
+	private SettingsPanel settingsPanel;
 	private FractalManager fractalManager;
 
-	public FractalPanel(FractalManager fractalManager) {
+	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
+		this.settingsPanel = settingsPanel;
 		this.fractalManager = fractalManager;
 		
 		fractalManager.setFractalPanel(this);
@@ -64,6 +65,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
 		
 		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
+		settingsPanel.getInformationPanel().updateInformation();
 		draw();
 
 	}
@@ -79,6 +81,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
 		
 		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
+		settingsPanel.getInformationPanel().updateInformation();
 		draw();
 		
 	}
@@ -92,6 +95,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
 		
 		fractalScale.translateCenterToPoint(pointInScale);
+		settingsPanel.getInformationPanel().updateInformation();
 		draw();
 		
 	}

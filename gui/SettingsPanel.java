@@ -25,7 +25,7 @@ public class SettingsPanel extends JPanel {
 		informationPanel = new InformationPanel(fractalManager.getSelectedFractal());
 
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(200, 0));
+		setPreferredSize(new Dimension(250, 0));
 
 		buildGUI();
 

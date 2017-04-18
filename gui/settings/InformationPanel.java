@@ -57,7 +57,8 @@ public class InformationPanel extends JPanel {
 		while (iterator.hasNext()) {
 
 			Map.Entry<String, String> entry = (Entry<String, String>) iterator.next();
-			label = new JLabel(entry.getKey() + " : " + entry.getValue());
+			label = new JLabel("<html><font color=black>" + entry.getKey() + "</font> : <font color=blue>"
+					+ entry.getValue() + "</font></html>");
 			labels.add(label);
 			this.add(label);
 
