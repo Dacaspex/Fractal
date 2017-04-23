@@ -21,7 +21,7 @@ public abstract class AbstractColorScheme {
 	
 	public String getName() {
 
-		return identifier;
+		return name;
 
 	}
 

@@ -1,6 +1,7 @@
 package fractals.colorSchemes;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ColorSchemeManager {
 
@@ -19,11 +20,11 @@ public class ColorSchemeManager {
 		return activeColorScheme;
 
 	}
-	
+
 	public AbstractColorScheme getColorScheme(String identifier) {
-		
+
 		return availableColorSchemes.get(identifier);
-		
+
 	}
 
 	public void setActiveColorScheme(String identifier) {
@@ -32,10 +33,19 @@ public class ColorSchemeManager {
 
 	}
 
-	public String[] getAvailableColorSchemes() {
+	public String[][] getAvailableColorSchemes() {
 
-		String[] availableColorSchemesNames = new String[availableColorSchemes.size()];
-		return availableColorSchemes.keySet().toArray(availableColorSchemesNames);
+		String[][] list = new String[availableColorSchemes.size()][2];
+		int index = 0;
+
+		for (Map.Entry<String, AbstractColorScheme> entry : availableColorSchemes.entrySet()) {
+
+			list[index][0] = entry.getValue().getIdentifier();
+			list[index++][1] = entry.getValue().getName();
+
+		}
+
+		return list;
 
 	}
 
@@ -48,11 +58,11 @@ public class ColorSchemeManager {
 	public void addColorScheme(AbstractColorScheme colorScheme, ColorSchemeManagerOptions setting) {
 
 		availableColorSchemes.put(colorScheme.getIdentifier(), colorScheme);
-		
+
 		if (setting == ColorSchemeManagerOptions.SET_AS_ACTIVE) {
-			
+
 			setActiveColorScheme(colorScheme.getIdentifier());
-			
+
 		}
 
 	}

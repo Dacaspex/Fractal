@@ -41,7 +41,7 @@
 						<imaginary>0.01</imaginary>
 					</complex>
 				</constant>
-				<maxIterations>512</maxIterations>
+				<maxIterations>1024</maxIterations>
 				<escapeValue>2.0</escapeValue>
 			</defaultSettings>
 		</fractal>
