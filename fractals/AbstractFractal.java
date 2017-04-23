@@ -1,9 +1,7 @@
 package fractals;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.w3c.dom.Element;
 

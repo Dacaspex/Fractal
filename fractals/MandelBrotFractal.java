@@ -25,8 +25,6 @@ public class MandelBrotFractal extends AbstractFractal {
 		loadDefaultSettings();
 
 		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
-		colorSchemeManager.addColorScheme(new LinearColorScheme(maxIterations),
-				ColorSchemeManagerOptions.SET_AS_ACTIVE);
 
 	}
 

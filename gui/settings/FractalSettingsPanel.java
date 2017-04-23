@@ -1,28 +1,28 @@
 package gui.settings;
 
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import fractals.AbstractFractal;
+import gui.settings.utilComponents.ColorSchemeComboBox;
+import gui.settings.utilComponents.ColorSchemeComboBoxItem;
 
 public class FractalSettingsPanel extends JPanel {
 
 	private static final long serialVersionUID = 7273863811094892240L;
 
-	private JComboBox<String> colorSchemeList;
+	private ColorSchemeComboBox colorSchemeComboBox;
 
 	private AbstractFractal fractal;
 
 	public FractalSettingsPanel(AbstractFractal fractal) {
 
-		colorSchemeList = new JComboBox<String>();
+		this.colorSchemeComboBox = new ColorSchemeComboBox();
 		this.fractal = fractal;
 
 		buildGUI();
@@ -40,42 +40,31 @@ public class FractalSettingsPanel extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		TitledBorder titleBorder = BorderFactory.createTitledBorder("Settings");
 		setBorder(titleBorder);
-
 		updateInformation();
 
 	}
 
 	public void updateInformation() {
 
-		remove(colorSchemeList);
+		remove(colorSchemeComboBox);
 
-		colorSchemeList = new JComboBox<String>() {
-
-			private static final long serialVersionUID = -5652515143824310711L;
-
-			@Override
-			public Dimension getMaximumSize() {
-				Dimension max = super.getMaximumSize();
-				max.height = getPreferredSize().height;
-				return max;
-			}
-
-		};
+		colorSchemeComboBox = new ColorSchemeComboBox();
 
 		String[][] colorSchemes = fractal.getColorSchemeManager().getAvailableColorSchemes();
 
 		for (String[] colorScheme : colorSchemes) {
 
-			colorSchemeList.addItem(colorScheme[1]);
+			ColorSchemeComboBoxItem item = new ColorSchemeComboBoxItem(colorScheme[0], colorScheme[1]);
+			colorSchemeComboBox.addItem(item);
 			if (fractal.getColorSchemeManager().getActiveColorScheme().getIdentifier().equals(colorScheme[0])) {
 
-				colorSchemeList.setSelectedItem(colorScheme[1]);
+				colorSchemeComboBox.setSelectedItem(colorScheme[1]);
 
 			}
 
 		}
 
-		add(colorSchemeList);
+		add(colorSchemeComboBox);
 		revalidate();
 		repaint();
 
