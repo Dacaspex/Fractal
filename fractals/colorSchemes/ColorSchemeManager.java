@@ -33,15 +33,14 @@ public class ColorSchemeManager {
 
 	}
 
-	public String[][] getAvailableColorSchemes() {
+	public AbstractColorScheme[] getAvailableColorSchemes() {
 
-		String[][] list = new String[availableColorSchemes.size()][2];
+		AbstractColorScheme[] list = new AbstractColorScheme[availableColorSchemes.size()];
 		int index = 0;
 
 		for (Map.Entry<String, AbstractColorScheme> entry : availableColorSchemes.entrySet()) {
 
-			list[index][0] = entry.getValue().getIdentifier();
-			list[index++][1] = entry.getValue().getName();
+			list[index++] = entry.getValue();
 
 		}
 

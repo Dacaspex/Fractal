@@ -1,14 +1,12 @@
 package gui.settings;
 
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import fractals.AbstractFractal;
+import fractals.colorSchemes.AbstractColorScheme;
 import gui.settings.utilComponents.ColorSchemeComboBox;
 import gui.settings.utilComponents.ColorSchemeComboBoxItem;
 
@@ -50,15 +48,16 @@ public class FractalSettingsPanel extends JPanel {
 
 		colorSchemeComboBox = new ColorSchemeComboBox();
 
-		String[][] colorSchemes = fractal.getColorSchemeManager().getAvailableColorSchemes();
+		AbstractColorScheme[] colorSchemes = fractal.getColorSchemeManager().getAvailableColorSchemes();
 
-		for (String[] colorScheme : colorSchemes) {
+		for (AbstractColorScheme colorScheme : colorSchemes) {
 
-			ColorSchemeComboBoxItem item = new ColorSchemeComboBoxItem(colorScheme[0], colorScheme[1]);
+			ColorSchemeComboBoxItem item = new ColorSchemeComboBoxItem(colorScheme);
 			colorSchemeComboBox.addItem(item);
-			if (fractal.getColorSchemeManager().getActiveColorScheme().getIdentifier().equals(colorScheme[0])) {
+			if (fractal.getColorSchemeManager().getActiveColorScheme().getIdentifier()
+					.equals(colorScheme.getIdentifier())) {
 
-				colorSchemeComboBox.setSelectedItem(colorScheme[1]);
+				colorSchemeComboBox.setSelectedItem(colorScheme);
 
 			}
 
