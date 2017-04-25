@@ -9,6 +9,9 @@ import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
 import fractals.colorSchemes.LinearColorScheme;
 import fractals.colorSchemes.MandelbrotColorScheme;
+import fractals.settings.MandelBrotSettingsManager;
+import fractals.settings.SettingsManager;
+import gui.settings.FractalSettingsPanel;
 import util.Settings;
 
 public class MandelBrotFractal extends AbstractFractal {
@@ -21,6 +24,7 @@ public class MandelBrotFractal extends AbstractFractal {
 		identifier = "MandelBrotSet1";
 		name = "Mandelbrot Set";
 		colorSchemeManager = new ColorSchemeManager();
+		settingsManager = new MandelBrotSettingsManager(this);
 
 		loadDefaultSettings();
 

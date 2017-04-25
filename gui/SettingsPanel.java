@@ -22,13 +22,10 @@ public class SettingsPanel extends JPanel {
 
 	public SettingsPanel(FractalManager fractalManager) {
 
-		padding = 10;
+		this.padding = 10;
 		this.fractalManager = fractalManager;
-		informationPanel = new InformationPanel(fractalManager.getSelectedFractal());
-		fractalSettingsPanel = new FractalSettingsPanel(fractalManager.getSelectedFractal());
-
-		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(250, 0));
+		this.informationPanel = new InformationPanel(fractalManager.getSelectedFractal());
+		this.fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
 
 		buildGUI();
 
@@ -39,20 +36,26 @@ public class SettingsPanel extends JPanel {
 		return informationPanel;
 
 	}
-	
-	public FractalSettingsPanel getFractalSettingsPanel() {
-		
-		return fractalSettingsPanel;
-		
-	}
 
 	private void buildGUI() {
 
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(250, 0));
 		setBorder(new EmptyBorder(padding, padding, padding, padding));
 
 		add(informationPanel, BorderLayout.NORTH);
 		add(fractalSettingsPanel, BorderLayout.CENTER);
 
+	}
+
+	public void update() {
+
+		remove(fractalSettingsPanel);
+		fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
+		add(fractalSettingsPanel, BorderLayout.CENTER);
+		revalidate();
+		repaint();
+		
 	}
 
 }

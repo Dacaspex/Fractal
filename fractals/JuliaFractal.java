@@ -9,6 +9,7 @@ import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
 import fractals.colorSchemes.JuliaColorScheme;
 import fractals.colorSchemes.LinearColorScheme;
+import fractals.settings.JuliaSettingsManager;
 import util.Settings;
 
 public class JuliaFractal extends AbstractFractal {
@@ -25,6 +26,7 @@ public class JuliaFractal extends AbstractFractal {
 		name = "Julia Set";
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
+		settingsManager = new JuliaSettingsManager(this);
 
 		loadDefaultSettings();
 

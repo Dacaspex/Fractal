@@ -33,8 +33,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 		fractalManager.setSelectedFractal(identifier);
 		settingsPanel.getInformationPanel().setFractal(fractalManager.getSelectedFractal());
 		settingsPanel.getInformationPanel().updateInformation();
-		settingsPanel.getFractalSettingsPanel().setFractal(fractalManager.getSelectedFractal());
-		settingsPanel.getFractalSettingsPanel().updateInformation();
+		settingsPanel.update();
 
 	}
 

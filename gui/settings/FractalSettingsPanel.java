@@ -33,12 +33,11 @@ public class FractalSettingsPanel extends JPanel {
 
 	}
 
-	private void buildGUI() {
+	protected void buildGUI() {
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		TitledBorder titleBorder = BorderFactory.createTitledBorder("Settings");
 		setBorder(titleBorder);
-		updateInformation();
 
 	}
 

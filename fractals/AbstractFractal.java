@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import org.w3c.dom.Element;
 
 import fractals.colorSchemes.ColorSchemeManager;
+import fractals.settings.SettingsManager;
 import fractals.threading.ThreadFactory;
 import util.Settings;
 
@@ -28,6 +29,8 @@ public abstract class AbstractFractal {
 	protected Scale scale;
 
 	protected ColorSchemeManager colorSchemeManager;
+
+	protected SettingsManager settingsManager;
 
 	public String getIdentifier() {
 
@@ -56,6 +59,12 @@ public abstract class AbstractFractal {
 	public ColorSchemeManager getColorSchemeManager() {
 
 		return colorSchemeManager;
+
+	}
+
+	public SettingsManager getSettingsManager() {
+
+		return settingsManager;
 
 	}
 
