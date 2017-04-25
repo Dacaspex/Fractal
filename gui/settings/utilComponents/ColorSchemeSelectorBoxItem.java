@@ -2,12 +2,12 @@ package gui.settings.utilComponents;
 
 import fractals.colorSchemes.AbstractColorScheme;
 
-public class ColorSchemeComboBoxItem {
+public class ColorSchemeSelectorBoxItem {
 
 	private String value;
 	private String description;
 
-	public ColorSchemeComboBoxItem(AbstractColorScheme colorScheme) {
+	public ColorSchemeSelectorBoxItem(AbstractColorScheme colorScheme) {
 
 		this.value = colorScheme.getIdentifier();
 		this.description = colorScheme.getName();

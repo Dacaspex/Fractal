@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import fractals.postImageProcessing.PostImageProcessor;
 import fractals.threading.ImageGeneratorThread;
 import fractals.threading.ImageStitcher;
 import fractals.threading.ThreadFactory;
 import gui.FractalPanel;
+import imageProcessing.post.PostImageProcessor;
 import util.Settings;
 
 public class FractalManager {

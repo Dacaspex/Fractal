@@ -24,14 +24,14 @@ public class JuliaFractal extends AbstractFractal {
 
 		identifier = "JuliaSet1";
 		name = "Julia Set";
+		
+		loadDefaultSettings();
+		
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
-		settingsManager = new JuliaSettingsManager(this);
-
-		loadDefaultSettings();
-
 		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
 		colorSchemeManager.addColorScheme(new JuliaColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		settingsManager = new JuliaSettingsManager(this);
 
 	}
 

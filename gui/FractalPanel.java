@@ -21,6 +21,8 @@ import timers.ResizeDelayTimer;
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
 	private static final long serialVersionUID = 11274784860690473L;
+	
+	private static FractalPanel instance;
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
@@ -28,6 +30,8 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	private FractalManager fractalManager;
 
 	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
+		
+		FractalPanel.instance = this;
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		this.settingsPanel = settingsPanel;
@@ -39,6 +43,12 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		addMouseListener(this);
 		addComponentListener(this);
 
+	}
+	
+	public static FractalPanel getFractalPanel() {
+		
+		return FractalPanel.instance;
+		
 	}
 
 	public void draw() {

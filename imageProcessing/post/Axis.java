@@ -1,4 +1,4 @@
-package fractals.postImageProcessing;
+package imageProcessing.post;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
