@@ -13,6 +13,7 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 		identifier = "LinearColorScheme1";
 		name = "Linear Color Scheme";
+		colorArray = new Color[0];
 
 		this.steps = steps;
 
@@ -29,6 +30,7 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 		identifier = "LinearColorScheme1";
 		name = "Linear Color Scheme";
+		colorArray = new Color[0];
 
 		if (loadDefaultColors) {
 
@@ -48,7 +50,7 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	public LinearColorScheme() {
 
-		this(true);
+		this(false);
 
 	}
 
@@ -70,7 +72,6 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 		if (generateGradientMap) {
 
-			System.out.println("test");
 			generateGradientMap();
 
 		}
@@ -220,7 +221,10 @@ public class LinearColorScheme extends AbstractColorScheme {
 	 *            The position in the array
 	 * @return The color that corresponds to that position in the array
 	 */
+	@Override
 	public int getRGBValue(double referenceNumber) {
+		
+		referenceNumber = Math.min(steps - 1, referenceNumber);
 
 		return gradientMap[(int) referenceNumber];
 
