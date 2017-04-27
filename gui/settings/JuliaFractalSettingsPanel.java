@@ -1,7 +1,10 @@
 package gui.settings;
 
+import javax.swing.JTextField;
+
 import fractals.AbstractFractal;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
+import gui.settings.utilComponents.SettingItemPanel;
 
 public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 
@@ -24,7 +27,8 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 
 		super.buildGUI();
 
-		add(colorSchemeSelectorBox);
+		SettingItemPanel colorSchemeSelectorBoxPanel = new SettingItemPanel(colorSchemeSelectorBox);
+		add(colorSchemeSelectorBoxPanel);
 
 	}
 
