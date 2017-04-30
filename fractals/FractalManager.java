@@ -27,13 +27,13 @@ public class FractalManager {
 	private int threadsRunning;
 	private final int NUMBER_OF_THREADS = 9;
 
-	private boolean isGenerating;
+	private FractalGeneratingState generatingState;
 
 	public FractalManager() {
 
 		fractalList = new HashMap<String, AbstractFractal>();
 		imageList = new BufferedImage[NUMBER_OF_THREADS];
-		isGenerating = false;
+		generatingState = FractalGeneratingState.IDLE;
 
 		loadDefaultFractals();
 		setDefaultFractal();
@@ -42,13 +42,19 @@ public class FractalManager {
 
 	}
 
+	public FractalGeneratingState getGeneratingState() {
+
+		return generatingState;
+
+	}
+
 	public void requestImage(int width, int height) {
 
-		if (!isGenerating) {
+		if (generatingState == FractalGeneratingState.IDLE) {
 
 			requestedWidth = width;
 			requestedHeight = height;
-			isGenerating = true;
+			generatingState = FractalGeneratingState.GENERATING_IMAGE;
 			threadsRunning = NUMBER_OF_THREADS;
 			threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
 			selectedFractal.requestImage(threadFactory, width, height);
@@ -65,26 +71,29 @@ public class FractalManager {
 		// All threads are done
 		if (threadsRunning <= 0) {
 
+			generatingState = FractalGeneratingState.STITCHING_IMAGE;
+
 			// Hard kill threads
 			threadFactory.killThreads();
 
 			// Reset counter for cleaner transitions, then stitch images
-			stitchImages();
-			isGenerating = false;
+			BufferedImage resultImage = stitchImages();
+			fractalPanel.showImage(resultImage);
+			generatingState = FractalGeneratingState.IDLE;
 
 		}
 
 	}
 
-	public void stitchImages() {
+	public BufferedImage stitchImages() {
 
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
 
 		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, false);
 		postImageProcessor.applyEffects(resultImage);
-
-		fractalPanel.showImage(resultImage);
+		
+		return resultImage;
 
 	}
 
@@ -150,19 +159,19 @@ public class FractalManager {
 	 * @return A list of names of the loaded fractals
 	 */
 	public String[][] getLoadedFractals() {
-		
+
 		String[][] list = new String[fractalList.size()][2];
 		int index = 0;
-		
+
 		for (Map.Entry<String, AbstractFractal> entry : fractalList.entrySet()) {
-			
+
 			list[index][0] = entry.getValue().getIdentifier();
 			list[index++][1] = entry.getValue().getName();
-			
+
 		}
-		
+
 		return list;
-		
+
 	}
 
 	/**
@@ -182,13 +191,19 @@ public class FractalManager {
 	 */
 	public void updateFractalPanel() {
 
-		fractalPanel.draw();
+		fractalPanel.requestUpdate();
 
 	}
 
 	public AbstractFractal getFractalByIdentifier(String identifier) {
 
 		return fractalList.get(identifier);
+
+	}
+
+	public enum FractalGeneratingState {
+
+		IDLE, GENERATING_IMAGE, STITCHING_IMAGE
 
 	}
 

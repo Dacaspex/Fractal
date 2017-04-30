@@ -6,22 +6,19 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import fractals.AbstractFractal;
+import fractals.settings.SettingsManager;
 
 public abstract class FractalSettingsPanel extends JPanel {
 
 	private static final long serialVersionUID = 7273863811094892240L;
 
 	protected AbstractFractal fractal;
+	protected SettingsManager settingsManager;
 
-	public FractalSettingsPanel(AbstractFractal fractal) {
-
-		this.fractal = fractal;
-
-	}
-
-	public void setFractal(AbstractFractal fractal) {
+	public FractalSettingsPanel(AbstractFractal fractal, SettingsManager settingsManager) {
 
 		this.fractal = fractal;
+		this.settingsManager = settingsManager;
 
 	}
 

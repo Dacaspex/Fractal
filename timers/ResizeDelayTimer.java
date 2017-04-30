@@ -33,7 +33,7 @@ public class ResizeDelayTimer implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		timer.stop();
-		fractalPanel.draw();
+		fractalPanel.requestUpdate();
 
 	}
 

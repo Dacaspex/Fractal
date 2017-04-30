@@ -12,7 +12,7 @@ public class MandelBrotSettingsManager implements SettingsManager {
 	public MandelBrotSettingsManager(MandelBrotFractal fractal) {
 
 		this.fractal = fractal;
-		this.settingsPanel = new MandelBrotSettingsPanel(fractal);
+		this.settingsPanel = new MandelBrotSettingsPanel(fractal, this);
 
 	}
 

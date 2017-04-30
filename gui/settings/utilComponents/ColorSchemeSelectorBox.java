@@ -61,7 +61,7 @@ public class ColorSchemeSelectorBox extends JComboBox<ColorSchemeSelectorBoxItem
 
 			ColorSchemeSelectorBoxItem item = (ColorSchemeSelectorBoxItem) getSelectedItem();
 			colorSchemeManager.setActiveColorScheme(item.getValue());
-			FractalPanel.getFractalPanel().draw();
+			FractalPanel.getFractalPanel().requestUpdate();
 
 		}
 

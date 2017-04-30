@@ -1,8 +1,12 @@
 package gui.settings;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import fractals.AbstractFractal;
+import fractals.JuliaFractal;
+import fractals.settings.SettingsManager;
+import gui.settings.listeners.juliaSet.MaxIterationsTextFieldListener;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemPanel;
 
@@ -12,9 +16,9 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 
 	private ColorSchemeSelectorBox colorSchemeSelectorBox;
 
-	public JuliaFractalSettingsPanel(AbstractFractal fractal) {
+	public JuliaFractalSettingsPanel(AbstractFractal fractal, SettingsManager settingsManager) {
 
-		super(fractal);
+		super(fractal, settingsManager);
 
 		this.colorSchemeSelectorBox = new ColorSchemeSelectorBox(fractal.getColorSchemeManager());
 
@@ -25,10 +29,22 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 	@Override
 	protected void buildGUI() {
 
+		JuliaFractal fractal = (JuliaFractal) this.fractal;
+
 		super.buildGUI();
 
 		SettingItemPanel colorSchemeSelectorBoxPanel = new SettingItemPanel(colorSchemeSelectorBox);
 		add(colorSchemeSelectorBoxPanel);
+
+		JLabel maxIterationsLabel = new JLabel("Maximum number of iterations:");
+		SettingItemPanel maxIterationsLabelPanel = new SettingItemPanel(maxIterationsLabel);
+		add(maxIterationsLabelPanel);
+
+		JTextField maxIterationsField = new JTextField();
+		maxIterationsField.setText(Integer.toString(fractal.getMaxIterations()));
+		maxIterationsField.getDocument().addDocumentListener(new MaxIterationsTextFieldListener(maxIterationsField, settingsManager));
+		SettingItemPanel maxIterationsPanel = new SettingItemPanel(maxIterationsField);
+		add(maxIterationsPanel);
 
 	}
 

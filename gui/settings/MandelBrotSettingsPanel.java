@@ -3,14 +3,15 @@ package gui.settings;
 import javax.swing.JLabel;
 
 import fractals.AbstractFractal;
+import fractals.settings.SettingsManager;
 
 public class MandelBrotSettingsPanel extends FractalSettingsPanel {
 
 	private static final long serialVersionUID = 794795730103012414L;
 
-	public MandelBrotSettingsPanel(AbstractFractal fractal) {
+	public MandelBrotSettingsPanel(AbstractFractal fractal, SettingsManager settingsManager) {
 
-		super(fractal);
+		super(fractal, settingsManager);
 
 	}
 	
