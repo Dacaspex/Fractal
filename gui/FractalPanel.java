@@ -24,17 +24,15 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	private static FractalPanel instance;
 
-	private Display display;
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
 	private SettingsPanel settingsPanel;
 	private FractalManager fractalManager;
 
-	public FractalPanel(Display display, FractalManager fractalManager, SettingsPanel settingsPanel) {
+	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
 
 		FractalPanel.instance = this;
 
-		this.display = display;
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		this.settingsPanel = settingsPanel;
 		this.fractalManager = fractalManager;

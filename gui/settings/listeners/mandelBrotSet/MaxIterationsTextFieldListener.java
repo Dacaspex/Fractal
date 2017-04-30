@@ -1,10 +1,10 @@
-package gui.settings.listeners.juliaSet;
+package gui.settings.listeners.mandelBrotSet;
 
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import fractals.settings.JuliaSettingsManager;
+import fractals.settings.MandelBrotSettingsManager;
 import fractals.settings.SettingsManager;
 
 public class MaxIterationsTextFieldListener implements DocumentListener {
@@ -21,7 +21,7 @@ public class MaxIterationsTextFieldListener implements DocumentListener {
 
 	public void update() {
 
-		((JuliaSettingsManager) settingsManager).setMaxIterations(maxIterationsTextField.getText());
+		((MandelBrotSettingsManager) settingsManager).setMaxIterations(maxIterationsTextField.getText());
 
 	}
 

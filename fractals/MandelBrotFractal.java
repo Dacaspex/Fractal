@@ -7,11 +7,8 @@ import org.w3c.dom.Element;
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
-import fractals.colorSchemes.LinearColorScheme;
 import fractals.colorSchemes.MandelbrotColorScheme;
 import fractals.settings.MandelBrotSettingsManager;
-import fractals.settings.SettingsManager;
-import gui.settings.FractalSettingsPanel;
 import util.Settings;
 
 public class MandelBrotFractal extends AbstractFractal {
@@ -24,11 +21,35 @@ public class MandelBrotFractal extends AbstractFractal {
 		identifier = "MandelBrotSet1";
 		name = "Mandelbrot Set";
 		colorSchemeManager = new ColorSchemeManager();
-		settingsManager = new MandelBrotSettingsManager(this);
 
 		loadDefaultSettings();
 
 		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		settingsManager = new MandelBrotSettingsManager(this);
+
+	}
+
+	public int getMaxIterations() {
+
+		return maxIterations;
+
+	}
+
+	public void setMaxIterations(int maxIterations) {
+
+		this.maxIterations = maxIterations;
+
+	}
+
+	public double getEscapeValue() {
+
+		return escapeValue;
+
+	}
+
+	public void setEscapeValue(double escapeValue) {
+
+		this.escapeValue = escapeValue;
 
 	}
 
