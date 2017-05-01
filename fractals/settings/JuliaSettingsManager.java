@@ -1,9 +1,11 @@
 package fractals.settings;
 
+import complex.Complex;
 import fractals.JuliaFractal;
 import gui.FractalPanel;
 import gui.settings.FractalSettingsPanel;
 import gui.settings.JuliaFractalSettingsPanel;
+import util.ComplexValueParser;
 
 public class JuliaSettingsManager implements SettingsManager {
 
@@ -65,6 +67,19 @@ public class JuliaSettingsManager implements SettingsManager {
 		} catch (NumberFormatException exception) {
 
 			return;
+
+		}
+
+	}
+
+	public void setConstant(String value) {
+
+		Complex constant = ComplexValueParser.parseFromString(value);
+
+		if (constant != null) {
+
+			juliaFractal.setConstant(constant);
+			FractalPanel.getFractalPanel().requestUpdate();
 
 		}
 

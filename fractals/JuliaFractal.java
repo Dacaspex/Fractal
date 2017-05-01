@@ -24,9 +24,9 @@ public class JuliaFractal extends AbstractFractal {
 
 		identifier = "JuliaSet1";
 		name = "Julia Set";
-		
+
 		loadDefaultSettings();
-		
+
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
 		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
@@ -57,6 +57,18 @@ public class JuliaFractal extends AbstractFractal {
 	public void setEscapeValue(double escapeValue) {
 
 		this.escapeValue = escapeValue;
+
+	}
+
+	public Complex getConstant() {
+
+		return constant;
+
+	}
+
+	public void setConstant(Complex constant) {
+
+		this.constant = constant;
 
 	}
 

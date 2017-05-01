@@ -1,27 +1,27 @@
-package gui.settings.listeners.mandelBrotSet;
+package gui.settings.listeners.juliaSet;
 
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import fractals.settings.MandelBrotSettingsManager;
+import fractals.settings.JuliaSettingsManager;
 import fractals.settings.SettingsManager;
 
-public class EscapeValueTextFieldListener implements DocumentListener {
+public class ConstantTextFieldListener implements DocumentListener {
 
-	private JTextField escapeValueTextField;
+	private JTextField constantTextField;
 	private SettingsManager settingsManager;
 
-	public EscapeValueTextFieldListener(JTextField escapeValueTextField, SettingsManager settingsManager) {
+	public ConstantTextFieldListener(JTextField constantTextField, SettingsManager settingsManager) {
 
-		this.escapeValueTextField = escapeValueTextField;
+		this.constantTextField = constantTextField;
 		this.settingsManager = settingsManager;
 
 	}
 
 	public void update() {
 
-		((MandelBrotSettingsManager) settingsManager).setEscapeValue(escapeValueTextField.getText());
+		((JuliaSettingsManager) settingsManager).setConstant(constantTextField.getText());
 
 	}
 

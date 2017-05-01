@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
 import fractals.settings.SettingsManager;
+import gui.settings.listeners.juliaSet.ConstantTextFieldListener;
 import gui.settings.listeners.juliaSet.EscapeValueTextFieldListener;
 import gui.settings.listeners.juliaSet.MaxIterationsTextFieldListener;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
@@ -60,6 +61,21 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 				.addDocumentListener(new EscapeValueTextFieldListener(escapeValueField, settingsManager));
 		SettingItemPanel escapeValuePanel = new SettingItemPanel(escapeValueField);
 		add(escapeValuePanel);
+
+		// Constant
+		JLabel constantLabel = new JLabel("Constant: ");
+		SettingItemPanel constantLabelPanel = new SettingItemPanel(constantLabel);
+		add(constantLabelPanel);
+
+		JTextField constantField = new JTextField();
+		String constantString = Double.toString(fractal.getConstant().getReal());
+		constantString += (fractal.getConstant().getImaginary() < 0) ? "-" : "+";
+		constantString += Double.toString(fractal.getConstant().getImaginary());
+		constantString += "i";
+		constantField.setText(constantString);
+		constantField.getDocument().addDocumentListener(new ConstantTextFieldListener(constantField, settingsManager));
+		SettingItemPanel constantPanel = new SettingItemPanel(constantField);
+		add(constantPanel);
 
 	}
 
