@@ -18,10 +18,14 @@ public class MandelBrotFractal extends AbstractFractal {
 
 	public MandelBrotFractal() {
 
+		// Set needed variable for identification
 		identifier = "MandelBrotSet1";
 		name = "Mandelbrot Set";
+
+		// Create color scheme manager
 		colorSchemeManager = new ColorSchemeManager();
 
+		// Load default settings
 		loadDefaultSettings();
 
 		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
@@ -56,22 +60,28 @@ public class MandelBrotFractal extends AbstractFractal {
 	@Override
 	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
 
+		// Create empty image
 		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 
+		// Calculate x and y step
 		double xTransformFactor = ((scale.getxDifference()) / (double) (imageWidth - 1));
 		double yTransformFactor = ((scale.getyDifference()) / (double) (imageHeight - 1));
 
+		// Loop through all pixels of the image
 		for (double i = 0; i < imageHeight; i++) {
 
 			for (double j = 0; j < imageWidth; j++) {
 
+				// Calculate the coordinates in the scale system
 				double x = scale.getxMin() + j * xTransformFactor;
 				double y = scale.getyMin() + i * yTransformFactor;
 
 				Complex constant = new Complex(x, y);
 
+				// Get the escape number
 				int escapeNumber = getEscapeValue(constant);
 
+				// Set color
 				int colorValue = colorSchemeManager.getActiveColorScheme().getRGBValue(escapeNumber);
 				image.setRGB((int) j, (int) i, colorValue);
 
@@ -86,8 +96,9 @@ public class MandelBrotFractal extends AbstractFractal {
 	public int getEscapeValue(Complex constant) {
 
 		Complex value = new Complex(0, 0);
-
 		int i;
+
+		// Perform calculation
 		for (i = 0; i < maxIterations && value.getModulus() < escapeValue; i++) {
 
 			value.power(2).add(constant);

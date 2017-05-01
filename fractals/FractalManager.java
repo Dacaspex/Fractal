@@ -31,10 +31,12 @@ public class FractalManager {
 
 	public FractalManager() {
 
+		// Initialize variables
 		fractalList = new HashMap<String, AbstractFractal>();
 		imageList = new BufferedImage[NUMBER_OF_THREADS];
 		generatingState = FractalGeneratingState.IDLE;
 
+		// Load and set default fractal
 		loadDefaultFractals();
 		setDefaultFractal();
 
@@ -50,12 +52,15 @@ public class FractalManager {
 
 	public void requestImage(int width, int height) {
 
+		// Start generating a new fractal if no other fractal is being generated
 		if (generatingState == FractalGeneratingState.IDLE) {
 
 			requestedWidth = width;
 			requestedHeight = height;
 			generatingState = FractalGeneratingState.GENERATING_IMAGE;
 			threadsRunning = NUMBER_OF_THREADS;
+
+			// Create the thread factory that handles the thread creation
 			threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
 			selectedFractal.requestImage(threadFactory, width, height);
 
@@ -65,6 +70,7 @@ public class FractalManager {
 
 	public void updateProgress(BufferedImage intermediateResult, int number) {
 
+		// Update the current progress
 		imageList[number] = intermediateResult;
 		threadsRunning--;
 
@@ -87,12 +93,14 @@ public class FractalManager {
 
 	public BufferedImage stitchImages() {
 
+		// Create the image stitcher
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
 
+		// TODO move to separate method
 		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, false);
 		postImageProcessor.applyEffects(resultImage);
-		
+
 		return resultImage;
 
 	}

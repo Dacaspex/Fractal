@@ -29,7 +29,7 @@ public class Display extends JFrame {
 	public Display() {
 
 		// Initialize variables
-		DEFAULT_DISPLAY_WIDTH = 1000;
+		DEFAULT_DISPLAY_WIDTH = 1150;
 		DEFAULT_DISPLAY_HEIGHT = 1000;
 
 		// Load settings
@@ -46,20 +46,23 @@ public class Display extends JFrame {
 
 	private void buildGUI() {
 
+		// Set look and feel, size and title
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
-		
+
+		// Build main GUI
 		buildMainPanels();
 		buildTopMenu();
-		
+
+		// Finish the GUI
 		pack();
 		setVisible(true);
 
 	}
-	
+
 	private void buildTopMenu() {
-		
+
 		JMenuBar menuBar = new JMenuBar();
 
 		// File menu
@@ -74,7 +77,8 @@ public class Display extends JFrame {
 		String[][] fractalIdentificationList = fractalManager.getLoadedFractals();
 		for (String[] fractalIdentification : fractalIdentificationList) {
 
-			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager, settingsPanel));
+			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager,
+					settingsPanel));
 
 		}
 
@@ -87,21 +91,22 @@ public class Display extends JFrame {
 		menuBar.add(aboutMenu);
 
 		setJMenuBar(menuBar);
-		
+
 	}
 
 	private void buildMainPanels() {
-		
+
+		// The explorer panel holds the settings panel and fractal panel
 		JPanel explorerPanel = new JPanel(new BorderLayout());
 		settingsPanel = new SettingsPanel(fractalManager);
 		FractalPanel fractalPanel = new FractalPanel(fractalManager, settingsPanel);
-		
+
 		explorerPanel.add(settingsPanel, BorderLayout.LINE_START);
 		explorerPanel.add(fractalPanel);
 		add(explorerPanel);
-		
+
 	}
-	
+
 	public void setLookAndFeel(String className) {
 
 		try {
@@ -113,6 +118,7 @@ public class Display extends JFrame {
 
 			// TODO print error
 			e.printStackTrace();
+			System.exit(0);
 
 		}
 
