@@ -6,9 +6,9 @@ import javax.swing.JTextField;
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
 import fractals.settings.SettingsManager;
+import gui.settings.julia.MaxIterationsTextField;
 import gui.settings.listeners.juliaSet.ConstantTextFieldListener;
 import gui.settings.listeners.juliaSet.EscapeValueTextFieldListener;
-import gui.settings.listeners.juliaSet.MaxIterationsTextFieldListener;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemPanel;
 
@@ -38,17 +38,10 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 		SettingItemPanel colorSchemeSelectorBoxPanel = new SettingItemPanel(colorSchemeSelectorBox);
 		add(colorSchemeSelectorBoxPanel);
 
-		// Maximum number of iterations
-		JLabel maxIterationsLabel = new JLabel("Maximum number of iterations:");
-		SettingItemPanel maxIterationsLabelPanel = new SettingItemPanel(maxIterationsLabel);
-		add(maxIterationsLabelPanel);
-
-		JTextField maxIterationsField = new JTextField();
-		maxIterationsField.setText(Integer.toString(fractal.getMaxIterations()));
-		maxIterationsField.getDocument()
-				.addDocumentListener(new MaxIterationsTextFieldListener(maxIterationsField, settingsManager));
-		SettingItemPanel maxIterationsPanel = new SettingItemPanel(maxIterationsField);
-		add(maxIterationsPanel);
+		// Maximum number of iterations settings field
+		MaxIterationsTextField maxIterationsTextField = new MaxIterationsTextField(this, settingsManager,
+				"Max iterations", Integer.toString(fractal.getMaxIterations()));
+		maxIterationsTextField.buildGUI();
 
 		// Escape value
 		JLabel escapeValueLabel = new JLabel("Escape value:");
