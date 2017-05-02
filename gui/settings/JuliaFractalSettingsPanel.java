@@ -1,14 +1,11 @@
 package gui.settings;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import fractals.AbstractFractal;
 import fractals.JuliaFractal;
 import fractals.settings.SettingsManager;
+import gui.settings.julia.ConstantTextField;
+import gui.settings.julia.EscapeValueTextField;
 import gui.settings.julia.MaxIterationsTextField;
-import gui.settings.listeners.juliaSet.ConstantTextFieldListener;
-import gui.settings.listeners.juliaSet.EscapeValueTextFieldListener;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemPanel;
 
@@ -43,32 +40,19 @@ public class JuliaFractalSettingsPanel extends FractalSettingsPanel {
 				"Max iterations", Integer.toString(fractal.getMaxIterations()));
 		maxIterationsTextField.buildGUI();
 
-		// Escape value
-		JLabel escapeValueLabel = new JLabel("Escape value:");
-		SettingItemPanel escapeValueLabelPanel = new SettingItemPanel(escapeValueLabel);
-		add(escapeValueLabelPanel);
+		// Escape value settings field
+		EscapeValueTextField escapeValueTextField = new EscapeValueTextField(this, settingsManager, "Escape value:",
+				Double.toString(fractal.getEscapeValue()));
+		escapeValueTextField.buildGUI();
 
-		JTextField escapeValueField = new JTextField();
-		escapeValueField.setText(Double.toString(fractal.getEscapeValue()));
-		escapeValueField.getDocument()
-				.addDocumentListener(new EscapeValueTextFieldListener(escapeValueField, settingsManager));
-		SettingItemPanel escapeValuePanel = new SettingItemPanel(escapeValueField);
-		add(escapeValuePanel);
-
-		// Constant
-		JLabel constantLabel = new JLabel("Constant: ");
-		SettingItemPanel constantLabelPanel = new SettingItemPanel(constantLabel);
-		add(constantLabelPanel);
-
-		JTextField constantField = new JTextField();
+		// Constant settings field
 		String constantString = Double.toString(fractal.getConstant().getReal());
 		constantString += (fractal.getConstant().getImaginary() < 0) ? "-" : "+";
 		constantString += Double.toString(fractal.getConstant().getImaginary());
 		constantString += "i";
-		constantField.setText(constantString);
-		constantField.getDocument().addDocumentListener(new ConstantTextFieldListener(constantField, settingsManager));
-		SettingItemPanel constantPanel = new SettingItemPanel(constantField);
-		add(constantPanel);
+		ConstantTextField constantTextField = new ConstantTextField(this, settingsManager, "Constant: ",
+				constantString);
+		constantTextField.buildGUI();
 
 	}
 

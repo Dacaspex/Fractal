@@ -1,13 +1,10 @@
 package gui.settings;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import fractals.AbstractFractal;
 import fractals.MandelBrotFractal;
 import fractals.settings.SettingsManager;
-import gui.settings.listeners.mandelBrotSet.EscapeValueTextFieldListener;
-import gui.settings.listeners.mandelBrotSet.MaxIterationsTextFieldListener;
+import gui.settings.mandelBrot.EscapeValueTextField;
+import gui.settings.mandelBrot.MaxIterationsTextField;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemPanel;
 
@@ -38,28 +35,14 @@ public class MandelBrotSettingsPanel extends FractalSettingsPanel {
 		add(colorSchemeSelectorBoxPanel);
 
 		// Maximum number of iterations
-		JLabel maxIterationsLabel = new JLabel("Maximum number of iterations:");
-		SettingItemPanel maxIterationsLabelPanel = new SettingItemPanel(maxIterationsLabel);
-		add(maxIterationsLabelPanel);
-
-		JTextField maxIterationsField = new JTextField();
-		maxIterationsField.setText(Integer.toString(fractal.getMaxIterations()));
-		maxIterationsField.getDocument()
-				.addDocumentListener(new MaxIterationsTextFieldListener(maxIterationsField, settingsManager));
-		SettingItemPanel maxIterationsPanel = new SettingItemPanel(maxIterationsField);
-		add(maxIterationsPanel);
+		MaxIterationsTextField maxIterationsField = new MaxIterationsTextField(this, settingsManager,
+				"Maximum number of iterations:", Integer.toString(fractal.getMaxIterations()));
+		maxIterationsField.buildGUI();
 
 		// Escape value
-		JLabel escapeValueLabel = new JLabel("Escape value:");
-		SettingItemPanel escapeValueLabelPanel = new SettingItemPanel(escapeValueLabel);
-		add(escapeValueLabelPanel);
-
-		JTextField escapeValueField = new JTextField();
-		escapeValueField.setText(Double.toString(fractal.getEscapeValue()));
-		escapeValueField.getDocument()
-				.addDocumentListener(new EscapeValueTextFieldListener(escapeValueField, settingsManager));
-		SettingItemPanel escapeValuePanel = new SettingItemPanel(escapeValueField);
-		add(escapeValuePanel);
+		EscapeValueTextField escapeValueTextField = new EscapeValueTextField(this, settingsManager, "Escape value:",
+				Double.toString(fractal.getEscapeValue()));
+		escapeValueTextField.buildGUI();
 
 	}
 
