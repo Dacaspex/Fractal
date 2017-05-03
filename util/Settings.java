@@ -5,7 +5,6 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -58,7 +57,7 @@ public abstract class Settings {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			return;
 
 		}
 
@@ -66,23 +65,48 @@ public abstract class Settings {
 
 	public static String getProgramName() {
 
-		return doc.getElementsByTagName("programName").item(0).getTextContent().trim();
+		if (doc != null) {
+
+			return doc.getElementsByTagName("programName").item(0).getTextContent().trim();
+
+		} else {
+
+			return "Fractal: Could not load settings.xml file";
+
+		}
 
 	}
 
 	public static String getVersion() {
 
-		return doc.getElementsByTagName("version").item(0).getTextContent().trim();
+		if (doc != null) {
+
+			return doc.getElementsByTagName("version").item(0).getTextContent().trim();
+
+		} else {
+
+			return "Version unkown";
+
+		}
 
 	}
 
 	public static AbstractFractal getDefaultFractal(FractalManager fractalManager) {
 
-		// TODO should throw an error when the parsing throws an error
-		Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
-		String identifier = defaultFractalNode.getElementsByTagName("identifier").item(0).getTextContent();
-		AbstractFractal fractal = fractalManager.getFractalByIdentifier(identifier);
+		AbstractFractal fractal;
+		
+		if (doc != null) {
 
+			Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
+			String identifier = defaultFractalNode.getElementsByTagName("identifier").item(0).getTextContent();
+			fractal = fractalManager.getFractalByIdentifier(identifier);
+
+		} else {
+			
+			fractal = fractalManager.getFractalByIdentifier("");
+			
+		}
+		
 		return fractal;
 
 	}

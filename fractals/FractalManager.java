@@ -1,8 +1,8 @@
 package fractals;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import fractals.threading.ImageGeneratorThread;
 import fractals.threading.ImageStitcher;
@@ -13,7 +13,7 @@ import util.Settings;
 
 public class FractalManager {
 
-	private HashMap<String, AbstractFractal> fractalList;
+	private TreeMap<String, AbstractFractal> fractalList;
 
 	private AbstractFractal selectedFractal;
 
@@ -32,7 +32,7 @@ public class FractalManager {
 	public FractalManager() {
 
 		// Initialize variables
-		fractalList = new HashMap<String, AbstractFractal>();
+		fractalList = new TreeMap<String, AbstractFractal>();
 		imageList = new BufferedImage[NUMBER_OF_THREADS];
 		generatingState = FractalGeneratingState.IDLE;
 
@@ -205,7 +205,15 @@ public class FractalManager {
 
 	public AbstractFractal getFractalByIdentifier(String identifier) {
 
-		return fractalList.get(identifier);
+		if (!identifier.equals("")) {
+
+			return fractalList.get(identifier);
+
+		} else {
+
+			return fractalList.firstEntry().getValue();
+
+		}
 
 	}
 
