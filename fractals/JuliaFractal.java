@@ -21,9 +21,15 @@ public class JuliaFractal extends AbstractFractal {
 
 	public JuliaFractal() {
 
-		// Set needed variable for identification
+		// Set identifier
 		identifier = "JuliaSet1";
+
+		// Set default values
 		name = "Julia Set";
+		constant = new Complex(0.285, 0.01);
+		maxIterations = 1024;
+		escapeValue = 2.0;
+		scale = new Scale(-1, 1, -1, 1);
 
 		// Load default settings from xml file
 		loadDefaultSettings();

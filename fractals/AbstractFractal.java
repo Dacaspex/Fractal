@@ -118,14 +118,22 @@ public abstract class AbstractFractal {
 
 		}
 
-		Element scaleNode = (Element) defaultSettingsElement.getElementsByTagName("scale").item(0);
+		try {
 
-		double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());
-		double xMax = Double.parseDouble(scaleNode.getElementsByTagName("xMax").item(0).getTextContent());
-		double yMin = Double.parseDouble(scaleNode.getElementsByTagName("yMin").item(0).getTextContent());
-		double yMax = Double.parseDouble(scaleNode.getElementsByTagName("yMax").item(0).getTextContent());
+			Element scaleNode = (Element) defaultSettingsElement.getElementsByTagName("scale").item(0);
 
-		scale = new Scale(xMin, xMax, yMin, yMax);
+			double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());
+			double xMax = Double.parseDouble(scaleNode.getElementsByTagName("xMax").item(0).getTextContent());
+			double yMin = Double.parseDouble(scaleNode.getElementsByTagName("yMin").item(0).getTextContent());
+			double yMax = Double.parseDouble(scaleNode.getElementsByTagName("yMax").item(0).getTextContent());
+
+			scale = new Scale(xMin, xMax, yMin, yMax);
+
+		} catch (NullPointerException exception) {
+
+			return;
+
+		}
 
 	}
 
