@@ -161,19 +161,27 @@ public class JuliaFractal extends AbstractFractal {
 
 		super.loadDefaultSettings();
 
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
-		Element constantNode = (Element) defaultSettingsElement.getElementsByTagName("constant").item(0);
-		Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
+		try {
 
-		Complex constant = Settings.getComplexFromElement(complexNode);
-		int maxIterations = Integer
-				.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
-		double escapeValue = Double
-				.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
+			Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
+			Element constantNode = (Element) defaultSettingsElement.getElementsByTagName("constant").item(0);
+			Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
 
-		this.constant = constant;
-		this.maxIterations = maxIterations;
-		this.escapeValue = escapeValue;
+			Complex constant = Settings.getComplexFromElement(complexNode);
+			int maxIterations = Integer
+					.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
+			double escapeValue = Double
+					.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
+
+			this.constant = constant;
+			this.maxIterations = maxIterations;
+			this.escapeValue = escapeValue;
+
+		} catch (NullPointerException exception) {
+
+			return;
+
+		}
 
 	}
 

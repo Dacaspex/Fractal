@@ -110,16 +110,9 @@ public abstract class AbstractFractal {
 	 */
 	public void loadDefaultSettings() {
 
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
-
-		if (defaultSettingsElement == null) {
-
-			return;
-
-		}
-
 		try {
 
+			Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
 			Element scaleNode = (Element) defaultSettingsElement.getElementsByTagName("scale").item(0);
 
 			double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());

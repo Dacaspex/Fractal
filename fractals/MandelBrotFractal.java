@@ -114,15 +114,23 @@ public class MandelBrotFractal extends AbstractFractal {
 
 		super.loadDefaultSettings();
 
-		Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
+		try {
 
-		int maxIterations = Integer
-				.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
-		double escapeValue = Double
-				.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
+			Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
 
-		this.maxIterations = maxIterations;
-		this.escapeValue = escapeValue;
+			int maxIterations = Integer
+					.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
+			double escapeValue = Double
+					.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
+
+			this.maxIterations = maxIterations;
+			this.escapeValue = escapeValue;
+
+		} catch (NullPointerException exception) {
+
+			return;
+
+		}
 
 	}
 
