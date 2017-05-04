@@ -9,7 +9,8 @@ import gui.settings.utilComponents.AbstractSettingTextField;
 
 public class MaxIterationsTextField extends AbstractSettingTextField {
 
-	public MaxIterationsTextField(FractalSettingsPanel settingsPanel, SettingsManager settingsManager, String description, String defaultText) {
+	public MaxIterationsTextField(FractalSettingsPanel settingsPanel, SettingsManager settingsManager,
+			String description, String defaultText) {
 
 		super(settingsPanel, settingsManager, description, defaultText);
 
@@ -17,9 +18,9 @@ public class MaxIterationsTextField extends AbstractSettingTextField {
 
 	@Override
 	public void documentUpdate(DocumentEvent event) {
-		
+
 		((JuliaSettingsManager) settingsManager).setMaxIterations(textField.getText());
-		
+
 	}
 
 }

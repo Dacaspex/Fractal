@@ -26,7 +26,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
-	private SettingsPanel settingsPanel;
 	private FractalManager fractalManager;
 
 	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
@@ -34,7 +33,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		FractalPanel.instance = this;
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
-		this.settingsPanel = settingsPanel;
 		this.fractalManager = fractalManager;
 
 		fractalManager.setFractalPanel(this);
@@ -98,7 +96,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
 
 		// Update information
-		settingsPanel.getInformationPanel().updateInformation();
 		requestUpdate();
 
 	}
@@ -125,7 +122,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
 
 		// Update information
-		settingsPanel.getInformationPanel().updateInformation();
 		requestUpdate();
 
 	}
@@ -150,7 +146,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalScale.translateCenterToPoint(pointInScale);
 
 		// Update information
-		settingsPanel.getInformationPanel().updateInformation();
 		requestUpdate();
 
 	}
