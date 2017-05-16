@@ -1,31 +1,21 @@
 package fractals.settings;
 
-import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
 
 import complex.Complex;
 import fractals.JuliaFractal;
 import gui.FractalPanel;
-import gui.settings.FractalSettingsPanel;
-import gui.settings.JuliaFractalSettingsPanel;
-import gui.settings.utilComponents.SettingItemPanel;
+import test.SettingItemComponent;
+import test.TextFieldComponent;
 import util.ComplexValueParser;
 
 public class JuliaSettingsManager implements SettingsManager {
 
 	private JuliaFractal juliaFractal;
-	private JuliaFractalSettingsPanel settingsPanel;
 
 	public JuliaSettingsManager(JuliaFractal juliaFractal) {
 
 		this.juliaFractal = juliaFractal;
-		this.settingsPanel = new JuliaFractalSettingsPanel(juliaFractal, this);
-
-	}
-
-	@Override
-	public FractalSettingsPanel getSettingsPanel() {
-
-		return settingsPanel;
 
 	}
 
@@ -89,15 +79,49 @@ public class JuliaSettingsManager implements SettingsManager {
 	}
 
 	@Override
-	public SettingItemPanel[] getSettingComponents() {
+	public SettingItemComponent[] getSettingComponents() {
 
-		SettingItemPanel item = new SettingItemPanel(new JTextField());
-		SettingItemPanel item2 = new SettingItemPanel(new JTextField());
-		SettingItemPanel[] array = new SettingItemPanel[2];
-		array[0] = item;
-		array[1] = item2;
-		return array;
+		// Max iterations
+		TextFieldComponent maxIterationsTextField = new TextFieldComponent(
+				Integer.toString(juliaFractal.getMaxIterations())) {
+			private static final long serialVersionUID = -6033309334749328555L;
 
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setMaxIterations(this.getText());
+			}
+		};
+		SettingItemComponent maxIterationsSettingItem = new SettingItemComponent("Max iterations:",
+				maxIterationsTextField);
+
+		// Escape value
+		TextFieldComponent escapeValueTextField = new TextFieldComponent(
+				Double.toString(juliaFractal.getEscapeValue())) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setEscapeValue(this.getText());
+			}
+		};
+		SettingItemComponent escapeValueSettingsItem = new SettingItemComponent("Escape value:", escapeValueTextField);
+
+		// Constant
+		String constantString = Double.toString(juliaFractal.getConstant().getReal());
+		constantString += (juliaFractal.getConstant().getImaginary() < 0) ? "-" : "+";
+		constantString += Double.toString(juliaFractal.getConstant().getImaginary());
+		constantString += "i";
+		TextFieldComponent constantTextField = new TextFieldComponent(constantString) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setConstant(this.getText());
+			}
+		};
+		SettingItemComponent constantSettingItem = new SettingItemComponent("Constant:", constantTextField);
+
+		return new SettingItemComponent[] { maxIterationsSettingItem, escapeValueSettingsItem, constantSettingItem };
 	}
 
 }
