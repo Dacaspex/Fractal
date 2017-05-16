@@ -1,10 +1,13 @@
 package fractals.settings;
 
+import javax.swing.JTextField;
+
 import complex.Complex;
 import fractals.JuliaFractal;
 import gui.FractalPanel;
 import gui.settings.FractalSettingsPanel;
 import gui.settings.JuliaFractalSettingsPanel;
+import gui.settings.utilComponents.SettingItemPanel;
 import util.ComplexValueParser;
 
 public class JuliaSettingsManager implements SettingsManager {
@@ -82,6 +85,18 @@ public class JuliaSettingsManager implements SettingsManager {
 			FractalPanel.getFractalPanel().requestUpdate();
 
 		}
+
+	}
+
+	@Override
+	public SettingItemPanel[] getSettingComponents() {
+
+		SettingItemPanel item = new SettingItemPanel(new JTextField());
+		SettingItemPanel item2 = new SettingItemPanel(new JTextField());
+		SettingItemPanel[] array = new SettingItemPanel[2];
+		array[0] = item;
+		array[1] = item2;
+		return array;
 
 	}
 

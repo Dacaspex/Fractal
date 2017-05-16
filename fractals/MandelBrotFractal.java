@@ -18,15 +18,19 @@ public class MandelBrotFractal extends AbstractFractal {
 
 	public MandelBrotFractal() {
 
-		// Set needed variable for identification
+		// Set identification
 		identifier = "MandelBrotSet1";
+		
+		// Set default values
 		name = "Mandelbrot Set";
-
-		// Create color scheme manager
-		colorSchemeManager = new ColorSchemeManager();
+		maxIterations = 512;
+		escapeValue = 2.0;
 
 		// Load default settings
 		loadDefaultSettings();
+		
+		// Create color scheme manager
+		colorSchemeManager = new ColorSchemeManager();
 
 		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		settingsManager = new MandelBrotSettingsManager(this);

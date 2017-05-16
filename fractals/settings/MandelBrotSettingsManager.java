@@ -4,6 +4,7 @@ import fractals.MandelBrotFractal;
 import gui.FractalPanel;
 import gui.settings.FractalSettingsPanel;
 import gui.settings.MandelBrotSettingsPanel;
+import gui.settings.utilComponents.SettingItemPanel;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
@@ -68,6 +69,12 @@ public class MandelBrotSettingsManager implements SettingsManager {
 
 		}
 
+	}
+
+	@Override
+	public SettingItemPanel[] getSettingComponents() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

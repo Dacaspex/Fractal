@@ -3,12 +3,15 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
 import gui.settings.FractalSettingsPanel;
+import gui.settings.utilComponents.SettingItemPanel;
 
 public class SettingsPanel extends JPanel {
 
@@ -37,18 +40,27 @@ public class SettingsPanel extends JPanel {
 		setPreferredSize(new Dimension(250, 0));
 		setBorder(new EmptyBorder(padding, padding, padding, padding));
 		scrollPane = new JScrollPane();
-		scrollPane.setViewportView(fractalSettingsPanel);
+//		scrollPane.setViewportView(fractalSettingsPanel);
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		for (SettingItemPanel component : fractalManager.getSelectedFractal().getSettingsManager().getSettingComponents()) {
+			panel.add(component);
+		}
+		
 		scrollPane.createHorizontalScrollBar();
 		scrollPane.setBorder(null);
+		scrollPane.setViewportView(panel);
+		
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
 
 	public void update() {
 
-		remove(fractalSettingsPanel);
-		fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
-		add(fractalSettingsPanel, BorderLayout.CENTER);
+//		remove(fractalSettingsPanel);
+//		fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
+//		add(fractalSettingsPanel, BorderLayout.CENTER);
 		revalidate();
 		repaint();
 
