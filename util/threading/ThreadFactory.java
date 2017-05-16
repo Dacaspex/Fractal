@@ -1,4 +1,4 @@
-package fractals.threading;
+package util.threading;
 
 import fractals.AbstractFractal;
 import fractals.Scale;

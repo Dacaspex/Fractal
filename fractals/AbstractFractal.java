@@ -7,8 +7,8 @@ import org.w3c.dom.Element;
 
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.settings.SettingsManager;
-import fractals.threading.ThreadFactory;
 import util.Settings;
+import util.threading.ThreadFactory;
 
 public abstract class AbstractFractal {
 

@@ -1,5 +1,7 @@
 package fractals.colorSchemes;
 
+import fractals.settings.SettingsManager;
+
 public abstract class AbstractColorScheme {
 
 	/**
@@ -12,6 +14,8 @@ public abstract class AbstractColorScheme {
 	 * Name to be displayed on the GUI
 	 */
 	protected String name;
+	
+	protected SettingsManager settingsManager;
 
 	public String getIdentifier() {
 		
@@ -22,6 +26,12 @@ public abstract class AbstractColorScheme {
 	public String getName() {
 
 		return name;
+
+	}
+	
+	public SettingsManager getSettingsManager() {
+
+		return settingsManager;
 
 	}
 

@@ -4,8 +4,9 @@ import javax.swing.event.DocumentEvent;
 
 import fractals.MandelBrotFractal;
 import gui.FractalPanel;
-import test.SettingItemComponent;
-import test.TextFieldComponent;
+import gui.settings.utilComponents.ColorSchemeSelectorBox;
+import gui.settings.utilComponents.SettingItemComponent;
+import gui.settings.utilComponents.TextFieldComponent;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
@@ -66,6 +67,10 @@ public class MandelBrotSettingsManager implements SettingsManager {
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
 
+		// Color scheme
+		ColorSchemeSelectorBox colorSchemeBox = new ColorSchemeSelectorBox(mandelBrotFractal.getColorSchemeManager());
+		SettingItemComponent colorSchemeBoxSettingItem = new SettingItemComponent("Color Scheme:", colorSchemeBox);
+
 		// Max iterations
 		TextFieldComponent maxIterationsTextField = new TextFieldComponent(
 				Integer.toString(mandelBrotFractal.getMaxIterations())) {
@@ -91,7 +96,8 @@ public class MandelBrotSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent escapeValueSettingsItem = new SettingItemComponent("Escape value:", escapeValueTextField);
 
-		return new SettingItemComponent[] { maxIterationsSettingItem, escapeValueSettingsItem };
+		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
+				escapeValueSettingsItem };
 	}
 
 }

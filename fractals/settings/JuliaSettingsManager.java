@@ -5,8 +5,9 @@ import javax.swing.event.DocumentEvent;
 import complex.Complex;
 import fractals.JuliaFractal;
 import gui.FractalPanel;
-import test.SettingItemComponent;
-import test.TextFieldComponent;
+import gui.settings.utilComponents.ColorSchemeSelectorBox;
+import gui.settings.utilComponents.SettingItemComponent;
+import gui.settings.utilComponents.TextFieldComponent;
 import util.ComplexValueParser;
 
 public class JuliaSettingsManager implements SettingsManager {
@@ -22,22 +23,14 @@ public class JuliaSettingsManager implements SettingsManager {
 	public void setMaxIterations(String iterationsString) {
 
 		try {
-
 			int iterations = Integer.parseInt(iterationsString);
-
 			if (iterations <= 0) {
-
 				return;
-
 			}
-
 			juliaFractal.setMaxIterations(iterations);
 			FractalPanel.getFractalPanel().requestUpdate();
-
 		} catch (NumberFormatException exception) {
-
 			return;
-
 		}
 
 	}
@@ -45,22 +38,14 @@ public class JuliaSettingsManager implements SettingsManager {
 	public void setEscapeValue(String escapeValueString) {
 
 		try {
-
 			double escapeValue = Double.parseDouble(escapeValueString);
-
 			if (escapeValue <= 0) {
-
 				return;
-
 			}
-
 			juliaFractal.setEscapeValue(escapeValue);
 			FractalPanel.getFractalPanel().requestUpdate();
-
 		} catch (NumberFormatException exception) {
-
 			return;
-
 		}
 
 	}
@@ -68,18 +53,19 @@ public class JuliaSettingsManager implements SettingsManager {
 	public void setConstant(String value) {
 
 		Complex constant = ComplexValueParser.parseFromString(value);
-
 		if (constant != null) {
-
 			juliaFractal.setConstant(constant);
 			FractalPanel.getFractalPanel().requestUpdate();
-
 		}
 
 	}
 
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
+
+		// Color scheme
+		ColorSchemeSelectorBox colorSchemeBox = new ColorSchemeSelectorBox(juliaFractal.getColorSchemeManager());
+		SettingItemComponent colorSchemeBoxSettingItem = new SettingItemComponent("Color Scheme:", colorSchemeBox);
 
 		// Max iterations
 		TextFieldComponent maxIterationsTextField = new TextFieldComponent(
@@ -121,7 +107,8 @@ public class JuliaSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent constantSettingItem = new SettingItemComponent("Constant:", constantTextField);
 
-		return new SettingItemComponent[] { maxIterationsSettingItem, escapeValueSettingsItem, constantSettingItem };
+		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
+				escapeValueSettingsItem, constantSettingItem };
 	}
 
 }

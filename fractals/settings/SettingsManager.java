@@ -1,9 +1,9 @@
 package fractals.settings;
 
-import test.SettingItemComponent;
+import gui.settings.utilComponents.SettingItemComponent;
 
 public interface SettingsManager {
-	
+
 	public SettingItemComponent[] getSettingComponents();
 
 }

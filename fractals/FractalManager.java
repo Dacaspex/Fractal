@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.TreeMap;
 
-import fractals.threading.ImageGeneratorThread;
-import fractals.threading.ImageStitcher;
-import fractals.threading.ThreadFactory;
 import gui.FractalPanel;
 import imageProcessing.post.PostImageProcessor;
 import util.Settings;
+import util.threading.ImageGeneratorThread;
+import util.threading.ImageStitcher;
+import util.threading.ThreadFactory;
 
 public class FractalManager {
 

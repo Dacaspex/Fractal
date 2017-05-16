@@ -1,4 +1,4 @@
-package fractals.threading;
+package util.threading;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

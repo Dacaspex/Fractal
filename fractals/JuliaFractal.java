@@ -7,8 +7,8 @@ import org.w3c.dom.Element;
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
-import fractals.colorSchemes.JuliaColorScheme;
 import fractals.colorSchemes.LinearColorScheme;
+import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.JuliaSettingsManager;
 import util.Settings;
 
@@ -38,7 +38,7 @@ public class JuliaFractal extends AbstractFractal {
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
 		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
-		colorSchemeManager.addColorScheme(new JuliaColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(new SimpleWaveColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		settingsManager = new JuliaSettingsManager(this);
 
 	}
@@ -108,7 +108,7 @@ public class JuliaFractal extends AbstractFractal {
 				// Determine color
 				switch (colorSchemeManager.getActiveColorScheme().getIdentifier()) {
 
-				case "JuliaColorScheme1":
+				case "SimpleWaveColorScheme1":
 
 					// Extra calculation for a smooth color transition
 					double continuousIndex = escapeNumber + 1

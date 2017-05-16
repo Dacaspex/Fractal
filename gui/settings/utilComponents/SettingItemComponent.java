@@ -1,9 +1,7 @@
-package test;
+package gui.settings.utilComponents;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-
-import gui.settings.utilComponents.SettingItemPanel;
 
 public class SettingItemComponent {
 

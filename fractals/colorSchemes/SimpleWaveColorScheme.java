@@ -2,6 +2,8 @@ package fractals.colorSchemes;
 
 import java.awt.Color;
 
+import fractals.colorSchemes.settings.SimpleWaveColorSchemeSettingsManager;
+
 public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 	private double frequencyRed;
@@ -12,6 +14,11 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 	private int phaseBlue;
 	private int center;
 	private int delta;
+
+	private double maximumValue;
+	private Color maximumColor;
+
+	private double threshold;
 
 	public SimpleWaveColorScheme() {
 
@@ -28,6 +35,12 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 		center = 230;
 		delta = 25;
+
+		maximumValue = Integer.MAX_VALUE;
+		maximumColor = Color.black;
+		threshold = 0;
+		
+		settingsManager = new SimpleWaveColorSchemeSettingsManager(this);
 
 	}
 
@@ -127,7 +140,47 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 	}
 
+	public double getThreshold() {
+
+		return threshold;
+
+	}
+
+	public double getMaximumValue() {
+
+		return maximumValue;
+
+	}
+
+	public void setMaximumValue(double maximumValue) {
+
+		this.maximumValue = maximumValue;
+
+	}
+
+	public void setThreshold(double threshold) {
+
+		this.threshold = threshold;
+
+	}
+
+	public Color getMaximumColor() {
+		return maximumColor;
+	}
+
+	public void setMaximumColor(Color maximumColor) {
+
+		this.maximumColor = maximumColor;
+
+	}
+
 	public int getRGBValue(double continuousIndex) {
+
+		if (continuousIndex > maximumValue - threshold) {
+
+			return maximumColor.getRGB();
+
+		}
 
 		int r = (int) Math.abs((Math.sin(frequencyRed * continuousIndex + phaseRed) * center + delta));
 		int g = (int) Math.abs((Math.sin(frequencyGreen * continuousIndex + phaseGreen) * center + delta));

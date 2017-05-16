@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
-import fractals.colorSchemes.MandelbrotColorScheme;
+import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.MandelBrotSettingsManager;
 import util.Settings;
 
@@ -20,7 +20,7 @@ public class MandelBrotFractal extends AbstractFractal {
 
 		// Set identification
 		identifier = "MandelBrotSet1";
-		
+
 		// Set default values
 		name = "Mandelbrot Set";
 		maxIterations = 512;
@@ -28,11 +28,14 @@ public class MandelBrotFractal extends AbstractFractal {
 
 		// Load default settings
 		loadDefaultSettings();
-		
+
 		// Create color scheme manager
 		colorSchemeManager = new ColorSchemeManager();
+		SimpleWaveColorScheme simpleWaveColorScheme = new SimpleWaveColorScheme();
+		simpleWaveColorScheme.setMaximumValue(maxIterations);
+		simpleWaveColorScheme.setThreshold(2.0);
 
-		colorSchemeManager.addColorScheme(new MandelbrotColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(simpleWaveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		settingsManager = new MandelBrotSettingsManager(this);
 
 	}
@@ -46,6 +49,8 @@ public class MandelBrotFractal extends AbstractFractal {
 	public void setMaxIterations(int maxIterations) {
 
 		this.maxIterations = maxIterations;
+		((SimpleWaveColorScheme) colorSchemeManager.getColorScheme("SimpleWaveColorScheme1"))
+				.setMaximumValue(maxIterations);
 
 	}
 

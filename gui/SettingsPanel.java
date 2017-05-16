@@ -9,17 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
-import test.SettingItemComponent;
+import gui.settings.utilComponents.SettingItemComponent;
 
 public class SettingsPanel extends JPanel {
 
 	private static final long serialVersionUID = -8928464335165056558L;
 
 	private JScrollPane scrollPane;
-
-	private int padding;
-
 	private FractalManager fractalManager;
+	private int padding;
 
 	public SettingsPanel(FractalManager fractalManager) {
 
@@ -45,17 +43,25 @@ public class SettingsPanel extends JPanel {
 
 	public void update() {
 
+		// Create a wrapper panel to wrap all components with
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
 
+		// Add all fractal components to the wrapper; first label then component
 		for (SettingItemComponent component : fractalManager.getSelectedFractal().getSettingsManager()
 				.getSettingComponents()) {
 			wrapper.add(component.getLabel());
 			wrapper.add(component.getComponent());
 		}
 
-		scrollPane.setViewportView(wrapper);
+		for (SettingItemComponent component : fractalManager.getSelectedFractal().getColorSchemeManager()
+				.getActiveColorScheme().getSettingsManager().getSettingComponents()) {
+			wrapper.add(component.getLabel());
+			wrapper.add(component.getComponent());
+		}
 
+		// Set scrollPane viewport and update GUI
+		scrollPane.setViewportView(wrapper);
 		revalidate();
 		repaint();
 

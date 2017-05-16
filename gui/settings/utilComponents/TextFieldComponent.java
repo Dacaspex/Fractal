@@ -1,4 +1,4 @@
-package test;
+package gui.settings.utilComponents;
 
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
