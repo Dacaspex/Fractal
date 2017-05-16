@@ -6,12 +6,10 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
-import gui.settings.FractalSettingsPanel;
-import gui.settings.utilComponents.SettingItemPanel;
+import test.SettingItemComponent;
 
 public class SettingsPanel extends JPanel {
 
@@ -22,13 +20,11 @@ public class SettingsPanel extends JPanel {
 	private int padding;
 
 	private FractalManager fractalManager;
-	private FractalSettingsPanel fractalSettingsPanel;
 
 	public SettingsPanel(FractalManager fractalManager) {
 
 		this.padding = 10;
 		this.fractalManager = fractalManager;
-		this.fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
 
 		buildGUI();
 
@@ -40,27 +36,26 @@ public class SettingsPanel extends JPanel {
 		setPreferredSize(new Dimension(250, 0));
 		setBorder(new EmptyBorder(padding, padding, padding, padding));
 		scrollPane = new JScrollPane();
-//		scrollPane.setViewportView(fractalSettingsPanel);
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
-		for (SettingItemPanel component : fractalManager.getSelectedFractal().getSettingsManager().getSettingComponents()) {
-			panel.add(component);
-		}
-		
 		scrollPane.createHorizontalScrollBar();
 		scrollPane.setBorder(null);
-		scrollPane.setViewportView(panel);
-		
+		update();
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
 
 	public void update() {
 
-//		remove(fractalSettingsPanel);
-//		fractalSettingsPanel = fractalManager.getSelectedFractal().getSettingsManager().getSettingsPanel();
-//		add(fractalSettingsPanel, BorderLayout.CENTER);
+		JPanel wrapper = new JPanel();
+		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
+
+		for (SettingItemComponent component : fractalManager.getSelectedFractal().getSettingsManager()
+				.getSettingComponents()) {
+			wrapper.add(component.getLabel());
+			wrapper.add(component.getComponent());
+		}
+
+		scrollPane.setViewportView(wrapper);
+
 		revalidate();
 		repaint();
 

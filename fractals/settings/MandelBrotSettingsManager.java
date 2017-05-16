@@ -1,27 +1,19 @@
 package fractals.settings;
 
+import javax.swing.event.DocumentEvent;
+
 import fractals.MandelBrotFractal;
 import gui.FractalPanel;
-import gui.settings.FractalSettingsPanel;
-import gui.settings.MandelBrotSettingsPanel;
-import gui.settings.utilComponents.SettingItemPanel;
+import test.SettingItemComponent;
+import test.TextFieldComponent;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
 	private MandelBrotFractal mandelBrotFractal;
-	private MandelBrotSettingsPanel settingsPanel;
 
 	public MandelBrotSettingsManager(MandelBrotFractal mandelBrotFractal) {
 
 		this.mandelBrotFractal = mandelBrotFractal;
-		this.settingsPanel = new MandelBrotSettingsPanel(mandelBrotFractal, this);
-
-	}
-
-	@Override
-	public FractalSettingsPanel getSettingsPanel() {
-
-		return settingsPanel;
 
 	}
 
@@ -72,9 +64,34 @@ public class MandelBrotSettingsManager implements SettingsManager {
 	}
 
 	@Override
-	public SettingItemPanel[] getSettingComponents() {
-		// TODO Auto-generated method stub
-		return null;
+	public SettingItemComponent[] getSettingComponents() {
+
+		// Max iterations
+		TextFieldComponent maxIterationsTextField = new TextFieldComponent(
+				Integer.toString(mandelBrotFractal.getMaxIterations())) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setMaxIterations(this.getText());
+			}
+		};
+		SettingItemComponent maxIterationsSettingItem = new SettingItemComponent("Max iterations:",
+				maxIterationsTextField);
+
+		// Escape value
+		TextFieldComponent escapeValueTextField = new TextFieldComponent(
+				Double.toString(mandelBrotFractal.getEscapeValue())) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setEscapeValue(this.getText());
+			}
+		};
+		SettingItemComponent escapeValueSettingsItem = new SettingItemComponent("Escape value:", escapeValueTextField);
+
+		return new SettingItemComponent[] { maxIterationsSettingItem, escapeValueSettingsItem };
 	}
 
 }

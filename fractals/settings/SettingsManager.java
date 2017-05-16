@@ -1,13 +1,9 @@
 package fractals.settings;
 
-import gui.settings.FractalSettingsPanel;
-import gui.settings.utilComponents.SettingItemPanel;
+import test.SettingItemComponent;
 
 public interface SettingsManager {
 	
-	@Deprecated
-	public FractalSettingsPanel getSettingsPanel();
-	
-	public SettingItemPanel[] getSettingComponents();
+	public SettingItemComponent[] getSettingComponents();
 
 }
