@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
 import gui.settings.utilComponents.SettingItemComponent;
+import gui.settings.utilComponents.SettingItemComponent.SettingItemPanelType;
 
 public class SettingsPanel extends JPanel {
 
@@ -50,14 +51,22 @@ public class SettingsPanel extends JPanel {
 		// Add all fractal components to the wrapper; first label then component
 		for (SettingItemComponent component : fractalManager.getSelectedFractal().getSettingsManager()
 				.getSettingComponents()) {
-			wrapper.add(component.getLabel());
-			wrapper.add(component.getComponent());
+			if (component.getType() == SettingItemPanelType.SETTING) {
+				wrapper.add(component.getLabel());
+				wrapper.add(component.getComponent());
+			} else if (component.getType() == SettingItemPanelType.SECTION_TITLE) {
+				wrapper.add(component.getLabel());
+			}
 		}
 
 		for (SettingItemComponent component : fractalManager.getSelectedFractal().getColorSchemeManager()
 				.getActiveColorScheme().getSettingsManager().getSettingComponents()) {
-			wrapper.add(component.getLabel());
-			wrapper.add(component.getComponent());
+			if (component.getType() == SettingItemPanelType.SETTING) {
+				wrapper.add(component.getLabel());
+				wrapper.add(component.getComponent());
+			} else if (component.getType() == SettingItemPanelType.SECTION_TITLE) {
+				wrapper.add(component.getLabel());
+			}
 		}
 
 		// Set scrollPane viewport and update GUI
