@@ -9,11 +9,11 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 	private double frequencyRed;
 	private double frequencyGreen;
 	private double frequencyBlue;
-	private int phaseRed;
-	private int phaseGreen;
-	private int phaseBlue;
-	private int center;
-	private int delta;
+	private double phaseRed;
+	private double phaseGreen;
+	private double phaseBlue;
+	private double center;
+	private double delta;
 
 	private double maximumValue;
 	private Color maximumColor;
@@ -39,7 +39,7 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 		maximumValue = Integer.MAX_VALUE;
 		maximumColor = Color.black;
 		threshold = 0;
-		
+
 		settingsManager = new SimpleWaveColorSchemeSettingsManager(this);
 
 	}
@@ -80,61 +80,61 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 	}
 
-	public int getPhaseRed() {
+	public double getPhaseRed() {
 
 		return phaseRed;
 
 	}
 
-	public void setPhaseRed(int phaseRed) {
+	public void setPhaseRed(double phaseRed) {
 
 		this.phaseRed = phaseRed;
 
 	}
 
-	public int getPhaseGreen() {
+	public double getPhaseGreen() {
 
 		return phaseGreen;
 
 	}
 
-	public void setPhaseGreen(int phaseGreen) {
+	public void setPhaseGreen(double phaseGreen) {
 
 		this.phaseGreen = phaseGreen;
 
 	}
 
-	public int getPhaseBlue() {
+	public double getPhaseBlue() {
 
 		return phaseBlue;
 
 	}
 
-	public void setPhaseBlue(int phaseBlue) {
+	public void setPhaseBlue(double phaseBlue) {
 
 		this.phaseBlue = phaseBlue;
 
 	}
 
-	public int getCenter() {
+	public double getCenter() {
 
 		return center;
 
 	}
 
-	public void setCenter(int center) {
+	public void setCenter(double center) {
 
 		this.center = center;
 
 	}
 
-	public int getDelta() {
+	public double getDelta() {
 
 		return delta;
 
 	}
 
-	public void setDelta(int delta) {
+	public void setDelta(double delta) {
 
 		this.delta = delta;
 
@@ -165,7 +165,9 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 	}
 
 	public Color getMaximumColor() {
+
 		return maximumColor;
+
 	}
 
 	public void setMaximumColor(Color maximumColor) {
@@ -176,15 +178,20 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 	public int getRGBValue(double continuousIndex) {
 
+		// Apply threshold
 		if (continuousIndex > maximumValue - threshold) {
-
 			return maximumColor.getRGB();
-
 		}
 
+		// Calculate rgb values
 		int r = (int) Math.abs((Math.sin(frequencyRed * continuousIndex + phaseRed) * center + delta));
 		int g = (int) Math.abs((Math.sin(frequencyGreen * continuousIndex + phaseGreen) * center + delta));
 		int b = (int) Math.abs((Math.sin(frequencyBlue * continuousIndex + phaseBlue) * center + delta));
+
+		// Cap rgb values at 255
+		r = Math.min(r, 255);
+		g = Math.min(g, 255);
+		b = Math.min(b, 255);
 
 		return new Color(r, g, b).getRGB();
 
