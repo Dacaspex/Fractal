@@ -16,16 +16,25 @@ public class SettingsPanel extends JPanel {
 
 	private static final long serialVersionUID = -8928464335165056558L;
 
+	private static SettingsPanel instance;
+
 	private JScrollPane scrollPane;
 	private FractalManager fractalManager;
 	private int padding;
 
 	public SettingsPanel(FractalManager fractalManager) {
 
+		SettingsPanel.instance = this;
 		this.padding = 10;
 		this.fractalManager = fractalManager;
 
 		buildGUI();
+
+	}
+
+	public static SettingsPanel getSettingsPanel() {
+
+		return instance;
 
 	}
 
@@ -48,30 +57,33 @@ public class SettingsPanel extends JPanel {
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
 
+		// Section title
+		SettingItemComponent titleComponentFractalSettings = new SettingItemComponent("Fractal Settings");
+		wrapper.add(titleComponentFractalSettings.getLabel());
+
 		// Add all fractal components to the wrapper; first label then component
 		for (SettingItemComponent component : fractalManager.getSelectedFractal().getSettingsManager()
 				.getSettingComponents()) {
-			if (component.getType() == SettingItemPanelType.SETTING) {
-				wrapper.add(component.getLabel());
-				wrapper.add(component.getComponent());
-			} else if (component.getType() == SettingItemPanelType.SECTION_TITLE) {
-				wrapper.add(component.getLabel());
-			}
+			wrapper.add(component.getLabel());
+			wrapper.add(component.getComponent());
 		}
 
+		// Section title
+		SettingItemComponent titleComponentColorSchemeSettings = new SettingItemComponent("Color scheme Settings");
+		wrapper.add(titleComponentColorSchemeSettings.getLabel());
+
+		// Add all settings components in the same way
 		for (SettingItemComponent component : fractalManager.getSelectedFractal().getColorSchemeManager()
 				.getActiveColorScheme().getSettingsManager().getSettingComponents()) {
-			if (component.getType() == SettingItemPanelType.SETTING) {
-				wrapper.add(component.getLabel());
-				wrapper.add(component.getComponent());
-			} else if (component.getType() == SettingItemPanelType.SECTION_TITLE) {
-				wrapper.add(component.getLabel());
-			}
+			wrapper.add(component.getLabel());
+			wrapper.add(component.getComponent());
 		}
 
 		// Set scrollPane viewport and update GUI
 		scrollPane.setViewportView(wrapper);
+
 		revalidate();
+
 		repaint();
 
 	}

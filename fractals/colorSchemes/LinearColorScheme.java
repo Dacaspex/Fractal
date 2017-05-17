@@ -3,6 +3,8 @@ package fractals.colorSchemes;
 import java.awt.Color;
 import java.util.Arrays;
 
+import fractals.colorSchemes.settings.LinearColorSchemeSettingsManager;
+
 public class LinearColorScheme extends AbstractColorScheme {
 
 	private Color[] colorArray;
@@ -11,11 +13,11 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	public LinearColorScheme(boolean loadDefaultColors, int steps) {
 
-		identifier = "LinearColorScheme1";
-		name = "Linear Color Scheme";
-		colorArray = new Color[0];
-
+		this.identifier = "LinearColorScheme1";
+		this.name = "Linear Color Scheme";
+		this.colorArray = new Color[0];
 		this.steps = steps;
+		this.settingsManager = new LinearColorSchemeSettingsManager();
 
 		if (loadDefaultColors) {
 
@@ -28,9 +30,10 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	public LinearColorScheme(boolean loadDefaultColors) {
 
-		identifier = "LinearColorScheme1";
-		name = "Linear Color Scheme";
-		colorArray = new Color[0];
+		this.identifier = "LinearColorScheme1";
+		this.name = "Linear Color Scheme";
+		this.colorArray = new Color[0];
+		this.settingsManager = new LinearColorSchemeSettingsManager();
 
 		if (loadDefaultColors) {
 

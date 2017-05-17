@@ -62,10 +62,6 @@ public class JuliaSettingsManager implements SettingsManager {
 
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
-		
-		// Section title
-		SettingItemComponent titleComponent = new SettingItemComponent("Fractal Settings");
-		
 
 		// Color scheme
 		ColorSchemeSelectorBox colorSchemeBox = new ColorSchemeSelectorBox(juliaFractal.getColorSchemeManager());
@@ -111,7 +107,7 @@ public class JuliaSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent constantSettingItem = new SettingItemComponent("Constant:", constantTextField);
 
-		return new SettingItemComponent[] { titleComponent, colorSchemeBoxSettingItem, maxIterationsSettingItem,
+		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
 				escapeValueSettingsItem, constantSettingItem };
 	}
 
