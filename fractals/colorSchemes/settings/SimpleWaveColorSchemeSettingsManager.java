@@ -1,6 +1,7 @@
 package fractals.colorSchemes.settings;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 import javax.swing.event.DocumentEvent;
 
@@ -271,9 +272,8 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		} else {
 			maximumValueString = Double.toString(simpleWaveColorScheme.getMaximumValue());
 		}
-		
-		TextFieldComponent maximumValueTextField = new TextFieldComponent(
-				maximumValueString) {
+
+		TextFieldComponent maximumValueTextField = new TextFieldComponent(maximumValueString) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -283,13 +283,28 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent maximumValueSettingItem = new SettingItemComponent("Maximum value:",
 				maximumValueTextField);
-		
-		ColorPickerButton colorPickerButton = new ColorPickerButton(Color.green);
+
+		// Color picker button
+		ColorPickerButton colorPickerButton = new ColorPickerButton(simpleWaveColorScheme.getMaximumColor()) {
+
+			private static final long serialVersionUID = 8994349209644064825L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				update();
+				simpleWaveColorScheme.setMaximumColor(color);
+				FractalPanel.getFractalPanel().requestUpdate();
+
+			}
+
+		};
 		SettingItemComponent colorPickerSettingItem = new SettingItemComponent("Color picker:", colorPickerButton);
 
-		return new SettingItemComponent[] { colorPickerSettingItem, frequencyRedSettingItem, frequencyGreenSettingItem,
+		return new SettingItemComponent[] { frequencyRedSettingItem, frequencyGreenSettingItem,
 				frequencyBlueSettingItem, phaseRedSettingItem, phaseGreenSettingItem, phaseBlueSettingItem,
-				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem };
+				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem,
+				colorPickerSettingItem };
 
 	}
 
