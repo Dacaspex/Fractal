@@ -6,26 +6,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JPanel;
 
 public class ColorPickerButton extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = -683697919564031688L;
-	
-	private Color color;
+
+	protected Color color;
+	private JPanel wrapper;
 
 	public ColorPickerButton(Color color) {
 
 		this.color = color;
+		this.wrapper = new JPanel();
+		this.wrapper.setBackground(color);
+		add(wrapper);
 		setText("test");
 		addActionListener(this);
-		update();
 
 	}
-	
+
 	public void update() {
-		
-		setBackground(color);
-		
+
+		Color newColor = JColorChooser.showDialog(null, "Test", color);
+		if (newColor != null) {
+			color = newColor;
+			wrapper.setBackground(color);
+		}
+
 	}
 
 	@Override
