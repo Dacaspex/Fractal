@@ -20,11 +20,8 @@ public class ColorSchemeSelectorBox extends JComboBox<ColorSchemeSelectorBoxItem
 	public ColorSchemeSelectorBox(ColorSchemeManager colorSchemeManager) {
 
 		super();
-
 		this.colorSchemeManager = colorSchemeManager;
-
 		buildContents();
-
 		addItemListener(this);
 
 	}

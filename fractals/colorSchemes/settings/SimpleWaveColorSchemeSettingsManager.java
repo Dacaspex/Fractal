@@ -1,10 +1,13 @@
 package fractals.colorSchemes.settings;
 
+import java.awt.Color;
+
 import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.SettingsManager;
 import gui.FractalPanel;
+import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
 
@@ -114,6 +117,39 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 
 	}
 
+	public void setThreshold(String thresholdString) {
+
+		try {
+			double threshold = Double.parseDouble(thresholdString);
+			if (threshold >= 0) {
+				simpleWaveColorScheme.setThreshold(threshold);
+				FractalPanel.getFractalPanel().requestUpdate();
+			}
+		} catch (NumberFormatException exception) {
+			return;
+		}
+
+	}
+
+	public void setMaximumValue(String maximumValueString) {
+
+		if (maximumValueString.trim().equals("")) {
+			simpleWaveColorScheme.setMaximumValue(Integer.MAX_VALUE);
+			FractalPanel.getFractalPanel().requestUpdate();
+		}
+
+		try {
+			double maximumValue = Double.parseDouble(maximumValueString);
+			if (maximumValue >= 0) {
+				simpleWaveColorScheme.setMaximumValue(maximumValue);
+				FractalPanel.getFractalPanel().requestUpdate();
+			}
+		} catch (NumberFormatException exception) {
+			return;
+		}
+
+	}
+
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
 
@@ -215,9 +251,45 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent deltaSettingItem = new SettingItemComponent("Delta:", deltaTextField);
 
-		return new SettingItemComponent[] { frequencyRedSettingItem, frequencyGreenSettingItem,
+		// Threshold
+		TextFieldComponent thresholdTextField = new TextFieldComponent(
+				Double.toString(simpleWaveColorScheme.getThreshold())) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setThreshold(this.getText());
+			}
+		};
+		SettingItemComponent thresholdSettingItem = new SettingItemComponent("Threshold:", thresholdTextField);
+
+		// Maximum value
+		double maximumValue = simpleWaveColorScheme.getMaximumValue();
+		String maximumValueString;
+		if (maximumValue == Integer.MAX_VALUE) {
+			maximumValueString = "";
+		} else {
+			maximumValueString = Double.toString(simpleWaveColorScheme.getMaximumValue());
+		}
+		
+		TextFieldComponent maximumValueTextField = new TextFieldComponent(
+				maximumValueString) {
+			private static final long serialVersionUID = -6033309334749328555L;
+
+			@Override
+			public void documentUpdate(DocumentEvent event) {
+				setMaximumValue(this.getText());
+			}
+		};
+		SettingItemComponent maximumValueSettingItem = new SettingItemComponent("Maximum value:",
+				maximumValueTextField);
+		
+		ColorPickerButton colorPickerButton = new ColorPickerButton(Color.green);
+		SettingItemComponent colorPickerSettingItem = new SettingItemComponent("Color picker:", colorPickerButton);
+
+		return new SettingItemComponent[] { colorPickerSettingItem, frequencyRedSettingItem, frequencyGreenSettingItem,
 				frequencyBlueSettingItem, phaseRedSettingItem, phaseGreenSettingItem, phaseBlueSettingItem,
-				centerSettingItem, deltaSettingItem };
+				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem };
 
 	}
 
