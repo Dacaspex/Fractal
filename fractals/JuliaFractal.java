@@ -34,10 +34,13 @@ public class JuliaFractal extends AbstractFractal {
 		// Load default settings from xml file
 		loadDefaultSettings();
 
-		// Initialize managers, colour schemes etc..
+		// Initialize managers, color schemes etc..
 		lastEscapeComplexValue = new Complex();
 		colorSchemeManager = new ColorSchemeManager();
-		colorSchemeManager.addColorScheme(new LinearColorScheme(true, maxIterations));
+		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
+		linearColorScheme.loadDefaultColors();
+		linearColorScheme.generateGradientMap();
+		colorSchemeManager.addColorScheme(linearColorScheme);
 		colorSchemeManager.addColorScheme(new SimpleWaveColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		settingsManager = new JuliaSettingsManager(this);
 
@@ -54,8 +57,9 @@ public class JuliaFractal extends AbstractFractal {
 		this.maxIterations = maxIterations;
 
 		// Reload the gradient map in the linear color scheme
-		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setSteps(maxIterations, true);
-
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setMaxInputSteps(maxIterations);
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).generateGradientMap();
+		
 	}
 
 	public double getEscapeValue() {

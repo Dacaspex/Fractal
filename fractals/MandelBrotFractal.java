@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.colorSchemes.ColorSchemeManagerOptions;
+import fractals.colorSchemes.LinearColorScheme;
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.MandelBrotSettingsManager;
 import util.Settings;
@@ -34,8 +35,11 @@ public class MandelBrotFractal extends AbstractFractal {
 		SimpleWaveColorScheme simpleWaveColorScheme = new SimpleWaveColorScheme();
 		simpleWaveColorScheme.setMaximumValue(maxIterations);
 		simpleWaveColorScheme.setThreshold(2.0);
-
+		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
+		linearColorScheme.loadDefaultColors();
+		linearColorScheme.generateGradientMap();
 		colorSchemeManager.addColorScheme(simpleWaveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(linearColorScheme);
 		settingsManager = new MandelBrotSettingsManager(this);
 
 	}
@@ -51,6 +55,8 @@ public class MandelBrotFractal extends AbstractFractal {
 		this.maxIterations = maxIterations;
 		((SimpleWaveColorScheme) colorSchemeManager.getColorScheme("SimpleWaveColorScheme1"))
 				.setMaximumValue(maxIterations);
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setSteps(maxIterations);
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).generateGradientMap();
 
 	}
 

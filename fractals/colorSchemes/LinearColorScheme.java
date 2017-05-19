@@ -10,50 +10,16 @@ public class LinearColorScheme extends AbstractColorScheme {
 	private Color[] colorArray;
 	private int[] gradientMap;
 	private int steps;
+	private int maxInputSteps;
 
-	public LinearColorScheme(boolean loadDefaultColors, int steps) {
+	public LinearColorScheme(int steps) {
 
 		this.identifier = "LinearColorScheme1";
 		this.name = "Linear Color Scheme";
 		this.colorArray = new Color[0];
 		this.steps = steps;
-		this.settingsManager = new LinearColorSchemeSettingsManager();
-
-		if (loadDefaultColors) {
-
-			loadDefaultColors();
-			generateGradientMap();
-
-		}
-
-	}
-
-	public LinearColorScheme(boolean loadDefaultColors) {
-
-		this.identifier = "LinearColorScheme1";
-		this.name = "Linear Color Scheme";
-		this.colorArray = new Color[0];
-		this.settingsManager = new LinearColorSchemeSettingsManager();
-
-		if (loadDefaultColors) {
-
-			loadDefaultColors();
-			steps = colorArray.length;
-			generateGradientMap();
-
-		}
-
-	}
-
-	public LinearColorScheme(int steps) {
-
-		this(true, steps);
-
-	}
-
-	public LinearColorScheme() {
-
-		this(false);
+		this.maxInputSteps = steps;
+		this.settingsManager = new LinearColorSchemeSettingsManager(this);
 
 	}
 
@@ -69,15 +35,9 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	}
 
-	public void setSteps(int steps, boolean generateGradientMap) {
+	public void setMaxInputSteps(int maxInputSteps) {
 
-		this.steps = steps;
-
-		if (generateGradientMap) {
-
-			generateGradientMap();
-
-		}
+		this.maxInputSteps = maxInputSteps;
 
 	}
 
@@ -226,10 +186,9 @@ public class LinearColorScheme extends AbstractColorScheme {
 	 */
 	@Override
 	public int getRGBValue(double referenceNumber) {
-		
-		referenceNumber = Math.min(steps - 1, referenceNumber);
 
-		return gradientMap[(int) referenceNumber];
+		int index = (int) ((referenceNumber / maxInputSteps) * (steps - 1));
+		return gradientMap[index];
 
 	}
 
