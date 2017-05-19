@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import fractals.FractalManager;
 import gui.settings.utilComponents.SettingItemComponent;
-import gui.settings.utilComponents.SettingItemComponent.SettingItemPanelType;
 
 public class SettingsPanel extends JPanel {
 

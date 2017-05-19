@@ -1,7 +1,6 @@
 package fractals;
 
 import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
 
 import org.w3c.dom.Element;
 
@@ -127,24 +126,6 @@ public abstract class AbstractFractal {
 			return;
 
 		}
-
-	}
-
-	/**
-	 * @return A HashMap with information about the fractal
-	 */
-	public LinkedHashMap<String, String> getInformation() {
-
-		LinkedHashMap<String, String> informationMap = new LinkedHashMap<String, String>();
-
-		informationMap.put("Name", name);
-		informationMap.put("X-min", Double.toString(scale.getxMin()));
-		informationMap.put("X-max", Double.toString(scale.getxMax()));
-		informationMap.put("Y-min", Double.toString(scale.getyMin()));
-		informationMap.put("Y-max", Double.toString(scale.getyMax()));
-		informationMap.put("Colour Scheme", colorSchemeManager.getActiveColorScheme().getName());
-
-		return informationMap;
 
 	}
 

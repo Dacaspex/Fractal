@@ -50,6 +50,9 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent stepsSettingComponent = new SettingItemComponent("Steps:", stepsTextField);
 		
+		// Add/delete colors from the color array
+		// TODO create color picker panel
+		
 		return new SettingItemComponent[] { stepsSettingComponent };
 		
 	}
