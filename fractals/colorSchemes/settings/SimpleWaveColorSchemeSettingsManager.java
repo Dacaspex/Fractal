@@ -1,20 +1,30 @@
 package fractals.colorSchemes.settings;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.SettingsManager;
 import gui.FractalPanel;
+import gui.settings.utilComponents.Button;
 import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
 
 public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 
-	public SimpleWaveColorScheme simpleWaveColorScheme;
+	private SimpleWaveColorScheme simpleWaveColorScheme;
+
+	private TextFieldComponent frequencyRedTextField;
+	private TextFieldComponent frequencyGreenTextField;
+	private TextFieldComponent frequencyBlueTextField;
+	private TextFieldComponent phaseRedTextField;
+	private TextFieldComponent phaseGreenTextField;
+	private TextFieldComponent phaseBlueTextField;
+	private TextFieldComponent centerTextField;
+	private TextFieldComponent deltaTextField;
 
 	public SimpleWaveColorSchemeSettingsManager(SimpleWaveColorScheme simpleWaveColorScheme) {
 
@@ -151,12 +161,50 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 
 	}
 
+	public void generateRandomSettings() {
+
+		Random random = new Random();
+
+		// Generate random values
+		double frequencyRed = random.nextDouble() * 0.2;
+		double frequencyGreen = random.nextDouble() * 0.2;
+		double frequencyBlue = random.nextDouble() * 0.2;
+		double phaseRed = random.nextDouble() * 10;
+		double phaseGreen = random.nextDouble() * 10;
+		double phaseBlue = random.nextDouble() * 10;
+		double center = random.nextDouble() * (300 - 200) + 200;
+		double delta = random.nextDouble() * 100;
+
+		// Set values in the color scheme
+		simpleWaveColorScheme.setFrequencyRed(frequencyRed);
+		simpleWaveColorScheme.setFrequencyGreen(frequencyGreen);
+		simpleWaveColorScheme.setFrequencyBlue(frequencyBlue);
+		simpleWaveColorScheme.setPhaseRed(phaseRed);
+		simpleWaveColorScheme.setPhaseGreen(phaseGreen);
+		simpleWaveColorScheme.setPhaseBlue(phaseBlue);
+		simpleWaveColorScheme.setCenter(center);
+		simpleWaveColorScheme.setDelta(delta);
+
+		// Update input fields
+		frequencyRedTextField.setText(Double.toString(frequencyRed));
+		frequencyGreenTextField.setText(Double.toString(frequencyGreen));
+		frequencyBlueTextField.setText(Double.toString(frequencyBlue));
+		phaseRedTextField.setText(Double.toString(phaseRed));
+		phaseGreenTextField.setText(Double.toString(phaseGreen));
+		phaseBlueTextField.setText(Double.toString(phaseBlue));
+		centerTextField.setText(Double.toString(center));
+		deltaTextField.setText(Double.toString(delta));
+
+		// Update fractal
+		FractalPanel.getFractalPanel().requestUpdate();
+
+	}
+
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
 
 		// Frequency red
-		TextFieldComponent frequencyRedTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getFrequencyRed())) {
+		frequencyRedTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyRed())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -168,8 +216,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 				frequencyRedTextField);
 
 		// Frequency green
-		TextFieldComponent frequencyGreenTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getFrequencyGreen())) {
+		frequencyGreenTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyGreen())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -181,8 +228,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 				frequencyGreenTextField);
 
 		// Frequency blue
-		TextFieldComponent frequencyBlueTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getFrequencyBlue())) {
+		frequencyBlueTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyBlue())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -194,8 +240,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 				frequencyBlueTextField);
 
 		// Phase red
-		TextFieldComponent phaseRedTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getPhaseRed())) {
+		phaseRedTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseRed())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -206,8 +251,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		SettingItemComponent phaseRedSettingItem = new SettingItemComponent("Phase red:", phaseRedTextField);
 
 		// Phase Green
-		TextFieldComponent phaseGreenTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getPhaseGreen())) {
+		phaseGreenTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseGreen())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -218,8 +262,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		SettingItemComponent phaseGreenSettingItem = new SettingItemComponent("Phase green:", phaseGreenTextField);
 
 		// Phase Blue
-		TextFieldComponent phaseBlueTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getPhaseBlue())) {
+		phaseBlueTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseBlue())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -230,8 +273,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		SettingItemComponent phaseBlueSettingItem = new SettingItemComponent("Phase blue:", phaseBlueTextField);
 
 		// Center
-		TextFieldComponent centerTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getCenter())) {
+		centerTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getCenter())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -242,7 +284,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		SettingItemComponent centerSettingItem = new SettingItemComponent("Center:", centerTextField);
 
 		// Delta
-		TextFieldComponent deltaTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getDelta())) {
+		deltaTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getDelta())) {
 			private static final long serialVersionUID = -6033309334749328555L;
 
 			@Override
@@ -301,10 +343,23 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		};
 		SettingItemComponent colorPickerSettingItem = new SettingItemComponent("Color picker:", colorPickerButton);
 
+		// Random button
+		Button randomButton = new Button("Random") {
+
+			private static final long serialVersionUID = 1886939492408972226L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				generateRandomSettings();
+			}
+
+		};
+		SettingItemComponent randomButtonSettingItem = new SettingItemComponent("Randomize:", randomButton);
+
 		return new SettingItemComponent[] { frequencyRedSettingItem, frequencyGreenSettingItem,
 				frequencyBlueSettingItem, phaseRedSettingItem, phaseGreenSettingItem, phaseBlueSettingItem,
 				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem,
-				colorPickerSettingItem };
+				colorPickerSettingItem, randomButtonSettingItem };
 
 	}
 

@@ -1,15 +1,12 @@
 package gui.settings.utilComponents;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
-public class ColorPickerButton extends JButton implements ActionListener {
+public class ColorPickerButton extends Button {
 
 	private static final long serialVersionUID = -683697919564031688L;
 
@@ -34,15 +31,6 @@ public class ColorPickerButton extends JButton implements ActionListener {
 			color = newColor;
 			wrapper.setBackground(color);
 		}
-
-	}
-
-	@Override
-	public Dimension getMaximumSize() {
-
-		Dimension max = super.getMaximumSize();
-		max.height = getPreferredSize().height;
-		return max;
 
 	}
 
