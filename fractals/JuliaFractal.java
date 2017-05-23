@@ -11,6 +11,7 @@ import fractals.colorSchemes.LinearColorScheme;
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.JuliaSettingsManager;
 import util.Settings;
+import util.math.Point;
 
 public class JuliaFractal extends AbstractFractal {
 
@@ -46,6 +47,29 @@ public class JuliaFractal extends AbstractFractal {
 
 	}
 
+	public BufferedImage test(int width, int height, util.math.Scale scale) {
+
+		Point[][] points = scale.getPointsOnScreen(width, height);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+		for (int x = 0; x < width; x++) {
+
+			for (int y = 0; y < height; y++) {
+
+				int escapeNumber = getEscapeNumber(new Complex(points[x][y].x, points[x][y].y));
+				double continuousIndex = escapeNumber + 1
+						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+				int colorValue = getRGBValue(continuousIndex);
+				image.setRGB(x, y, colorValue);
+
+			}
+
+		}
+
+		return image;
+
+	}
+
 	public int getMaxIterations() {
 
 		return maxIterations;
@@ -59,7 +83,7 @@ public class JuliaFractal extends AbstractFractal {
 		// Reload the gradient map in the linear color scheme
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setMaxInputSteps(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).generateGradientMap();
-		
+
 	}
 
 	public double getEscapeValue() {

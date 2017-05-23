@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
+import fractals.JuliaFractal;
 import fractals.Scale;
 import timers.ResizeDelayTimer;
 
@@ -57,7 +58,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 */
 	public void requestUpdate() {
 
-		fractalManager.requestImage(getWidth(), getHeight());
+		// fractalManager.requestImage(getWidth(), getHeight());
+		JuliaFractal fractal = new JuliaFractal();
+		showImage(fractal.test(getWidth(), getHeight(), new util.math.Scale(new util.math.Point(0, 0))));
 
 	}
 

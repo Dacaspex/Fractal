@@ -10,7 +10,7 @@ public class Scale {
 
 		this.center = center;
 		this.zoomFactor = 1;
-		this.density = 0.1;
+		this.density = 0.002;
 
 	}
 
