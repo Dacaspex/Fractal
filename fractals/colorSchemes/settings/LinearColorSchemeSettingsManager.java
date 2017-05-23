@@ -37,24 +37,24 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
-		
+
 		stepsTextField = new TextFieldComponent(Integer.toString(linearColorScheme.getSteps())) {
-			
+
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void documentUpdate(DocumentEvent event) {
 				setSteps(this.getText());
 			}
-			
+
 		};
 		SettingItemComponent stepsSettingComponent = new SettingItemComponent("Steps:", stepsTextField);
-		
+
 		// Add/delete colors from the color array
 		// TODO create color picker panel
-		
+
 		return new SettingItemComponent[] { stepsSettingComponent };
-		
+
 	}
 
 }

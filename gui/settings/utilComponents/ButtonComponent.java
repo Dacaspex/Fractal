@@ -6,17 +6,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class Button extends JButton implements ActionListener {
+public class ButtonComponent extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = 4938619758521996365L;
 
-	public Button() {
+	public ButtonComponent() {
 
 		addActionListener(this);
 
 	}
 	
-	public Button(String text) {
+	public ButtonComponent(String text) {
 		
 		this();
 		setText(text);

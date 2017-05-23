@@ -8,7 +8,7 @@ import javax.swing.event.DocumentEvent;
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.SettingsManager;
 import gui.FractalPanel;
-import gui.settings.utilComponents.Button;
+import gui.settings.utilComponents.ButtonComponent;
 import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
@@ -344,7 +344,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		SettingItemComponent colorPickerSettingItem = new SettingItemComponent("Color picker:", colorPickerButton);
 
 		// Random button
-		Button randomButton = new Button("Random") {
+		ButtonComponent randomButton = new ButtonComponent("Random") {
 
 			private static final long serialVersionUID = 1886939492408972226L;
 

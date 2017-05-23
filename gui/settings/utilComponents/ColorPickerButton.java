@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
-public class ColorPickerButton extends Button {
+public class ColorPickerButton extends ButtonComponent {
 
 	private static final long serialVersionUID = -683697919564031688L;
 
