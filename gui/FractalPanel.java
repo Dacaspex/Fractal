@@ -58,9 +58,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 */
 	public void requestUpdate() {
 
-		// fractalManager.requestImage(getWidth(), getHeight());
-		JuliaFractal fractal = new JuliaFractal();
-		showImage(fractal.test(getWidth(), getHeight(), new util.math.Scale(new util.math.Point(0, 0))));
+		 fractalManager.requestImage(getWidth(), getHeight());
 
 	}
 

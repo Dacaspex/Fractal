@@ -2,11 +2,10 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 
-import org.w3c.dom.Element;
-
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.settings.SettingsManager;
-import util.Settings;
+import util.math.Point;
+import util.math.Scale;
 import util.threading.ThreadFactory;
 
 public abstract class AbstractFractal {
@@ -100,32 +99,15 @@ public abstract class AbstractFractal {
 	 *            The scale to use
 	 * @return An image with the fractal rendered on top of it
 	 */
-	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Scale scale);
+	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Point[][] points);
 
 	/**
 	 * Loads the default settings from the settings xml file. By default it only
 	 * resets the scale variable. This method can be overriden to reset more
 	 * settings
 	 */
+	@Deprecated
 	public void loadDefaultSettings() {
-
-		try {
-
-			Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
-			Element scaleNode = (Element) defaultSettingsElement.getElementsByTagName("scale").item(0);
-
-			double xMin = Double.parseDouble(scaleNode.getElementsByTagName("xMin").item(0).getTextContent());
-			double xMax = Double.parseDouble(scaleNode.getElementsByTagName("xMax").item(0).getTextContent());
-			double yMin = Double.parseDouble(scaleNode.getElementsByTagName("yMin").item(0).getTextContent());
-			double yMax = Double.parseDouble(scaleNode.getElementsByTagName("yMax").item(0).getTextContent());
-
-			scale = new Scale(xMin, xMax, yMin, yMax);
-
-		} catch (NullPointerException exception) {
-
-			return;
-
-		}
 
 	}
 

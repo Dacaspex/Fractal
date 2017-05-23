@@ -97,9 +97,9 @@ public class FractalManager {
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
 
-		// TODO move to separate method
-		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, false);
-		postImageProcessor.applyEffects(resultImage);
+//		// TODO move to separate method
+//		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, false);
+//		postImageProcessor.applyEffects(resultImage);
 
 		return resultImage;
 

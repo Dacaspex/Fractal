@@ -1,7 +1,10 @@
 package util.threading;
 
+import java.util.Arrays;
+
 import fractals.AbstractFractal;
-import fractals.Scale;
+import util.math.Point;
+import util.math.Scale;
 
 public class ThreadFactory {
 
@@ -33,28 +36,18 @@ public class ThreadFactory {
 		// Setup thread array
 		threads = new ImageGeneratorThread[numberOfThreads];
 		ImageGeneratorThread thread;
-
-		int partialWidth = (int) (width / Math.sqrt(numberOfThreads));
-		int partialHeight = (int) (height / Math.sqrt(numberOfThreads));
-
-		double xScaleStep = (scale.getxMax() - scale.getxMin()) / Math.sqrt(numberOfThreads);
-		double yScaleStep = (scale.getyMax() - scale.getyMin()) / Math.sqrt(numberOfThreads);
+		Point[][] points = scale.getPointsOnScreen(width, height);
 		
-		int xFactor;
-		int yFactor;
+		System.out.println(width);
 
 		for (int i = 0; i < numberOfThreads; i++) {
-
-			xFactor = Math.floorMod(i, (int) Math.sqrt(numberOfThreads));
-			yFactor = Math.floorDiv(i, (int) Math.sqrt(numberOfThreads));
-
-			Scale _scale = new Scale(scale.getxMin() + xFactor * xScaleStep,
-					scale.getxMin() + (xFactor + 1) * xScaleStep, scale.getyMin() + yFactor * yScaleStep,
-					scale.getyMin() + (yFactor + 1) * yScaleStep);
-
-			thread = new ImageGeneratorThread(_scale, partialWidth, partialHeight, fractal, i);
-			thread.start();
+			
+			Point[][] partialPoints = Arrays.copyOfRange(points, (width / numberOfThreads) * i,
+					Math.min(points.length, (width / numberOfThreads) * (i + 1)));
+			
+			thread = new ImageGeneratorThread(partialPoints, width / numberOfThreads, height, fractal, i);
 			threads[i] = thread;
+			thread.start();
 
 		}
 

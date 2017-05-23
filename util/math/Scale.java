@@ -29,11 +29,11 @@ public class Scale {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 
-				int _x = x - width / 2;
-				int _y = y - height / 2;
+				int _x = x - (width / 2);
+				int _y = y - (height / 2);
 
-				Point point = new Point(center.x + density * zoomFactor * (double) _x,
-						center.y + density * zoomFactor * (double) _y);
+				Point point = new Point(center.x + density * (1 / Math.pow(zoomFactor, 2)) * (double) _x,
+						center.y - density * (1 / Math.pow(zoomFactor, 2)) * (double) _y);
 				points[x][y] = point;
 
 			}

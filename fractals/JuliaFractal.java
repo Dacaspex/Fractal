@@ -12,6 +12,7 @@ import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.JuliaSettingsManager;
 import util.Settings;
 import util.math.Point;
+import util.math.Scale;
 
 public class JuliaFractal extends AbstractFractal {
 
@@ -30,10 +31,7 @@ public class JuliaFractal extends AbstractFractal {
 		constant = new Complex(0.285, 0.01);
 		maxIterations = 1024;
 		escapeValue = 2.0;
-		scale = new Scale(-1, 1, -1, 1);
-
-		// Load default settings from xml file
-		loadDefaultSettings();
+		scale = new Scale(new Point(0, 0));
 
 		// Initialize managers, color schemes etc..
 		lastEscapeComplexValue = new Complex();
@@ -111,26 +109,17 @@ public class JuliaFractal extends AbstractFractal {
 	}
 
 	@Override
-	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
+	public BufferedImage generateImage(int width, int height, Point[][] points) {
 
 		// Create empty image
-		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-		// Calculate x and y step
-		double xTransformFactor = ((scale.getxDifference()) / (double) (imageWidth - 1));
-		double yTransformFactor = ((scale.getyDifference()) / (double) (imageHeight - 1));
+		for (int x = 0; x < width; x++) {
 
-		// Loop through all pixels of the image
-		for (double i = 0; i < imageHeight - 1; i++) {
-
-			for (double j = 0; j < imageWidth - 1; j++) {
-
-				// Calculate the coordinates in the scale system
-				double x = scale.getxMin() + j * xTransformFactor;
-				double y = scale.getyMin() + i * yTransformFactor;
-
+			for (int y = 0; y < height; y++) {
+				
 				// Get the escape number
-				int escapeNumber = getEscapeNumber(new Complex(x, y));
+				int escapeNumber = getEscapeNumber(new Complex(points[x][y].x, points[x][y].y));
 				int colorValue = 0;
 
 				// Determine color
@@ -151,7 +140,7 @@ public class JuliaFractal extends AbstractFractal {
 				}
 
 				// Set color
-				image.setRGB((int) j, (int) i, colorValue);
+				image.setRGB(x, y, colorValue);
 
 			}
 
