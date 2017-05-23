@@ -1,7 +1,5 @@
 package util.math;
 
-import util.PointList;
-
 public class Scale {
 
 	private Point center;
@@ -16,12 +14,17 @@ public class Scale {
 
 	}
 
-	public PointList getPointsOnScreen(int width, int height) {
+	/**
+	 * 
+	 * @param width
+	 *            Screen width
+	 * @param height
+	 *            Screen height
+	 * @return
+	 */
+	public Point[][] getPointsOnScreen(int width, int height) {
 
-		// Translate screen coordinate system
-		// width -> [-0.5width, 0.5width]
-
-		PointList pointList = new PointList(width, height);
+		Point[][] points = new Point[width][height];
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -31,13 +34,12 @@ public class Scale {
 
 				Point point = new Point(center.x + density * zoomFactor * (double) _x,
 						center.y + density * zoomFactor * (double) _y);
-				System.out.println(point.x + ", " + point.y);
-				pointList.put(point, x, y);
+				points[x][y] = point;
 
 			}
 		}
 
-		return null;
+		return points;
 
 	}
 
