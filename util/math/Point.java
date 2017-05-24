@@ -14,6 +14,12 @@ public class Point extends Point2D.Double {
 
 	}
 
+	public Point() {
+		
+		this(0, 0);
+		
+	}
+
 	public static Point getCenterPoint(double width, double height) {
 
 		return new Point(width / 2, height / 2);

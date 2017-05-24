@@ -39,25 +39,35 @@ public class Scale {
 	}
 
 	public void zoomIn() {
-		zoomLevel += 1;
+		zoomLevel *= 2;
 	}
 
 	public void zoomOut() {
-		zoomLevel -= 1;
+		zoomLevel /= 2;
 	}
 
 	/**
 	 * This method calculates the point in the scale for a given point on the
 	 * screen
 	 * 
-	 * @param point
+	 * @param width Screen width
+	 * @param height Scree height
+	 * @param screenPoint
 	 *            Point on the screen
 	 * @return Point in the scale on the same position on the screen
 	 */
-	public Point getPointInScale(Point point) {
+	public Point getPointInScale(Point screenPoint, int width, int height) {
+		
+		// Calculate x point
+		double xScreen = screenPoint.x - (width / 2);
+		double x = center.x + density * (1 / zoomLevel) * xScreen;
 
-		return null;
-
+		// Calculate x point
+		double yScreen = screenPoint.y - (height / 2);
+		double y = center.y - density * (1 / zoomLevel) * yScreen;	
+		
+		return new Point(x, y);
+		
 	}
 
 	/**
@@ -78,8 +88,8 @@ public class Scale {
 				int _x = x - (width / 2);
 				int _y = y - (height / 2);
 
-				Point point = new Point(center.x + density * (1 / Math.pow(zoomLevel, 2)) * (double) _x,
-						center.y - density * (1 / Math.pow(zoomLevel, 2)) * (double) _y);
+				Point point = new Point(center.x + density * (1 / zoomLevel) * (double) _x,
+						center.y - density * (1 / zoomLevel) * (double) _y);
 				points[x][y] = point;
 
 			}
