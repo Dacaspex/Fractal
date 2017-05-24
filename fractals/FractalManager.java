@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.FractalPanel;
-import imageProcessing.post.PostImageProcessor;
 import util.Settings;
 import util.threading.ImageGeneratorThread;
 import util.threading.ImageStitcher;

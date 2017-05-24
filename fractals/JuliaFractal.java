@@ -2,15 +2,13 @@ package fractals;
 
 import java.awt.image.BufferedImage;
 
-import org.w3c.dom.Element;
-
 import complex.Complex;
 import fractals.colorSchemes.ColorSchemeManager;
-import fractals.colorSchemes.ColorSchemeManagerOptions;
+import fractals.colorSchemes.ColorSchemeManager.ColorSchemeManagerOptions;
+import fractals.colorSchemes.InsideOutsideColorScheme;
 import fractals.colorSchemes.LinearColorScheme;
-import fractals.colorSchemes.SimpleWaveColorScheme;
+import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.JuliaSettingsManager;
-import util.Settings;
 import util.math.Point;
 import util.math.Scale;
 
@@ -35,36 +33,21 @@ public class JuliaFractal extends AbstractFractal {
 
 		// Initialize managers, color schemes etc..
 		lastEscapeComplexValue = new Complex();
+
 		colorSchemeManager = new ColorSchemeManager();
+
 		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
 		linearColorScheme.loadDefaultColors();
 		linearColorScheme.generateGradientMap();
+
+		InsideOutsideColorScheme insideOutsideColorScheme = new InsideOutsideColorScheme();
+		insideOutsideColorScheme.setMaxIterations(maxIterations);
+		insideOutsideColorScheme.setThreshold(2);
+
+		colorSchemeManager.addColorScheme(insideOutsideColorScheme);
 		colorSchemeManager.addColorScheme(linearColorScheme);
-		colorSchemeManager.addColorScheme(new SimpleWaveColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(new WaveColorScheme(), ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		settingsManager = new JuliaSettingsManager(this);
-
-	}
-
-	public BufferedImage test(int width, int height, util.math.Scale scale) {
-
-		Point[][] points = scale.getPointsOnScreen(width, height);
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-		for (int x = 0; x < width; x++) {
-
-			for (int y = 0; y < height; y++) {
-
-				int escapeNumber = getEscapeNumber(new Complex(points[x][y].x, points[x][y].y));
-				double continuousIndex = escapeNumber + 1
-						- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
-				int colorValue = getRGBValue(continuousIndex);
-				image.setRGB(x, y, colorValue);
-
-			}
-
-		}
-
-		return image;
 
 	}
 
@@ -78,9 +61,10 @@ public class JuliaFractal extends AbstractFractal {
 
 		this.maxIterations = maxIterations;
 
-		// Reload the gradient map in the linear color scheme
-		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).setMaxInputSteps(maxIterations);
-		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme1")).generateGradientMap();
+		// Update linear and inside-outside color schemes
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setMaxInputSteps(maxIterations);
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
+		((InsideOutsideColorScheme) colorSchemeManager.getColorScheme("InsideOutsideColorScheme")).setMaxIterations(maxIterations);
 
 	}
 
@@ -117,7 +101,7 @@ public class JuliaFractal extends AbstractFractal {
 		for (int x = 0; x < width; x++) {
 
 			for (int y = 0; y < height; y++) {
-				
+
 				// Get the escape number
 				int escapeNumber = getEscapeNumber(new Complex(points[x][y].x, points[x][y].y));
 				int colorValue = 0;
@@ -125,7 +109,7 @@ public class JuliaFractal extends AbstractFractal {
 				// Determine color
 				switch (colorSchemeManager.getActiveColorScheme().getIdentifier()) {
 
-				case "SimpleWaveColorScheme1":
+				case "WaveColorScheme":
 
 					// Extra calculation for a smooth color transition
 					double continuousIndex = escapeNumber + 1
@@ -133,7 +117,11 @@ public class JuliaFractal extends AbstractFractal {
 					colorValue = getRGBValue(continuousIndex);
 					break;
 
-				case "LinearColorScheme1":
+				case "LinearColorScheme":
+					colorValue = getRGBValue(escapeNumber);
+					break;
+
+				case "InsideOutsideColorScheme":
 					colorValue = getRGBValue(escapeNumber);
 					break;
 
@@ -172,34 +160,4 @@ public class JuliaFractal extends AbstractFractal {
 		return colorSchemeManager.getActiveColorScheme().getRGBValue(continuousIndex);
 
 	}
-
-	@Override
-	public void loadDefaultSettings() {
-
-		super.loadDefaultSettings();
-
-		try {
-
-			Element defaultSettingsElement = Settings.getFractalSettingsDOM(identifier);
-			Element constantNode = (Element) defaultSettingsElement.getElementsByTagName("constant").item(0);
-			Element complexNode = (Element) constantNode.getElementsByTagName("complex").item(0);
-
-			Complex constant = Settings.getComplexFromElement(complexNode);
-			int maxIterations = Integer
-					.parseInt(defaultSettingsElement.getElementsByTagName("maxIterations").item(0).getTextContent());
-			double escapeValue = Double
-					.parseDouble(defaultSettingsElement.getElementsByTagName("escapeValue").item(0).getTextContent());
-
-			this.constant = constant;
-			this.maxIterations = maxIterations;
-			this.escapeValue = escapeValue;
-
-		} catch (NullPointerException exception) {
-
-			return;
-
-		}
-
-	}
-
 }

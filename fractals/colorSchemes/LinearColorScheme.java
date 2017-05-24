@@ -14,7 +14,7 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	public LinearColorScheme(int steps) {
 
-		this.identifier = "LinearColorScheme1";
+		this.identifier = "LinearColorScheme";
 		this.name = "Linear Color Scheme";
 		this.colorArray = new Color[0];
 		this.steps = steps;

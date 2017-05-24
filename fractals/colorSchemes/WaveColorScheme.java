@@ -2,9 +2,9 @@ package fractals.colorSchemes;
 
 import java.awt.Color;
 
-import fractals.colorSchemes.settings.SimpleWaveColorSchemeSettingsManager;
+import fractals.colorSchemes.settings.WaveColorSchemeSettingsManager;
 
-public class SimpleWaveColorScheme extends AbstractColorScheme {
+public class WaveColorScheme extends AbstractColorScheme {
 
 	private double frequencyRed;
 	private double frequencyGreen;
@@ -20,10 +20,10 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 
 	private double threshold;
 
-	public SimpleWaveColorScheme() {
+	public WaveColorScheme() {
 
-		identifier = "SimpleWaveColorScheme1";
-		name = "Simple wave colour scheme";
+		identifier = "WaveColorScheme";
+		name = "Wave colour scheme";
 
 		frequencyRed = 0.016;
 		frequencyGreen = 0.013;
@@ -40,7 +40,7 @@ public class SimpleWaveColorScheme extends AbstractColorScheme {
 		maximumColor = Color.black;
 		threshold = 0;
 
-		settingsManager = new SimpleWaveColorSchemeSettingsManager(this);
+		settingsManager = new WaveColorSchemeSettingsManager(this);
 
 	}
 

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.event.DocumentEvent;
 
-import fractals.colorSchemes.SimpleWaveColorScheme;
+import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
 import gui.FractalPanel;
 import gui.settings.utilComponents.ButtonComponent;
@@ -13,9 +13,9 @@ import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
 
-public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
+public class WaveColorSchemeSettingsManager implements SettingsManager {
 
-	private SimpleWaveColorScheme simpleWaveColorScheme;
+	private WaveColorScheme simpleWaveColorScheme;
 
 	private TextFieldComponent frequencyRedTextField;
 	private TextFieldComponent frequencyGreenTextField;
@@ -26,7 +26,7 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 	private TextFieldComponent centerTextField;
 	private TextFieldComponent deltaTextField;
 
-	public SimpleWaveColorSchemeSettingsManager(SimpleWaveColorScheme simpleWaveColorScheme) {
+	public WaveColorSchemeSettingsManager(WaveColorScheme simpleWaveColorScheme) {
 
 		this.simpleWaveColorScheme = simpleWaveColorScheme;
 
@@ -166,9 +166,9 @@ public class SimpleWaveColorSchemeSettingsManager implements SettingsManager {
 		Random random = new Random();
 
 		// Generate random values
-		double frequencyRed = random.nextDouble() * 0.2;
-		double frequencyGreen = random.nextDouble() * 0.2;
-		double frequencyBlue = random.nextDouble() * 0.2;
+		double frequencyRed = random.nextDouble() * 0.1;
+		double frequencyGreen = random.nextDouble() * 0.1;
+		double frequencyBlue = random.nextDouble() * 0.1;
 		double phaseRed = random.nextDouble() * 10;
 		double phaseGreen = random.nextDouble() * 10;
 		double phaseBlue = random.nextDouble() * 10;

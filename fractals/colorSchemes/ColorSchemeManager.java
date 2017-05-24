@@ -6,7 +6,6 @@ import java.util.Map;
 public class ColorSchemeManager {
 
 	protected HashMap<String, AbstractColorScheme> availableColorSchemes;
-
 	protected AbstractColorScheme activeColorScheme;
 
 	public ColorSchemeManager() {
@@ -64,6 +63,12 @@ public class ColorSchemeManager {
 
 		}
 
+	}
+	
+	public enum ColorSchemeManagerOptions {
+		
+		SET_AS_ACTIVE
+		
 	}
 
 }

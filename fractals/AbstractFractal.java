@@ -101,14 +101,4 @@ public abstract class AbstractFractal {
 	 */
 	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Point[][] points);
 
-	/**
-	 * Loads the default settings from the settings xml file. By default it only
-	 * resets the scale variable. This method can be overriden to reset more
-	 * settings
-	 */
-	@Deprecated
-	public void loadDefaultSettings() {
-
-	}
-
 }

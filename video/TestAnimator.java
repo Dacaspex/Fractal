@@ -1,7 +1,7 @@
 package video;
 
 import fractals.JuliaFractal;
-import fractals.colorSchemes.SimpleWaveColorScheme;
+import fractals.colorSchemes.WaveColorScheme;
 import video.animation.animators.AbstractAnimator;
 
 public class TestAnimator extends AbstractAnimator {
