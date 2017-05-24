@@ -11,6 +11,8 @@ import fractals.colorSchemes.LinearColorScheme;
 import fractals.colorSchemes.SimpleWaveColorScheme;
 import fractals.settings.MandelBrotSettingsManager;
 import util.Settings;
+import util.math.Point;
+import util.math.Scale;
 
 public class MandelBrotFractal extends AbstractFractal {
 
@@ -26,20 +28,22 @@ public class MandelBrotFractal extends AbstractFractal {
 		name = "Mandelbrot Set";
 		maxIterations = 512;
 		escapeValue = 2.0;
-
-		// Load default settings
-		loadDefaultSettings();
+		scale = new Scale(new Point(-0.5, 0));
 
 		// Create color scheme manager
 		colorSchemeManager = new ColorSchemeManager();
+		
 		SimpleWaveColorScheme simpleWaveColorScheme = new SimpleWaveColorScheme();
 		simpleWaveColorScheme.setMaximumValue(maxIterations);
 		simpleWaveColorScheme.setThreshold(2.0);
+		
 		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
 		linearColorScheme.loadDefaultColors();
 		linearColorScheme.generateGradientMap();
+		
 		colorSchemeManager.addColorScheme(simpleWaveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		colorSchemeManager.addColorScheme(linearColorScheme);
+		
 		settingsManager = new MandelBrotSettingsManager(this);
 
 	}
@@ -73,32 +77,23 @@ public class MandelBrotFractal extends AbstractFractal {
 	}
 
 	@Override
-	public BufferedImage generateImage(int imageWidth, int imageHeight, Scale scale) {
+	public BufferedImage generateImage(int width, int height, Point[][] points) {
 
 		// Create empty image
-		BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-		// Calculate x and y step
-		double xTransformFactor = ((scale.getxDifference()) / (double) (imageWidth - 1));
-		double yTransformFactor = ((scale.getyDifference()) / (double) (imageHeight - 1));
+		for (int x = 0; x < width; x++) {
 
-		// Loop through all pixels of the image
-		for (double i = 0; i < imageHeight; i++) {
+			for (int y = 0; y < height; y++) {
 
-			for (double j = 0; j < imageWidth; j++) {
-
-				// Calculate the coordinates in the scale system
-				double x = scale.getxMin() + j * xTransformFactor;
-				double y = scale.getyMin() + i * yTransformFactor;
-
-				Complex constant = new Complex(x, y);
+				Complex constant = new Complex(points[x][y].x, points[x][y].y);
 
 				// Get the escape number
 				int escapeNumber = getEscapeValue(constant);
 
 				// Set color
 				int colorValue = colorSchemeManager.getActiveColorScheme().getRGBValue(escapeNumber);
-				image.setRGB((int) j, (int) i, colorValue);
+				image.setRGB(x, y, colorValue);
 
 			}
 

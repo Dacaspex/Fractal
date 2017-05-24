@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import fractals.AbstractFractal;
 import fractals.FractalManager;
-import fractals.Scale;
+import util.math.Point;
 
 public class ImageGeneratorThread extends Thread {
 
@@ -12,15 +12,14 @@ public class ImageGeneratorThread extends Thread {
 	private int height;
 	private int number;
 
-	private Scale scale;
-
+	private Point[][] points;
 	private AbstractFractal fractal;
 
 	public static FractalManager fractalManager;
 
-	public ImageGeneratorThread(Scale scale, int width, int height, AbstractFractal fractal, int number) {
+	public ImageGeneratorThread(Point[][] points, int width, int height, AbstractFractal fractal, int number) {
 
-		this.scale = scale;
+		this.points = points;
 		this.width = width;
 		this.height = height;
 		this.fractal = fractal;
@@ -30,7 +29,7 @@ public class ImageGeneratorThread extends Thread {
 
 	public void run() {
 
-		BufferedImage image = fractal.generateImage(width, height, scale);
+		BufferedImage image = fractal.generateImage(width, height, points);
 		finilize(image);
 
 	}

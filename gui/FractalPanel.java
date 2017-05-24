@@ -9,13 +9,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
-import fractals.Scale;
 import timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
@@ -80,20 +78,14 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * @param centerPoint
 	 *            The point on the screen
 	 */
-	public void zoomIn(Point centerPoint) {
+	public void zoomIn(Point targetPoint) {
 
-		double zoomFactor = 3.0;
-
-		// Get the fractal and window (panel dimension) scale
-		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
-		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
-
-		// Calculate where the point in the window maps to in the fractal scale
-		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
-		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
-
-		// Zoom at the point in the fractal scale
-		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
+		// Set center point and zoom in
+		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
+		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+				getHeight());
+		fractalManager.getSelectedFractal().getScale().setCenter(point);
+		fractalManager.getSelectedFractal().getScale().zoomIn();
 
 		// Update information
 		requestUpdate();
@@ -106,20 +98,14 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * @param centerPoint
 	 *            The point on the screen
 	 */
-	public void zoomOut(Point centerPoint) {
+	public void zoomOut(Point targetPoint) {
 
-		double zoomFactor = 0.3;
-
-		// Get the fractal and window (panel dimension) scale
-		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
-		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
-
-		// Calculate where the point in the window maps to in the fractal scale
-		Point2D.Double point = new Point2D.Double(centerPoint.getX(), centerPoint.getY());
-		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
-
-		// Zoom out at the point
-		fractalScale.zoomAtPoint(pointInScale, zoomFactor);
+		// Set center point and zoom out
+		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
+		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+				getHeight());
+		fractalManager.getSelectedFractal().getScale().setCenter(point);
+		fractalManager.getSelectedFractal().getScale().zoomOut();
 
 		// Update information
 		requestUpdate();
@@ -134,16 +120,11 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 */
 	public void translate(Point targetPoint) {
 
-		// Get the fractal and window (panel dimension) scale
-		Scale fractalScale = fractalManager.getSelectedFractal().getScale();
-		Scale windowScale = Scale.createFromWindow(getWidth(), getHeight());
-
-		// Calculate where the point in the window maps to in the fractal scale
-		Point2D.Double point = new Point2D.Double(targetPoint.getX(), targetPoint.getY());
-		Point2D.Double pointInScale = windowScale.getPointInScale(fractalScale, point);
-
-		// Zoom out at the point
-		fractalScale.translateCenterToPoint(pointInScale);
+		// Set center point
+		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
+		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+				getHeight());
+		fractalManager.getSelectedFractal().getScale().setCenter(point);
 
 		// Update information
 		requestUpdate();

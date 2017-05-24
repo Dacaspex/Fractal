@@ -6,7 +6,7 @@ public class Main {
 
 	public void run() {
 
-		new Display();
+		 new Display();
 
 		// try {
 		// new VideoEncoder().render();
