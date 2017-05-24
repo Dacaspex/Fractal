@@ -38,8 +38,6 @@ public class ThreadFactory {
 		ImageGeneratorThread thread;
 		Point[][] points = scale.getPointsOnScreen(width, height);
 		
-		System.out.println(width);
-
 		for (int i = 0; i < numberOfThreads; i++) {
 			
 			Point[][] partialPoints = Arrays.copyOfRange(points, (width / numberOfThreads) * i,
