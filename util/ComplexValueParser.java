@@ -8,9 +8,11 @@ public class ComplexValueParser {
 
 		if (ComplexValueParser.countOccurrenceInString(value, "+")
 				+ ComplexValueParser.countOccurrenceInString(value, "-") > 2) {
-
 			return null;
+		}
 
+		if (value.equals("")) {
+			return null;
 		}
 
 		String splitter = "+";
@@ -20,53 +22,35 @@ public class ComplexValueParser {
 		boolean imaginaryIsPositive = true;
 
 		if (value.subSequence(0, 1).toString().contains("-")) {
-
 			realIsPositive = false;
-
 		}
 
 		if (value.substring(1).contains("-")) {
-
 			splitter = "-";
 			imaginaryIsPositive = false;
-
 		}
 
 		String[] tokens = value.substring(1).replaceAll(",", ".").split("[" + splitter + "]");
 
 		for (String token : tokens) {
-
 			try {
-
 				if (token.contains("i") && token.indexOf("i") == token.length() - 1) {
-
 					String parsedToken = (String) token.subSequence(0, token.length() - 1);
 					imaginary = Double.parseDouble(parsedToken);
-
 				} else {
-
 					real = Double.parseDouble(token);
-
 				}
-
 			} catch (NumberFormatException exception) {
-
 				return null;
-
 			}
-
 		}
 
 		if (!realIsPositive) {
-
 			real = -real;
-
 		}
 
 		if (!imaginaryIsPositive) {
-
 			imaginary = -imaginary;
-
 		}
 
 		return new Complex(real, imaginary);
@@ -81,13 +65,11 @@ public class ComplexValueParser {
 		while (lastIndex != -1) {
 
 			lastIndex = haystack.indexOf(needle, lastIndex);
-
 			if (lastIndex != -1) {
-
 				count++;
 				lastIndex += needle.length();
-
 			}
+
 		}
 
 		return count;
