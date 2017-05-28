@@ -2,6 +2,7 @@ package fractals.colorSchemes;
 
 import java.awt.Color;
 
+import complex.Complex;
 import fractals.colorSchemes.settings.WaveColorSchemeSettingsManager;
 
 public class WaveColorScheme extends AbstractColorScheme {
@@ -15,9 +16,10 @@ public class WaveColorScheme extends AbstractColorScheme {
 	private double center;
 	private double delta;
 
+	private boolean useContinuousIndex;
+
 	private double maximumValue;
 	private Color maximumColor;
-
 	private double threshold;
 
 	public WaveColorScheme() {
@@ -35,6 +37,8 @@ public class WaveColorScheme extends AbstractColorScheme {
 
 		center = 230;
 		delta = 25;
+
+		useContinuousIndex = true;
 
 		maximumValue = Integer.MAX_VALUE;
 		maximumColor = Color.black;
@@ -176,17 +180,27 @@ public class WaveColorScheme extends AbstractColorScheme {
 
 	}
 
-	public int getRGBValue(double continuousIndex) {
+	public int getRGBValue(double value) {
+		return getRGBValue(value, null);
+	}
+
+	public int getRGBValue(double escapeNumber, Complex lastEscapeComplexValue) {
+
+		double value = escapeNumber;
+		if (useContinuousIndex && lastEscapeComplexValue != null) {
+			// Extra calculation for a smooth color transition
+			value = escapeNumber + 1 - (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+		}
 
 		// Apply threshold
-		if (continuousIndex > maximumValue - threshold) {
+		if (value > maximumValue - threshold) {
 			return maximumColor.getRGB();
 		}
 
 		// Calculate rgb values
-		int r = (int) Math.abs((Math.sin(frequencyRed * continuousIndex + phaseRed) * center + delta));
-		int g = (int) Math.abs((Math.sin(frequencyGreen * continuousIndex + phaseGreen) * center + delta));
-		int b = (int) Math.abs((Math.sin(frequencyBlue * continuousIndex + phaseBlue) * center + delta));
+		int r = (int) Math.abs((Math.sin(frequencyRed * value + phaseRed) * center + delta));
+		int g = (int) Math.abs((Math.sin(frequencyGreen * value + phaseGreen) * center + delta));
+		int b = (int) Math.abs((Math.sin(frequencyBlue * value + phaseBlue) * center + delta));
 
 		// Cap rgb values at 255
 		r = Math.min(r, 255);

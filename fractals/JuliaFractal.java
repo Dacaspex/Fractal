@@ -64,7 +64,8 @@ public class JuliaFractal extends AbstractFractal {
 		// Update linear and inside-outside color schemes
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setMaxInputSteps(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
-		((InsideOutsideColorScheme) colorSchemeManager.getColorScheme("InsideOutsideColorScheme")).setMaxIterations(maxIterations);
+		((InsideOutsideColorScheme) colorSchemeManager.getColorScheme("InsideOutsideColorScheme"))
+				.setMaxIterations(maxIterations);
 
 	}
 
@@ -110,19 +111,16 @@ public class JuliaFractal extends AbstractFractal {
 				switch (colorSchemeManager.getActiveColorScheme().getIdentifier()) {
 
 				case "WaveColorScheme":
-
-					// Extra calculation for a smooth color transition
-					double continuousIndex = escapeNumber + 1
-							- (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
-					colorValue = getRGBValue(continuousIndex);
+					colorValue = ((WaveColorScheme) colorSchemeManager.getActiveColorScheme()).getRGBValue(escapeNumber,
+							lastEscapeComplexValue);
 					break;
 
 				case "LinearColorScheme":
-					colorValue = getRGBValue(escapeNumber);
+					colorValue = colorSchemeManager.getActiveColorScheme().getRGBValue(escapeNumber);
 					break;
 
 				case "InsideOutsideColorScheme":
-					colorValue = getRGBValue(escapeNumber);
+					colorValue = colorSchemeManager.getActiveColorScheme().getRGBValue(escapeNumber);
 					break;
 
 				}
@@ -152,12 +150,6 @@ public class JuliaFractal extends AbstractFractal {
 
 		lastEscapeComplexValue = currentValue;
 		return i;
-
-	}
-
-	public int getRGBValue(double continuousIndex) {
-
-		return colorSchemeManager.getActiveColorScheme().getRGBValue(continuousIndex);
 
 	}
 }
