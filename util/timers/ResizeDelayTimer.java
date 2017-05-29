@@ -1,4 +1,4 @@
-package timers;
+package util.timers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

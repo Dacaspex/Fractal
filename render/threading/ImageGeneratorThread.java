@@ -1,4 +1,4 @@
-package util.threading;
+package render.threading;
 
 import java.awt.image.BufferedImage;
 

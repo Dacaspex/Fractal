@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
-import timers.ResizeDelayTimer;
+import util.timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
@@ -32,8 +32,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		resizeDelayTimer = new ResizeDelayTimer(this);
 		this.fractalManager = fractalManager;
-
-		fractalManager.setFractalPanel(this);
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);

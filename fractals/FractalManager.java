@@ -5,18 +5,16 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.FractalPanel;
+import render.threading.ImageGeneratorThread;
+import render.threading.ImageStitcher;
+import render.threading.ThreadFactory;
 import util.Settings;
-import util.threading.ImageGeneratorThread;
-import util.threading.ImageStitcher;
-import util.threading.ThreadFactory;
 
 public class FractalManager {
 
 	private TreeMap<String, AbstractFractal> fractalList;
 
 	private AbstractFractal selectedFractal;
-
-	private FractalPanel fractalPanel;
 
 	private BufferedImage[] imageList;
 	private int requestedWidth;
@@ -40,6 +38,7 @@ public class FractalManager {
 		setDefaultFractal();
 
 		ImageGeneratorThread.fractalManager = this;
+		ThreadFactory.setThreadCount(9);
 
 	}
 
@@ -60,7 +59,7 @@ public class FractalManager {
 			threadsRunning = NUMBER_OF_THREADS;
 
 			// Create the thread factory that handles the thread creation
-			threadFactory = new ThreadFactory(NUMBER_OF_THREADS);
+			threadFactory = new ThreadFactory();
 			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
@@ -83,7 +82,7 @@ public class FractalManager {
 
 			// Reset counter for cleaner transitions, then stitch images
 			BufferedImage resultImage = stitchImages();
-			fractalPanel.showImage(resultImage);
+			FractalPanel.getFractalPanel().showImage(resultImage);
 			generatingState = FractalGeneratingState.IDLE;
 
 		}
@@ -96,9 +95,10 @@ public class FractalManager {
 		ImageStitcher imageStitcher = new ImageStitcher();
 		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
 
-//		// TODO move to separate method
-//		PostImageProcessor postImageProcessor = new PostImageProcessor(selectedFractal, false);
-//		postImageProcessor.applyEffects(resultImage);
+		// // TODO move to separate method
+		// PostImageProcessor postImageProcessor = new
+		// PostImageProcessor(selectedFractal, false);
+		// postImageProcessor.applyEffects(resultImage);
 
 		return resultImage;
 
@@ -158,7 +158,7 @@ public class FractalManager {
 	public void setSelectedFractal(String identifier) {
 
 		selectedFractal = fractalList.get(identifier);
-		updateFractalPanel();
+		FractalPanel.getFractalPanel().requestUpdate();
 
 	}
 
@@ -178,27 +178,6 @@ public class FractalManager {
 		}
 
 		return list;
-
-	}
-
-	/**
-	 * Function to specify which FractalPanel draws the fractal
-	 * 
-	 * @param fractalPanel
-	 *            The fractalPanel which draws the fractal
-	 */
-	public void setFractalPanel(FractalPanel fractalPanel) {
-
-		this.fractalPanel = fractalPanel;
-
-	}
-
-	/**
-	 * Forces the FractalPanel to draw a fractal
-	 */
-	public void updateFractalPanel() {
-
-		fractalPanel.requestUpdate();
 
 	}
 

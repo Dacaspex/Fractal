@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.settings.SettingsManager;
+import render.threading.ThreadFactory;
 import util.math.Point;
 import util.math.Scale;
-import util.threading.ThreadFactory;
 
 public abstract class AbstractFractal {
 
@@ -81,7 +81,7 @@ public abstract class AbstractFractal {
 	 */
 	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
 
-		threadFactory.createThreads(scale, imageWidth, imageHeight, this);
+		threadFactory.createThreads(this, imageWidth, imageHeight);
 
 	}
 
