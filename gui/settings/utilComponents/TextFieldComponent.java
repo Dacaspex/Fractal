@@ -15,6 +15,12 @@ public class TextFieldComponent extends JTextField implements DocumentListener {
 
 	}
 
+	/**
+	 * Updates the text of the text field without triggering the document events
+	 * 
+	 * @param text
+	 *            The text to be put in the text field
+	 */
 	public void setTextNoTrigger(String text) {
 
 		getDocument().removeDocumentListener(this);
@@ -23,6 +29,15 @@ public class TextFieldComponent extends JTextField implements DocumentListener {
 
 	}
 
+	/**
+	 * This method executes when the document of the text field: Received a
+	 * change update, received a insert update or received a remove update
+	 * 
+	 * @see DocumentEvent
+	 * 
+	 * @param event
+	 *            The document event
+	 */
 	public void documentUpdate(DocumentEvent event) {
 
 	}

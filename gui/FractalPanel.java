@@ -20,13 +20,11 @@ import util.timers.ResizeDelayTimer;
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
 	private static final long serialVersionUID = 11274784860690473L;
-
 	private static FractalPanel instance;
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
 	private FractalManager fractalManager;
-
 	private Renderer renderer;
 
 	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
@@ -47,33 +45,19 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * @return An instance of itself (singleton)
 	 */
 	public static FractalPanel getFractalPanel() {
-
 		return FractalPanel.instance;
-
 	}
 
 	/**
-	 * Request to render a new fractal image
+	 * Request to render a new fractal image and draws the result
 	 */
 	public void requestUpdate() {
 
 		BufferedImage image = renderer.render(fractalManager.getActiveFractal(), getWidth(), getHeight());
 		if (image != null) {
-			showImage(image);
+			this.image = image;
+			repaint();
 		}
-
-	}
-
-	/**
-	 * Sets the image that should be painted on the panel
-	 * 
-	 * @param image
-	 *            The image to be drawn
-	 */
-	public void showImage(BufferedImage image) {
-
-		this.image = image;
-		repaint();
 
 	}
 
