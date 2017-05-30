@@ -32,17 +32,18 @@ public class Renderer {
 		if (renderState == RenderState.IDLE) {
 
 			renderState = RenderState.RENDERING_IMAGE;
-			long start = System.currentTimeMillis();
+
+			// Create and start thread, wait until done
 			threadManager.createThreads(fractal, width, height);
 			haltUntillFinished();
-			long end = System.currentTimeMillis();
+
+			// Get result images, stitch them together and apply post render
+			// effects
 			partialImages = threadManager.getImages();
 			BufferedImage image = imageStitcher.stitch(partialImages, width, height);
 			image = postRenderer.render(image, fractal);
+			
 			renderState = RenderState.IDLE;
-			
-			System.out.println(end - start);
-			
 			return image;
 
 		} else {

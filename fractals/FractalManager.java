@@ -1,106 +1,24 @@
 package fractals;
 
-import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.TreeMap;
 
 import gui.FractalPanel;
-import render.threading.ImageGeneratorThread;
-import render.threading.ImageStitcher;
-import render.threading.ThreadManager;
 import util.Settings;
 
 public class FractalManager {
 
 	private TreeMap<String, AbstractFractal> fractalList;
-
-	private AbstractFractal selectedFractal;
-
-	private BufferedImage[] imageList;
-	private int requestedWidth;
-	private int requestedHeight;
-
-	private ThreadManager threadFactory;
-	private int threadsRunning;
-	private final int NUMBER_OF_THREADS = 9;
-
-	private FractalGeneratingState generatingState;
+	private AbstractFractal activeFractal;
 
 	public FractalManager() {
 
 		// Initialize variables
 		fractalList = new TreeMap<String, AbstractFractal>();
-		imageList = new BufferedImage[NUMBER_OF_THREADS];
-		generatingState = FractalGeneratingState.IDLE;
 
 		// Load and set default fractal
 		loadDefaultFractals();
 		setDefaultFractal();
-
-		ImageGeneratorThread.fractalManager = this;
-		ThreadManager.setThreadCount(9);
-
-	}
-
-	public FractalGeneratingState getGeneratingState() {
-
-		return generatingState;
-
-	}
-
-	public void requestImage(int width, int height) {
-
-		// Start generating a new fractal if no other fractal is being generated
-		if (generatingState == FractalGeneratingState.IDLE) {
-
-			requestedWidth = width;
-			requestedHeight = height;
-			generatingState = FractalGeneratingState.GENERATING_IMAGE;
-			threadsRunning = NUMBER_OF_THREADS;
-
-			// Create the thread factory that handles the thread creation
-			threadFactory = new ThreadManager();
-			selectedFractal.requestImage(threadFactory, width, height);
-
-		}
-
-	}
-
-	public void updateProgress(BufferedImage intermediateResult, int number) {
-
-		// Update the current progress
-		imageList[number] = intermediateResult;
-		threadsRunning--;
-
-		// All threads are done
-		if (threadsRunning <= 0) {
-
-			generatingState = FractalGeneratingState.STITCHING_IMAGE;
-
-			// Hard kill threads
-			threadFactory.kill();
-
-			// Reset counter for cleaner transitions, then stitch images
-			BufferedImage resultImage = stitchImages();
-			FractalPanel.getFractalPanel().showImage(resultImage);
-			generatingState = FractalGeneratingState.IDLE;
-
-		}
-
-	}
-
-	public BufferedImage stitchImages() {
-
-		// Create the image stitcher
-		ImageStitcher imageStitcher = new ImageStitcher();
-		BufferedImage resultImage = imageStitcher.stitch(imageList, requestedWidth, requestedHeight);
-
-		// // TODO move to separate method
-		// PostImageProcessor postImageProcessor = new
-		// PostImageProcessor(selectedFractal, false);
-		// postImageProcessor.applyEffects(resultImage);
-
-		return resultImage;
 
 	}
 
@@ -120,7 +38,7 @@ public class FractalManager {
 	 */
 	public void setDefaultFractal() {
 
-		selectedFractal = Settings.getDefaultFractal(this);
+		activeFractal = Settings.getDefaultFractal(this);
 
 	}
 
@@ -142,9 +60,9 @@ public class FractalManager {
 	/**
 	 * @return The currently selected fractal
 	 */
-	public AbstractFractal getSelectedFractal() {
+	public AbstractFractal getActiveFractal() {
 
-		return selectedFractal;
+		return activeFractal;
 
 	}
 
@@ -155,9 +73,9 @@ public class FractalManager {
 	 * @param identifier
 	 *            The identifier of the fractal to be selected
 	 */
-	public void setSelectedFractal(String identifier) {
+	public void setActiveFractal(String identifier) {
 
-		selectedFractal = fractalList.get(identifier);
+		activeFractal = fractalList.get(identifier);
 		FractalPanel.getFractalPanel().requestUpdate();
 
 	}
@@ -196,9 +114,7 @@ public class FractalManager {
 	}
 
 	public enum FractalGeneratingState {
-
 		IDLE, GENERATING_IMAGE, STITCHING_IMAGE
-
 	}
 
 }
