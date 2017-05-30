@@ -3,9 +3,6 @@ package gui.settings.utilComponents;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 public class TextFieldComponent extends JTextField implements DocumentListener {
 
@@ -15,6 +12,14 @@ public class TextFieldComponent extends JTextField implements DocumentListener {
 
 		this.setText(defaultText);
 		this.getDocument().addDocumentListener(this);
+
+	}
+
+	public void setTextNoTrigger(String text) {
+
+		getDocument().removeDocumentListener(this);
+		setText(text);
+		getDocument().addDocumentListener(this);
 
 	}
 
