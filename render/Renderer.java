@@ -3,10 +3,14 @@ package render;
 import java.awt.image.BufferedImage;
 
 import fractals.AbstractFractal;
-import render.threading.ThreadFactory;
+import render.threading.ImageStitcher;
+import render.threading.ThreadManager;
 
 public class Renderer {
 
+	private ThreadManager threadManager;
+	private ImageStitcher imageStitcher;
+	private PostRenderer postRenderer;
 	private BufferedImage[] partialImages;
 
 	private RenderOptions[] renderOptions;
@@ -14,8 +18,12 @@ public class Renderer {
 
 	public Renderer() {
 
-		// TODO Should be moved
-		ThreadFactory.setThreadCount(9);
+		this.threadManager = new ThreadManager();
+		this.imageStitcher = new ImageStitcher();
+		this.postRenderer = new PostRenderer();
+		this.renderState = RenderState.IDLE;
+
+		ThreadManager.setThreadCount(9); // TODO should be moved
 
 	}
 
@@ -24,11 +32,40 @@ public class Renderer {
 		if (renderState == RenderState.IDLE) {
 
 			renderState = RenderState.RENDERING_IMAGE;
-			ThreadFactory threadFactory = new ThreadFactory();
+			long start = System.currentTimeMillis();
+			threadManager.createThreads(fractal, width, height);
+			haltUntillFinished();
+			long end = System.currentTimeMillis();
+			partialImages = threadManager.getImages();
+			BufferedImage image = imageStitcher.stitch(partialImages, width, height);
+			image = postRenderer.render(image, fractal);
+			renderState = RenderState.IDLE;
+			
+			System.out.println(end - start);
+			
+			return image;
+
+		} else {
+
+			return null;
 
 		}
-		
-		return null;
+
+	}
+
+	private void haltUntillFinished() {
+
+		while (!threadManager.isDone()) {
+
+			// Wait until threads are done;
+			// Update progress...
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
 
 	}
 

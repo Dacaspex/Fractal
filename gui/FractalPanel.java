@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
+import render.Renderer;
 import util.timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
@@ -26,12 +27,15 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	private ResizeDelayTimer resizeDelayTimer;
 	private FractalManager fractalManager;
 
+	private Renderer renderer;
+
 	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
 
 		FractalPanel.instance = this;
 
-		resizeDelayTimer = new ResizeDelayTimer(this);
+		this.resizeDelayTimer = new ResizeDelayTimer(this);
 		this.fractalManager = fractalManager;
+		this.renderer = new Renderer();
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -52,9 +56,20 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * Request to render a new fractal image
 	 */
 	public void requestUpdate() {
-
-		fractalManager.requestImage(getWidth(), getHeight());
-
+		
+		StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+		for (StackTraceElement element : trace) {
+			System.out.println(element);
+		}
+		
+		// fractalManager.requestImage(getWidth(), getHeight());
+		BufferedImage image = renderer.render(fractalManager.getSelectedFractal(), getWidth(), getHeight());
+		if (image != null) {
+			showImage(image);
+		}
+		
+		System.out.println("----------------------");
+		
 	}
 
 	/**

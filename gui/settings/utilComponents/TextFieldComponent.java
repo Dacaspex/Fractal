@@ -3,6 +3,9 @@ package gui.settings.utilComponents;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 public class TextFieldComponent extends JTextField implements DocumentListener {
 
@@ -21,23 +24,17 @@ public class TextFieldComponent extends JTextField implements DocumentListener {
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-
 		documentUpdate(e);
-
 	}
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-
 		documentUpdate(e);
-
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-
 		documentUpdate(e);
-
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.TreeMap;
 import gui.FractalPanel;
 import render.threading.ImageGeneratorThread;
 import render.threading.ImageStitcher;
-import render.threading.ThreadFactory;
+import render.threading.ThreadManager;
 import util.Settings;
 
 public class FractalManager {
@@ -20,7 +20,7 @@ public class FractalManager {
 	private int requestedWidth;
 	private int requestedHeight;
 
-	private ThreadFactory threadFactory;
+	private ThreadManager threadFactory;
 	private int threadsRunning;
 	private final int NUMBER_OF_THREADS = 9;
 
@@ -38,7 +38,7 @@ public class FractalManager {
 		setDefaultFractal();
 
 		ImageGeneratorThread.fractalManager = this;
-		ThreadFactory.setThreadCount(9);
+		ThreadManager.setThreadCount(9);
 
 	}
 
@@ -59,7 +59,7 @@ public class FractalManager {
 			threadsRunning = NUMBER_OF_THREADS;
 
 			// Create the thread factory that handles the thread creation
-			threadFactory = new ThreadFactory();
+			threadFactory = new ThreadManager();
 			selectedFractal.requestImage(threadFactory, width, height);
 
 		}
@@ -78,7 +78,7 @@ public class FractalManager {
 			generatingState = FractalGeneratingState.STITCHING_IMAGE;
 
 			// Hard kill threads
-			threadFactory.killThreads();
+			threadFactory.kill();
 
 			// Reset counter for cleaner transitions, then stitch images
 			BufferedImage resultImage = stitchImages();
@@ -93,7 +93,7 @@ public class FractalManager {
 
 		// Create the image stitcher
 		ImageStitcher imageStitcher = new ImageStitcher();
-		BufferedImage resultImage = imageStitcher.stitchImages(imageList, requestedWidth, requestedHeight);
+		BufferedImage resultImage = imageStitcher.stitch(imageList, requestedWidth, requestedHeight);
 
 		// // TODO move to separate method
 		// PostImageProcessor postImageProcessor = new

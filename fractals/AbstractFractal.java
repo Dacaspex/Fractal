@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.settings.SettingsManager;
-import render.threading.ThreadFactory;
+import render.threading.ThreadManager;
 import util.math.Point;
 import util.math.Scale;
 
@@ -79,7 +79,8 @@ public abstract class AbstractFractal {
 	 * @param imageHeight
 	 *            The requested image height
 	 */
-	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
+	@Deprecated
+	public void requestImage(ThreadManager threadFactory, int imageWidth, int imageHeight) {
 
 		threadFactory.createThreads(this, imageWidth, imageHeight);
 
