@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import fractals.colorSchemes.ColorSchemeManager;
 import fractals.settings.SettingsManager;
-import render.threading.ThreadFactory;
+import render.Renderer;
 import util.math.Point;
 import util.math.Scale;
 
@@ -67,38 +67,21 @@ public abstract class AbstractFractal {
 	}
 
 	/**
-	 * Handles the request for an image. It separates the task of generating
-	 * into smaller tasks using threads for better performance. This only starts
-	 * the threads and does not yet yield any image.
-	 * 
-	 * @param threadFactory
-	 *            Specify which thread factory to use in order to render the
-	 *            image
-	 * @param imageWidth
-	 *            The requested image width
-	 * @param imageHeight
-	 *            The requested image height
-	 */
-	public void requestImage(ThreadFactory threadFactory, int imageWidth, int imageHeight) {
-
-		threadFactory.createThreads(this, imageWidth, imageHeight);
-
-	}
-
-	/**
 	 * Method to be implemented that should generate an image of the fractal
-	 * using the given dimensions and scale. Not this scale is smaller or equal
-	 * to the normal scale since this method is being called from a method that
-	 * only has partial work.
+	 * using the given dimensions and point list. Note that this point list may
+	 * not contain every point of the image, since the work is sub divided over
+	 * threads when multi threading is enabled.
 	 * 
-	 * @param imagewidth
+	 * @see Renderer
+	 * 
+	 * @param width
 	 *            The width of the image
-	 * @param imageHeight
+	 * @param height
 	 *            The height of the image
-	 * @param scale
-	 *            The scale to use
+	 * @param points
+	 *            The set of points the fractal needs to compute
 	 * @return An image with the fractal rendered on top of it
 	 */
-	public abstract BufferedImage generateImage(int imagewidth, int imageHeight, Point[][] points);
+	public abstract BufferedImage generateImage(int width, int height, Point[][] points);
 
 }

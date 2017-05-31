@@ -61,7 +61,7 @@ public class SettingsPanel extends JPanel {
 		wrapper.add(titleComponentFractalSettings.getLabel());
 
 		// Add all fractal components to the wrapper; first label then component
-		for (SettingItemComponent component : fractalManager.getSelectedFractal().getSettingsManager()
+		for (SettingItemComponent component : fractalManager.getActiveFractal().getSettingsManager()
 				.getSettingComponents()) {
 			wrapper.add(component.getLabel());
 			wrapper.add(component.getComponent());
@@ -72,7 +72,7 @@ public class SettingsPanel extends JPanel {
 		wrapper.add(titleComponentColorSchemeSettings.getLabel());
 
 		// Add all settings components in the same way
-		for (SettingItemComponent component : fractalManager.getSelectedFractal().getColorSchemeManager()
+		for (SettingItemComponent component : fractalManager.getActiveFractal().getColorSchemeManager()
 				.getActiveColorScheme().getSettingsManager().getSettingComponents()) {
 			wrapper.add(component.getLabel());
 			wrapper.add(component.getComponent());

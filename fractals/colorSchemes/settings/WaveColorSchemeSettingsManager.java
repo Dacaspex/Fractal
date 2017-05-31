@@ -186,14 +186,14 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		simpleWaveColorScheme.setDelta(delta);
 
 		// Update input fields
-		frequencyRedTextField.setText(Double.toString(frequencyRed));
-		frequencyGreenTextField.setText(Double.toString(frequencyGreen));
-		frequencyBlueTextField.setText(Double.toString(frequencyBlue));
-		phaseRedTextField.setText(Double.toString(phaseRed));
-		phaseGreenTextField.setText(Double.toString(phaseGreen));
-		phaseBlueTextField.setText(Double.toString(phaseBlue));
-		centerTextField.setText(Double.toString(center));
-		deltaTextField.setText(Double.toString(delta));
+		frequencyRedTextField.setTextNoTrigger(Double.toString(frequencyRed));
+		frequencyGreenTextField.setTextNoTrigger(Double.toString(frequencyGreen));
+		frequencyBlueTextField.setTextNoTrigger(Double.toString(frequencyBlue));
+		phaseRedTextField.setTextNoTrigger(Double.toString(phaseRed));
+		phaseGreenTextField.setTextNoTrigger(Double.toString(phaseGreen));
+		phaseBlueTextField.setTextNoTrigger(Double.toString(phaseBlue));
+		centerTextField.setTextNoTrigger(Double.toString(center));
+		deltaTextField.setTextNoTrigger(Double.toString(delta));
 
 		// Update fractal
 		FractalPanel.getFractalPanel().requestUpdate();

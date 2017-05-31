@@ -14,24 +14,26 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
+import render.Renderer;
 import util.timers.ResizeDelayTimer;
 
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
 	private static final long serialVersionUID = 11274784860690473L;
-
 	private static FractalPanel instance;
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
 	private FractalManager fractalManager;
+	private Renderer renderer;
 
 	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
 
 		FractalPanel.instance = this;
 
-		resizeDelayTimer = new ResizeDelayTimer(this);
+		this.resizeDelayTimer = new ResizeDelayTimer(this);
 		this.fractalManager = fractalManager;
+		this.renderer = new Renderer();
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -43,30 +45,19 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 * @return An instance of itself (singleton)
 	 */
 	public static FractalPanel getFractalPanel() {
-
 		return FractalPanel.instance;
-
 	}
 
 	/**
-	 * Request to render a new fractal image
+	 * Request to render a new fractal image and draws the result
 	 */
 	public void requestUpdate() {
 
-		fractalManager.requestImage(getWidth(), getHeight());
-
-	}
-
-	/**
-	 * Sets the image that should be painted on the panel
-	 * 
-	 * @param image
-	 *            The image to be drawn
-	 */
-	public void showImage(BufferedImage image) {
-
-		this.image = image;
-		repaint();
+		BufferedImage image = renderer.render(fractalManager.getActiveFractal(), getWidth(), getHeight());
+		if (image != null) {
+			this.image = image;
+			repaint();
+		}
 
 	}
 
@@ -80,10 +71,10 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		// Set center point and zoom in
 		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
-		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+		util.math.Point point = fractalManager.getActiveFractal().getScale().getPointInScale(screenPoint, getWidth(),
 				getHeight());
-		fractalManager.getSelectedFractal().getScale().setCenter(point);
-		fractalManager.getSelectedFractal().getScale().zoomIn();
+		fractalManager.getActiveFractal().getScale().setCenter(point);
+		fractalManager.getActiveFractal().getScale().zoomIn();
 
 		// Update information
 		requestUpdate();
@@ -100,10 +91,10 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		// Set center point and zoom out
 		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
-		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+		util.math.Point point = fractalManager.getActiveFractal().getScale().getPointInScale(screenPoint, getWidth(),
 				getHeight());
-		fractalManager.getSelectedFractal().getScale().setCenter(point);
-		fractalManager.getSelectedFractal().getScale().zoomOut();
+		fractalManager.getActiveFractal().getScale().setCenter(point);
+		fractalManager.getActiveFractal().getScale().zoomOut();
 
 		// Update information
 		requestUpdate();
@@ -120,9 +111,9 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		// Set center point
 		util.math.Point screenPoint = new util.math.Point(targetPoint.x, targetPoint.y);
-		util.math.Point point = fractalManager.getSelectedFractal().getScale().getPointInScale(screenPoint, getWidth(),
+		util.math.Point point = fractalManager.getActiveFractal().getScale().getPointInScale(screenPoint, getWidth(),
 				getHeight());
-		fractalManager.getSelectedFractal().getScale().setCenter(point);
+		fractalManager.getActiveFractal().getScale().setCenter(point);
 
 		// Update information
 		requestUpdate();

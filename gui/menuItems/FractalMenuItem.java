@@ -30,7 +30,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
-		fractalManager.setSelectedFractal(identifier);
+		fractalManager.setActiveFractal(identifier);
 		settingsPanel.update();
 
 	}
