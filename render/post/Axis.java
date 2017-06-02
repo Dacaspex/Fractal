@@ -1,4 +1,4 @@
-package imageProcessing.post;
+package render.post;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

@@ -19,7 +19,7 @@ public class MandelBrotFractal extends AbstractFractal {
 	public MandelBrotFractal() {
 
 		// Set identification
-		identifier = "MandelBrotSet1";
+		identifier = FractalIdentifier.MANDELBROT_SET;
 
 		// Set default values
 		name = "Mandelbrot Set";

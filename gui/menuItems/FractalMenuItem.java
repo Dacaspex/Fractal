@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
+import fractals.AbstractFractal;
 import fractals.FractalManager;
 import gui.SettingsPanel;
 
@@ -12,17 +13,19 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 
 	private static final long serialVersionUID = 4134586652779444321L;
 
-	private String identifier;
+	private AbstractFractal fractal;
 	private FractalManager fractalManager;
 	private SettingsPanel settingsPanel;
 
-	public FractalMenuItem(String identifier, String name, FractalManager fractalManager, SettingsPanel settingsPanel) {
+	// TODO rewrite:
+	// Explorer panel -> should house switching between fractals
+	public FractalMenuItem(AbstractFractal fractal, FractalManager fractalManager, SettingsPanel settingsPanel) {
 
-		this.identifier = identifier;
+		this.fractal = fractal;
 		this.fractalManager = fractalManager;
 		this.settingsPanel = settingsPanel;
 
-		setText(name);
+		setText(fractal.getName());
 		addActionListener(this);
 
 	}
@@ -30,7 +33,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
-		fractalManager.setActiveFractal(identifier);
+		fractalManager.setActiveFractal(fractal.getIdentifier());
 		settingsPanel.update();
 
 	}

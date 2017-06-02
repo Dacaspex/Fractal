@@ -91,23 +91,25 @@ public abstract class Settings {
 
 	}
 
-	public static AbstractFractal getDefaultFractal(FractalManager fractalManager) {
+	@Deprecated
+	public static AbstractFractal getDefaultFractal2(FractalManager fractalManager) {
 
-		AbstractFractal fractal;
-		
-		if (doc != null) {
-
-			Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
-			String identifier = defaultFractalNode.getElementsByTagName("identifier").item(0).getTextContent();
-			fractal = fractalManager.getFractalByIdentifier(identifier);
-
-		} else {
-			
-			fractal = fractalManager.getFractalByIdentifier("");
-			
-		}
-		
-		return fractal;
+		return null;
+//		AbstractFractal fractal;
+//		
+//		if (doc != null) {
+//
+//			Element defaultFractalNode = (Element) doc.getElementsByTagName("defaultFractal").item(0);
+//			String identifier = defaultFractalNode.getElementsByTagName("identifier").item(0).getTextContent();
+//			fractal = fractalManager.getFractalByIdentifier(identifier);
+//
+//		} else {
+//			
+//			fractal = fractalManager.getFractalByIdentifier("");
+//			
+//		}
+//		
+//		return fractal;
 
 	}
 

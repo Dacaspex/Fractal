@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import fractals.AbstractFractal;
 import fractals.FractalManager;
 import gui.menuItems.AboutMenuItem;
 import gui.menuItems.ExitMenuItem;
@@ -74,10 +76,10 @@ public class Display extends JFrame {
 		// Fractal menu
 		JMenu fractalMenu = new JMenu("Fractals");
 
-		String[][] fractalIdentificationList = fractalManager.getLoadedFractals();
-		for (String[] fractalIdentification : fractalIdentificationList) {
+		ArrayList<AbstractFractal> fractals = fractalManager.getFractals();
+		for (AbstractFractal fractal : fractals) {
 
-			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager,
+			fractalMenu.add(new FractalMenuItem(fractal, fractalManager,
 					settingsPanel));
 
 		}

@@ -13,7 +13,7 @@ public abstract class AbstractFractal {
 	/**
 	 * The identifier of the fractal. This should be unique.
 	 */
-	protected String identifier;
+	protected FractalIdentifier identifier;
 
 	/**
 	 * The name of the fractal. This name is used in all the context menus. It
@@ -30,40 +30,28 @@ public abstract class AbstractFractal {
 
 	protected SettingsManager settingsManager;
 
-	public String getIdentifier() {
-
+	public FractalIdentifier getIdentifier() {
 		return identifier;
-
 	}
 
 	public String getName() {
-
 		return name;
-
 	}
 
 	public Scale getScale() {
-
 		return scale;
-
 	}
 
 	public void setScale(Scale scale) {
-
 		this.scale = scale;
-
 	}
 
 	public ColorSchemeManager getColorSchemeManager() {
-
 		return colorSchemeManager;
-
 	}
 
 	public SettingsManager getSettingsManager() {
-
 		return settingsManager;
-
 	}
 
 	/**
@@ -83,5 +71,9 @@ public abstract class AbstractFractal {
 	 * @return An image with the fractal rendered on top of it
 	 */
 	public abstract BufferedImage generateImage(int width, int height, Point[][] points);
+
+	public enum FractalIdentifier {
+		JULIA_SET, MANDELBROT_SET
+	}
 
 }
