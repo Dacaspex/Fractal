@@ -7,6 +7,7 @@ import javax.swing.JMenuItem;
 
 import fractals.AbstractFractal;
 import fractals.FractalManager;
+import gui.FractalPanel;
 import gui.SettingsPanel;
 
 public class FractalMenuItem extends JMenuItem implements ActionListener {
@@ -34,6 +35,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 
 		fractalManager.setActiveFractal(fractal.getIdentifier());
+		FractalPanel.getFractalPanel().requestUpdate();
 		settingsPanel.update();
 
 	}

@@ -30,7 +30,8 @@ public class FractalManager {
 	}
 
 	/**
-	 * Loads all fractals into the list
+	 * Loads new instances of the fractals of the program into the fractals
+	 * array
 	 */
 	public void loadDefaultFractals() {
 
@@ -80,9 +81,6 @@ public class FractalManager {
 				return;
 			}
 		}
-
-		// TODO remove
-		FractalPanel.getFractalPanel().requestUpdate();
 
 	}
 

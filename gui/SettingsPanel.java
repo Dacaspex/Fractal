@@ -32,9 +32,7 @@ public class SettingsPanel extends JPanel {
 	}
 
 	public static SettingsPanel getSettingsPanel() {
-
 		return instance;
-
 	}
 
 	private void buildGUI() {

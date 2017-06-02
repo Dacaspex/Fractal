@@ -27,7 +27,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	private FractalManager fractalManager;
 	private Renderer renderer;
 
-	public FractalPanel(FractalManager fractalManager, SettingsPanel settingsPanel) {
+	public FractalPanel(FractalManager fractalManager) {
 
 		FractalPanel.instance = this;
 

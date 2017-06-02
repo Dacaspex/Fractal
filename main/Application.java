@@ -2,6 +2,14 @@ package main;
 
 import gui.Display;
 
+/**
+ * This class is the main entry point of the program. Every class can access
+ * elements of the program by requesting it from this class. It serves to
+ * connect different modules.
+ * 
+ * @author Casper
+ *
+ */
 public class Application {
 
 	/*
@@ -23,13 +31,17 @@ public class Application {
 		display = new Display();
 
 	}
+	
+	public Display getDisplay() {
+		return display;
+	}
 
 	/**
 	 * Creates a new application
 	 * 
 	 * @return The newly created application
 	 */
-	public static Application create() {
+	protected static Application create() {
 		instance = new Application();
 		return instance;
 	}
