@@ -3,10 +3,10 @@ package fractals.settings;
 import javax.swing.event.DocumentEvent;
 
 import fractals.MandelBrotFractal;
-import gui.FractalPanel;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
+import main.Application;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
@@ -31,7 +31,7 @@ public class MandelBrotSettingsManager implements SettingsManager {
 			}
 
 			mandelBrotFractal.setMaxIterations(iterations);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 
 		} catch (NumberFormatException exception) {
 
@@ -54,7 +54,7 @@ public class MandelBrotSettingsManager implements SettingsManager {
 			}
 
 			mandelBrotFractal.setEscapeValue(escapeValue);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 
 		} catch (NumberFormatException exception) {
 

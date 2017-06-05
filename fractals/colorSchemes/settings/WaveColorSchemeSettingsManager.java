@@ -7,11 +7,11 @@ import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
-import gui.FractalPanel;
 import gui.settings.utilComponents.ButtonComponent;
 import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
+import main.Application;
 
 public class WaveColorSchemeSettingsManager implements SettingsManager {
 
@@ -37,7 +37,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double frequencyRed = Double.parseDouble(frequencyRedString);
 			simpleWaveColorScheme.setFrequencyRed(frequencyRed);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -49,7 +49,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double frequencyGreen = Double.parseDouble(frequencyGreenString);
 			simpleWaveColorScheme.setFrequencyGreen(frequencyGreen);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -61,7 +61,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double frequencyBlue = Double.parseDouble(frequencyBlueString);
 			simpleWaveColorScheme.setFrequencyBlue(frequencyBlue);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -73,7 +73,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double phaseRed = Double.parseDouble(phaseRedString);
 			simpleWaveColorScheme.setPhaseRed(phaseRed);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -85,7 +85,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double phaseGreen = Double.parseDouble(phaseGreenString);
 			simpleWaveColorScheme.setPhaseGreen(phaseGreen);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -97,7 +97,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double phaseBlue = Double.parseDouble(phaseBlueString);
 			simpleWaveColorScheme.setPhaseBlue(phaseBlue);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -109,7 +109,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double center = Double.parseDouble(centerString);
 			simpleWaveColorScheme.setCenter(center);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -121,7 +121,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		try {
 			double delta = Double.parseDouble(deltaString);
 			simpleWaveColorScheme.setDelta(delta);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -134,7 +134,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 			double threshold = Double.parseDouble(thresholdString);
 			if (threshold >= 0) {
 				simpleWaveColorScheme.setThreshold(threshold);
-				FractalPanel.getFractalPanel().requestUpdate();
+				Application.getApplication().update(false);
 			}
 		} catch (NumberFormatException exception) {
 			return;
@@ -146,14 +146,14 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 
 		if (maximumValueString.trim().equals("")) {
 			simpleWaveColorScheme.setMaximumValue(Integer.MAX_VALUE);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		}
 
 		try {
 			double maximumValue = Double.parseDouble(maximumValueString);
 			if (maximumValue >= 0) {
 				simpleWaveColorScheme.setMaximumValue(maximumValue);
-				FractalPanel.getFractalPanel().requestUpdate();
+				Application.getApplication().update(false);
 			}
 		} catch (NumberFormatException exception) {
 			return;
@@ -196,7 +196,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 		deltaTextField.setTextNoTrigger(Double.toString(delta));
 
 		// Update fractal
-		FractalPanel.getFractalPanel().requestUpdate();
+		Application.getApplication().update(false);
 
 	}
 
@@ -336,7 +336,7 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 
 				update();
 				simpleWaveColorScheme.setMaximumColor(color);
-				FractalPanel.getFractalPanel().requestUpdate();
+				Application.getApplication().update(false);
 
 			}
 

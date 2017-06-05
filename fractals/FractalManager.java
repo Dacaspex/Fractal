@@ -3,7 +3,6 @@ package fractals;
 import java.util.ArrayList;
 
 import fractals.AbstractFractal.FractalIdentifier;
-import gui.FractalPanel;
 
 public class FractalManager {
 
@@ -31,7 +30,11 @@ public class FractalManager {
 
 	/**
 	 * Loads new instances of the fractals of the program into the fractals
-	 * array
+	 * array. These fractals include:
+	 * <ul>
+	 * <li>Julia Fractal</li>
+	 * <li>Mandelbrot Set</li>
+	 * </ul>
 	 */
 	public void loadDefaultFractals() {
 

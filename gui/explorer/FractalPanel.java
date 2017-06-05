@@ -1,4 +1,4 @@
-package gui;
+package gui.explorer;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -27,11 +27,18 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	private FractalManager fractalManager;
 	private Renderer renderer;
 
+	/**
+	 * Constructor for fractal panel. This uses the collective fractal manager
+	 * of the explorer panel system.
+	 * 
+	 * @param fractalManager
+	 *            The fractal manager used for the explorer panel system
+	 */
 	public FractalPanel(FractalManager fractalManager) {
 
 		FractalPanel.instance = this;
 
-		this.resizeDelayTimer = new ResizeDelayTimer(this);
+		this.resizeDelayTimer = new ResizeDelayTimer();
 		this.fractalManager = fractalManager;
 		this.renderer = new Renderer();
 
@@ -51,7 +58,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	/**
 	 * Request to render a new fractal image and draws the result
 	 */
-	public void requestUpdate() {
+	public void update() {
 
 		BufferedImage image = renderer.render(fractalManager.getActiveFractal(), getWidth(), getHeight());
 		if (image != null) {
@@ -77,7 +84,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().zoomIn();
 
 		// Update information
-		requestUpdate();
+		update();
 
 	}
 
@@ -97,7 +104,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().zoomOut();
 
 		// Update information
-		requestUpdate();
+		update();
 
 	}
 
@@ -116,7 +123,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().setCenter(point);
 
 		// Update information
-		requestUpdate();
+		update();
 
 	}
 

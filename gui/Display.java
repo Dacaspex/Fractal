@@ -62,6 +62,10 @@ public class Display extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
+	
+	public ExplorerPanel getExplorerPanel() {
+		return explorerPanel;
+	}
 
 	private void buildGUI() {
 

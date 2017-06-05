@@ -8,8 +8,7 @@ import javax.swing.JPanel;
 
 import fractals.AbstractFractal;
 import fractals.FractalManager;
-import gui.FractalPanel;
-import gui.SettingsPanel;
+import gui.Display;
 import gui.menuItems.FractalMenuItem;
 
 /**
@@ -59,6 +58,10 @@ public class ExplorerPanel extends JPanel {
 
 	}
 
+	public FractalManager getFractalManager() {
+		return fractalManager;
+	}
+
 	/**
 	 * Builds the explorer panel with all it's subcomponents
 	 */
@@ -67,6 +70,15 @@ public class ExplorerPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(settingsPanel, BorderLayout.LINE_START);
 		add(fractalPanel);
+
+	}
+
+	public void update(boolean updateGUI) {
+
+		fractalPanel.update();
+		if (updateGUI) {
+			settingsPanel.update();
+		}
 
 	}
 
@@ -98,8 +110,7 @@ public class ExplorerPanel extends JPanel {
 		ArrayList<AbstractFractal> fractals = fractalManager.getFractals();
 
 		for (AbstractFractal fractal : fractals) {
-			// TODO simplify this constructor
-			fractalMenu.add(new FractalMenuItem(fractal, fractalManager, settingsPanel));
+			fractalMenu.add(new FractalMenuItem(fractal, fractalManager));
 		}
 
 		return fractalMenu;

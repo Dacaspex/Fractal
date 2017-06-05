@@ -8,8 +8,7 @@ import javax.swing.JComboBox;
 
 import fractals.colorSchemes.AbstractColorScheme;
 import fractals.colorSchemes.ColorSchemeManager;
-import gui.FractalPanel;
-import gui.SettingsPanel;
+import main.Application;
 
 public class ColorSchemeSelectorBox extends JComboBox<ColorSchemeSelectorBoxItem> implements ItemListener {
 
@@ -59,8 +58,7 @@ public class ColorSchemeSelectorBox extends JComboBox<ColorSchemeSelectorBoxItem
 
 			ColorSchemeSelectorBoxItem item = (ColorSchemeSelectorBoxItem) getSelectedItem();
 			colorSchemeManager.setActiveColorScheme(item.getValue());
-			FractalPanel.getFractalPanel().requestUpdate();
-			SettingsPanel.getSettingsPanel().update();
+			Application.getApplication().update(true);
 
 		}
 

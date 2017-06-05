@@ -4,9 +4,9 @@ import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.LinearColorScheme;
 import fractals.settings.SettingsManager;
-import gui.FractalPanel;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
+import main.Application;
 
 public class LinearColorSchemeSettingsManager implements SettingsManager {
 
@@ -27,7 +27,7 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 			if (steps > 0) {
 				linearColorScheme.setSteps(steps);
 				linearColorScheme.generateGradientMap();
-				FractalPanel.getFractalPanel().requestUpdate();
+				Application.getApplication().update(false);
 			}
 		} catch (NumberFormatException exception) {
 			return;
