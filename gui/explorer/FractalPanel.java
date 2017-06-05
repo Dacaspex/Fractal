@@ -20,7 +20,6 @@ import util.timers.ResizeDelayTimer;
 public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
 
 	private static final long serialVersionUID = 11274784860690473L;
-	private static FractalPanel instance;
 
 	private BufferedImage image;
 	private ResizeDelayTimer resizeDelayTimer;
@@ -36,8 +35,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	 */
 	public FractalPanel(FractalManager fractalManager) {
 
-		FractalPanel.instance = this;
-
 		this.resizeDelayTimer = new ResizeDelayTimer();
 		this.fractalManager = fractalManager;
 		this.renderer = new Renderer();
@@ -46,13 +43,6 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		addMouseListener(this);
 		addComponentListener(this);
 
-	}
-
-	/**
-	 * @return An instance of itself (singleton)
-	 */
-	public static FractalPanel getFractalPanel() {
-		return FractalPanel.instance;
 	}
 
 	/**
@@ -83,7 +73,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().setCenter(point);
 		fractalManager.getActiveFractal().getScale().zoomIn();
 
-		// Update information
+		// Update image
 		update();
 
 	}
@@ -103,7 +93,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().setCenter(point);
 		fractalManager.getActiveFractal().getScale().zoomOut();
 
-		// Update information
+		// Update image
 		update();
 
 	}
@@ -122,7 +112,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 				getHeight());
 		fractalManager.getActiveFractal().getScale().setCenter(point);
 
-		// Update information
+		// Update image
 		update();
 
 	}

@@ -50,7 +50,7 @@ public class Display extends JFrame {
 	public Display() {
 
 		// Load settings
-		Settings.loadDefaultSettignsFile();
+		Settings.loadSettignsFile();
 
 		// Initialize variables and components
 		DEFAULT_DISPLAY_WIDTH = 1150;
@@ -59,10 +59,9 @@ public class Display extends JFrame {
 
 		// Build the display
 		buildGUI();
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	}
-	
+
 	public ExplorerPanel getExplorerPanel() {
 		return explorerPanel;
 	}
@@ -73,9 +72,10 @@ public class Display extends JFrame {
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Build main GUI
-		buildMainPanels();
+		add(explorerPanel);
 		buildTopMenu();
 
 		// Finish the GUI
@@ -84,6 +84,9 @@ public class Display extends JFrame {
 
 	}
 
+	/**
+	 * Creates the top menu bar and adds it to the display.
+	 */
 	private void buildTopMenu() {
 
 		JMenuBar menuBar = new JMenuBar();
@@ -105,12 +108,6 @@ public class Display extends JFrame {
 		menuBar.add(aboutMenu);
 
 		setJMenuBar(menuBar);
-
-	}
-
-	private void buildMainPanels() {
-
-		add(explorerPanel);
 
 	}
 
