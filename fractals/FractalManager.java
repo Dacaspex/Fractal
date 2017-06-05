@@ -1,20 +1,26 @@
 package fractals;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
 
-import gui.FractalPanel;
-import util.Settings;
+import fractals.AbstractFractal.FractalIdentifier;
 
 public class FractalManager {
 
-	private TreeMap<String, AbstractFractal> fractalList;
+	/*
+	 * List that stores all instances of fractals that are loaded in the fractal
+	 * manager. This allows the option to save all settings of the fractal in
+	 * the current display mode (e.g. explorer menu, export menu)
+	 */
+	private ArrayList<AbstractFractal> fractals;
+
+	/*
+	 * The active/selected fractal for the current fractal manager
+	 */
 	private AbstractFractal activeFractal;
 
 	public FractalManager() {
 
-		// Initialize variables
-		fractalList = new TreeMap<String, AbstractFractal>();
+		fractals = new ArrayList<AbstractFractal>();
 
 		// Load and set default fractal
 		loadDefaultFractals();
@@ -23,12 +29,17 @@ public class FractalManager {
 	}
 
 	/**
-	 * Loads the default fractals into the list
+	 * Loads new instances of the fractals of the program into the fractals
+	 * array. These fractals include:
+	 * <ul>
+	 * <li>Julia Fractal</li>
+	 * <li>Mandelbrot Set</li>
+	 * </ul>
 	 */
 	public void loadDefaultFractals() {
 
-		fractalList.put("JuliaSet1", new JuliaFractal());
-		fractalList.put("MandelBrotSet1", new MandelBrotFractal());
+		fractals.add(new JuliaFractal());
+		fractals.add(new MandelBrotFractal());
 
 	}
 
@@ -37,84 +48,50 @@ public class FractalManager {
 	 * settings.xml
 	 */
 	public void setDefaultFractal() {
-
-		activeFractal = Settings.getDefaultFractal(this);
-
+		// TODO read from settings.xml
+		activeFractal = fractals.get(0);
 	}
 
 	/**
-	 * Add a fractal to the list of available fractals by it's identifier and
-	 * the fractal itself
+	 * Add a fractal to the list of available fractals by passing an instance of
+	 * that fractal
 	 * 
-	 * @param identifier
-	 *            The identifier of the fractal. Should be a unique identifier
 	 * @param fractal
 	 *            An instance of the fractal
 	 */
-	public void addFractal(String identifier, AbstractFractal fractal) {
-
-		fractalList.put(identifier, fractal);
-
+	public void addFractal(AbstractFractal fractal) {
+		fractals.add(fractal);
 	}
 
 	/**
-	 * @return The currently selected fractal
+	 * @return The fractal that has been marked as active
 	 */
 	public AbstractFractal getActiveFractal() {
-
 		return activeFractal;
-
 	}
 
 	/**
-	 * Sets the selected fractal to be drawn. Also updates the screen to draw
-	 * the new fractal
+	 * Sets the selected fractal according to the identifier.
 	 * 
 	 * @param identifier
 	 *            The identifier of the fractal to be selected
 	 */
-	public void setActiveFractal(String identifier) {
+	public void setActiveFractal(FractalIdentifier identifier) {
 
-		activeFractal = fractalList.get(identifier);
-		FractalPanel.getFractalPanel().requestUpdate();
+		for (AbstractFractal fractal : fractals) {
+			if (fractal.getIdentifier() == identifier) {
+				activeFractal = fractal;
+				return;
+			}
+		}
 
 	}
 
 	/**
-	 * @return A list of names of the loaded fractals
+	 * @return A list of all loaded fractals in the fractal manager
 	 */
-	public String[][] getLoadedFractals() {
-
-		String[][] list = new String[fractalList.size()][2];
-		int index = 0;
-
-		for (Map.Entry<String, AbstractFractal> entry : fractalList.entrySet()) {
-
-			list[index][0] = entry.getValue().getIdentifier();
-			list[index++][1] = entry.getValue().getName();
-
-		}
-
-		return list;
-
-	}
-
-	public AbstractFractal getFractalByIdentifier(String identifier) {
-
-		if (!identifier.equals("")) {
-
-			return fractalList.get(identifier);
-
-		} else {
-
-			return fractalList.firstEntry().getValue();
-
-		}
-
-	}
-
-	public enum FractalGeneratingState {
-		IDLE, GENERATING_IMAGE, STITCHING_IMAGE
+	public ArrayList<AbstractFractal> getFractals() {
+		return fractals;
 	}
 
 }

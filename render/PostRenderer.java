@@ -3,7 +3,7 @@ package render;
 import java.awt.image.BufferedImage;
 
 import fractals.AbstractFractal;
-import imageProcessing.post.Axis;
+import render.post.Axis;
 
 public class PostRenderer {
 

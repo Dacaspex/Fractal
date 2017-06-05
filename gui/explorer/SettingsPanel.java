@@ -1,4 +1,4 @@
-package gui;
+package gui.explorer;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,9 +32,7 @@ public class SettingsPanel extends JPanel {
 	}
 
 	public static SettingsPanel getSettingsPanel() {
-
 		return instance;
-
 	}
 
 	private void buildGUI() {

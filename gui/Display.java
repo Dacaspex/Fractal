@@ -1,47 +1,69 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import fractals.FractalManager;
+import gui.explorer.ExplorerPanel;
 import gui.menuItems.AboutMenuItem;
 import gui.menuItems.ExitMenuItem;
-import gui.menuItems.FractalMenuItem;
 import util.Settings;
 
+/**
+ * This class provides the main functionalities of the GUI. It builds the main
+ * panel; the explorer panel and sets the look-and-feel of the program.
+ * Furthermore, it builds the menu bar and fills in all information needed for
+ * this.
+ * 
+ * Moreover, it will provide functionality to call the export and video render
+ * frames.
+ * 
+ * @author Casper
+ *
+ */
 public class Display extends JFrame {
 
 	private static final long serialVersionUID = -2354333139035535931L;
 
+	/*
+	 * Default display (window) width
+	 */
 	private final int DEFAULT_DISPLAY_WIDTH;
+
+	/*
+	 * Default display (window) height
+	 */
 	private final int DEFAULT_DISPLAY_HEIGHT;
 
-	private FractalManager fractalManager;
-	private SettingsPanel settingsPanel;
+	/*
+	 * Main window of the program, the explorer panel. This panel allows
+	 * interaction between the user and different fractals, as well as settings
+	 * can be edited.
+	 */
+	private ExplorerPanel explorerPanel;
 
 	public Display() {
 
-		// Initialize variables
+		// Load settings
+		Settings.loadSettignsFile();
+
+		// Initialize variables and components
 		DEFAULT_DISPLAY_WIDTH = 1150;
 		DEFAULT_DISPLAY_HEIGHT = 1000;
+		explorerPanel = new ExplorerPanel();
 
-		// Load settings
-		Settings.loadDefaultSettignsFile();
-
-		// Initialize fractal manager
-		fractalManager = new FractalManager();
-
-		// Initialize the display
+		// Build the display
 		buildGUI();
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+	}
+
+	public ExplorerPanel getExplorerPanel() {
+		return explorerPanel;
 	}
 
 	private void buildGUI() {
@@ -50,9 +72,10 @@ public class Display extends JFrame {
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setPreferredSize(new Dimension(DEFAULT_DISPLAY_WIDTH, DEFAULT_DISPLAY_HEIGHT));
 		setTitle(Settings.getProgramName() + " - Version: " + Settings.getVersion());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Build main GUI
-		buildMainPanels();
+		add(explorerPanel);
 		buildTopMenu();
 
 		// Finish the GUI
@@ -61,6 +84,9 @@ public class Display extends JFrame {
 
 	}
 
+	/**
+	 * Creates the top menu bar and adds it to the display.
+	 */
 	private void buildTopMenu() {
 
 		JMenuBar menuBar = new JMenuBar();
@@ -72,16 +98,7 @@ public class Display extends JFrame {
 		menuBar.add(fileMenu);
 
 		// Fractal menu
-		JMenu fractalMenu = new JMenu("Fractals");
-
-		String[][] fractalIdentificationList = fractalManager.getLoadedFractals();
-		for (String[] fractalIdentification : fractalIdentificationList) {
-
-			fractalMenu.add(new FractalMenuItem(fractalIdentification[0], fractalIdentification[1], fractalManager,
-					settingsPanel));
-
-		}
-
+		JMenu fractalMenu = explorerPanel.getFractalMenu();
 		menuBar.add(fractalMenu);
 
 		// About menu
@@ -94,32 +111,21 @@ public class Display extends JFrame {
 
 	}
 
-	private void buildMainPanels() {
-
-		// The explorer panel holds the settings panel and fractal panel
-		JPanel explorerPanel = new JPanel(new BorderLayout());
-		settingsPanel = new SettingsPanel(fractalManager);
-		FractalPanel fractalPanel = new FractalPanel(fractalManager, settingsPanel);
-
-		explorerPanel.add(settingsPanel, BorderLayout.LINE_START);
-		explorerPanel.add(fractalPanel);
-		add(explorerPanel);
-
-	}
-
+	/**
+	 * Sets the look and feel of the program
+	 * 
+	 * @param className
+	 *            The name of the look and feel class
+	 */
 	public void setLookAndFeel(String className) {
 
 		try {
-
 			UIManager.setLookAndFeel(className);
-
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-
-			// TODO print error
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Unsupported look and feel detected. Could not boot program.", "Error",
+					JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
-
 		}
 
 	}

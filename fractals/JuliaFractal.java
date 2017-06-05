@@ -22,7 +22,7 @@ public class JuliaFractal extends AbstractFractal {
 	public JuliaFractal() {
 
 		// Set identifier
-		identifier = "JuliaSet1";
+		identifier = FractalIdentifier.JULIA_SET;
 
 		// Set default values
 		name = "Julia Set";

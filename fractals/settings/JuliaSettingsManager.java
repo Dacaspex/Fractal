@@ -4,10 +4,10 @@ import javax.swing.event.DocumentEvent;
 
 import complex.Complex;
 import fractals.JuliaFractal;
-import gui.FractalPanel;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
+import main.Application;
 import util.ComplexValueParser;
 
 public class JuliaSettingsManager implements SettingsManager {
@@ -28,7 +28,7 @@ public class JuliaSettingsManager implements SettingsManager {
 				return;
 			}
 			juliaFractal.setMaxIterations(iterations);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -43,7 +43,7 @@ public class JuliaSettingsManager implements SettingsManager {
 				return;
 			}
 			juliaFractal.setEscapeValue(escapeValue);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -55,7 +55,7 @@ public class JuliaSettingsManager implements SettingsManager {
 		Complex constant = ComplexValueParser.parseFromString(value);
 		if (constant != null) {
 			juliaFractal.setConstant(constant);
-			FractalPanel.getFractalPanel().requestUpdate();
+			Application.getApplication().update(false);
 		}
 
 	}
