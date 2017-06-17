@@ -14,10 +14,11 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
+import render.RenderListener;
 import render.Renderer;
 import util.timers.ResizeDelayTimer;
 
-public class FractalPanel extends JPanel implements MouseListener, ComponentListener {
+public class FractalPanel extends JPanel implements MouseListener, ComponentListener, RenderListener {
 
 	private static final long serialVersionUID = 11274784860690473L;
 
@@ -37,7 +38,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 		this.resizeDelayTimer = new ResizeDelayTimer();
 		this.fractalManager = fractalManager;
-		this.renderer = new Renderer();
+		this.renderer = new Renderer(this);
 
 		setPreferredSize(new Dimension());
 		addMouseListener(this);
@@ -46,15 +47,11 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	}
 
 	/**
-	 * Request to render a new fractal image and draws the result
+	 * TODO: rewrite
 	 */
 	public void update() {
 
-		BufferedImage image = renderer.render(fractalManager.getActiveFractal(), getWidth(), getHeight());
-		if (image != null) {
-			this.image = image;
-			repaint();
-		}
+		renderer.render(fractalManager.getActiveFractal(), getWidth(), getHeight());
 
 	}
 
@@ -185,6 +182,17 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 
 	@Override
 	public void componentShown(ComponentEvent e) {
+	}
+
+	@Override
+	public void onRenderFinished(BufferedImage image) {
+		this.image = image;
+		repaint();
+
+	}
+
+	@Override
+	public void onRenderFailed() {
 	}
 
 }

@@ -16,18 +16,21 @@ public class Renderer {
 	private RenderOptions[] renderOptions;
 	private RenderState renderState;
 
-	public Renderer() {
+	private RenderListener renderListener;
+
+	public Renderer(RenderListener renderListener) {
 
 		this.threadManager = new ThreadManager();
 		this.imageStitcher = new ImageStitcher();
 		this.postRenderer = new PostRenderer();
+		this.renderListener = renderListener;
 		this.renderState = RenderState.IDLE;
 
 		ThreadManager.setThreadCount(9); // TODO should be moved
 
 	}
 
-	public BufferedImage render(AbstractFractal fractal, int width, int height) {
+	public void render(AbstractFractal fractal, int width, int height) {
 
 		if (renderState == RenderState.IDLE) {
 
@@ -42,14 +45,14 @@ public class Renderer {
 			partialImages = threadManager.getImages();
 			BufferedImage image = imageStitcher.stitch(partialImages, width, height);
 			image = postRenderer.render(image, fractal);
-			
+
 			renderState = RenderState.IDLE;
-			return image;
+			
+			// TODO move to different method
+			renderListener.onRenderFinished(image);
 
 		} else {
-
-			return null;
-
+			return;
 		}
 
 	}
