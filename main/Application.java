@@ -2,6 +2,8 @@ package main;
 
 import gui.Display;
 import gui.menuItems.FractalMenuItem;
+import util.logger.Logger;
+import util.logger.Logger.Type;
 
 /**
  * <p>
@@ -58,6 +60,8 @@ public class Application {
 
 		applicationMode = ApplicationMode.EXPLORER;
 		display = new Display();
+
+		Logger.log(this, "Application started successfully", Type.LOG_SUCCESS);
 
 	}
 
