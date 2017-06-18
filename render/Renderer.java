@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import fractals.AbstractFractal;
 import render.threading.ImageStitcher;
 import render.threading.ThreadManager;
+import util.logger.Logger;
 
 public class Renderer {
 
@@ -13,14 +14,18 @@ public class Renderer {
 	private PostRenderer postRenderer;
 	private BufferedImage[] partialImages;
 
-	private RenderOptions[] renderOptions;
 	private RenderState renderState;
-
 	private RenderListener renderListener;
+
+	private AbstractFractal requestedFractal;
+	private int requestedWidth;
+	private int requestedHeight;
+	
+	private long renderStartTime;
 
 	public Renderer(RenderListener renderListener) {
 
-		this.threadManager = new ThreadManager();
+		this.threadManager = new ThreadManager(this);
 		this.imageStitcher = new ImageStitcher();
 		this.postRenderer = new PostRenderer();
 		this.renderListener = renderListener;
@@ -34,22 +39,15 @@ public class Renderer {
 
 		if (renderState == RenderState.IDLE) {
 
-			renderState = RenderState.RENDERING_IMAGE;
+			renderState = RenderState.RENDERING;
 
-			// Create and start thread, wait until done
+			// Save information, create and start threads
+			requestedFractal = fractal;
+			requestedWidth = width;
+			requestedHeight = height;
+			Logger.log(this, "Requested image (" + width + " x " + height + ") for " + fractal.getClass().getSimpleName());
+			renderStartTime = System.currentTimeMillis();
 			threadManager.createThreads(fractal, width, height);
-			haltUntillFinished();
-
-			// Get result images, stitch them together and apply post render
-			// effects
-			partialImages = threadManager.getImages();
-			BufferedImage image = imageStitcher.stitch(partialImages, width, height);
-			image = postRenderer.render(image, fractal);
-
-			renderState = RenderState.IDLE;
-			
-			// TODO move to different method
-			renderListener.onRenderFinished(image);
 
 		} else {
 			return;
@@ -57,28 +55,23 @@ public class Renderer {
 
 	}
 
-	private void haltUntillFinished() {
+	public void finish() {
 
-		while (!threadManager.isDone()) {
+		// Get result images, stitch them together and apply post render effects
+		renderState = RenderState.STITCHING;
+		partialImages = threadManager.getImages();
+		BufferedImage image = imageStitcher.stitch(partialImages, requestedWidth, requestedHeight);
+		image = postRenderer.render(image, requestedFractal);
 
-			// Wait until threads are done;
-			// Update progress...
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		Logger.log(this, "Completed render. Time: " + (System.currentTimeMillis() - renderStartTime) + "ms");
+		requestedFractal = null;
+		renderListener.renderFinished(image);
+		renderState = RenderState.IDLE;
 
-		}
-
-	}
-
-	public enum RenderOptions {
-		ENABLE_MULTI_THREADING
 	}
 
 	private enum RenderState {
-		IDLE, RENDERING_IMAGE
+		IDLE, RENDERING, STITCHING
 	}
 
 }

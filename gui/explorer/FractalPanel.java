@@ -185,14 +185,13 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 	}
 
 	@Override
-	public void onRenderFinished(BufferedImage image) {
+	public void renderFinished(BufferedImage image) {
 		this.image = image;
 		repaint();
-
 	}
 
 	@Override
-	public void onRenderFailed() {
+	public void renderFailed() {
 	}
 
 }

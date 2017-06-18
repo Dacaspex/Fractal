@@ -4,21 +4,22 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 import fractals.AbstractFractal;
+import render.Renderer;
 import util.math.Point;
 
 public class ThreadManager {
 
 	private static int threadCount;
+
+	private Renderer renderer;
 	private int threadsDone;
 	private ImageGeneratorThread[] threads;
 	private BufferedImage[] images;
 
-	public static void setThreadCount(int threadCount) {
-		ThreadManager.threadCount = threadCount;
-	}
+	public ThreadManager(Renderer renderer) {
 
-	public static int getThreadCount() {
-		return threadCount;
+		this.renderer = renderer;
+
 	}
 
 	/**
@@ -36,14 +37,14 @@ public class ThreadManager {
 	 *            The number of threads to use
 	 */
 	public void createThreads(AbstractFractal fractal, int width, int height) {
-
+		
 		// Setup thread array
 		threadsDone = 0;
 		threads = new ImageGeneratorThread[threadCount];
 		images = new BufferedImage[threadCount];
 		ImageGeneratorThread thread;
 		Point[][] points = fractal.getScale().getPointsOnScreen(width, height);
-		
+
 		for (int i = 0; i < threadCount; i++) {
 
 			Point[][] partialPoints = Arrays.copyOfRange(points, (width / threadCount) * i,
@@ -56,16 +57,23 @@ public class ThreadManager {
 		}
 
 	}
-	
+
 	public boolean isDone() {
 		return (threadCount - threadsDone == 0);
 	}
-	
+
 	public void notifyDone(BufferedImage image, int number) {
+
 		images[number] = image;
 		threadsDone += 1;
+
+		if (isDone()) {
+			renderer.finish();
+			kill();
+		}
+
 	}
-	
+
 	public BufferedImage[] getImages() {
 		return images;
 	}
@@ -74,10 +82,16 @@ public class ThreadManager {
 	 * Removes the pointer to the thread array for memory efficiency
 	 */
 	public void kill() {
-
 		this.threads = null;
 		this.images = null;
+	}
 
+	public static void setThreadCount(int threadCount) {
+		ThreadManager.threadCount = threadCount;
+	}
+
+	public static int getThreadCount() {
+		return threadCount;
 	}
 
 }
