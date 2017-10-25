@@ -3,6 +3,7 @@ package fractals.settings;
 import javax.swing.event.DocumentEvent;
 
 import fractals.MandelBrotFractal;
+import fractals.settings.properties.Property;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
@@ -98,6 +99,12 @@ public class MandelBrotSettingsManager implements SettingsManager {
 
 		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
 				escapeValueSettingsItem };
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Property[] getProperties() {
+		return null;
 	}
 
 }

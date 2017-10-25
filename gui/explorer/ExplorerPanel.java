@@ -1,15 +1,10 @@
 package gui.explorer;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
 
-import javax.swing.JMenu;
 import javax.swing.JPanel;
 
-import fractals.AbstractFractal;
 import fractals.FractalManager;
-import gui.Display;
-import gui.menuItems.FractalMenuItem;
 
 /**
  * This panel is the main panel of the program. It shows on startup and provides
@@ -94,27 +89,6 @@ public class ExplorerPanel extends JPanel {
 	 */
 	public void hideSettingsPanel() {
 		remove(settingsPanel);
-	}
-
-	/**
-	 * Utility method to supply the screen with a menu to switch between the
-	 * fractals.
-	 * 
-	 * @see Display
-	 * 
-	 * @return A menu containing menu items that switch between the fractals
-	 */
-	public JMenu getFractalMenu() {
-
-		JMenu fractalMenu = new JMenu("Fractals");
-		ArrayList<AbstractFractal> fractals = fractalManager.getFractals();
-
-		for (AbstractFractal fractal : fractals) {
-			fractalMenu.add(new FractalMenuItem(fractal, fractalManager));
-		}
-
-		return fractalMenu;
-
 	}
 
 }

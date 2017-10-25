@@ -7,6 +7,7 @@ import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
+import fractals.settings.properties.Property;
 import gui.settings.utilComponents.ButtonComponent;
 import gui.settings.utilComponents.ColorPickerButton;
 import gui.settings.utilComponents.SettingItemComponent;
@@ -361,6 +362,13 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem,
 				colorPickerSettingItem, randomButtonSettingItem };
 
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Property[] getProperties() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

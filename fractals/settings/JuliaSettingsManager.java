@@ -4,6 +4,8 @@ import javax.swing.event.DocumentEvent;
 
 import complex.Complex;
 import fractals.JuliaFractal;
+import fractals.settings.properties.Property;
+import fractals.settings.properties.Property.PropertyType;
 import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
@@ -28,7 +30,8 @@ public class JuliaSettingsManager implements SettingsManager {
 				return;
 			}
 			juliaFractal.setMaxIterations(iterations);
-			Application.getApplication().update(false);
+			Application.getApplication()
+					.update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -43,7 +46,8 @@ public class JuliaSettingsManager implements SettingsManager {
 				return;
 			}
 			juliaFractal.setEscapeValue(escapeValue);
-			Application.getApplication().update(false);
+			Application.getApplication()
+					.update(false);
 		} catch (NumberFormatException exception) {
 			return;
 		}
@@ -55,7 +59,8 @@ public class JuliaSettingsManager implements SettingsManager {
 		Complex constant = ComplexValueParser.parseFromString(value);
 		if (constant != null) {
 			juliaFractal.setConstant(constant);
-			Application.getApplication().update(false);
+			Application.getApplication()
+					.update(false);
 		}
 
 	}
@@ -93,9 +98,12 @@ public class JuliaSettingsManager implements SettingsManager {
 		SettingItemComponent escapeValueSettingsItem = new SettingItemComponent("Escape value:", escapeValueTextField);
 
 		// Constant
-		String constantString = Double.toString(juliaFractal.getConstant().getReal());
-		constantString += (juliaFractal.getConstant().getImaginary() < 0) ? "-" : "+";
-		constantString += Double.toString(juliaFractal.getConstant().getImaginary());
+		String constantString = Double.toString(juliaFractal.getConstant()
+				.getReal());
+		constantString += (juliaFractal.getConstant()
+				.getImaginary() < 0) ? "-" : "+";
+		constantString += Double.toString(juliaFractal.getConstant()
+				.getImaginary());
 		constantString += "i";
 		TextFieldComponent constantTextField = new TextFieldComponent(constantString) {
 			private static final long serialVersionUID = -6033309334749328555L;
@@ -109,6 +117,21 @@ public class JuliaSettingsManager implements SettingsManager {
 
 		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
 				escapeValueSettingsItem, constantSettingItem };
+	}
+
+	@Override
+	public Property<?>[] getProperties() {
+
+		Property<Integer> maxIterations = new Property<Integer>()
+				.setName("Max iterations")
+				.setType(PropertyType.INTEGER);
+
+		Property<Float> escapeNumber = new Property<Float>()
+				.setName("Escape number")
+				.setType(PropertyType.FLOAT);
+
+		return new Property[] { maxIterations, escapeNumber };
+
 	}
 
 }

@@ -4,6 +4,7 @@ import javax.swing.event.DocumentEvent;
 
 import fractals.colorSchemes.LinearColorScheme;
 import fractals.settings.SettingsManager;
+import fractals.settings.properties.Property;
 import gui.settings.utilComponents.SettingItemComponent;
 import gui.settings.utilComponents.TextFieldComponent;
 import main.Application;
@@ -55,6 +56,13 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 
 		return new SettingItemComponent[] { stepsSettingComponent };
 
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Property[] getProperties() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
