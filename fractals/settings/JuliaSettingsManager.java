@@ -41,7 +41,7 @@ public class JuliaSettingsManager implements SettingsManager {
 	public void setEscapeValue(String escapeValueString) {
 
 		try {
-			double escapeValue = Double.parseDouble(escapeValueString);
+			float escapeValue = Float.parseFloat(escapeValueString);
 			if (escapeValue <= 0) {
 				return;
 			}
@@ -124,11 +124,13 @@ public class JuliaSettingsManager implements SettingsManager {
 
 		Property<Integer> maxIterations = new Property<Integer>()
 				.setName("Max iterations")
-				.setType(PropertyType.INTEGER);
+				.setType(PropertyType.INTEGER)
+				.setValue(juliaFractal.getMaxIterations());
 
 		Property<Float> escapeNumber = new Property<Float>()
-				.setName("Escape number")
-				.setType(PropertyType.FLOAT);
+				.setName("Escape value")
+				.setType(PropertyType.FLOAT)
+				.setValue(juliaFractal.getEscapeValue());
 
 		return new Property[] { maxIterations, escapeNumber };
 

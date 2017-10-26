@@ -17,7 +17,7 @@ public class JuliaFractal extends AbstractFractal {
 	private Complex constant;
 	private Complex lastEscapeComplexValue;
 	private int maxIterations;
-	private double escapeValue;
+	private float escapeValue;
 
 	public JuliaFractal() {
 
@@ -28,7 +28,7 @@ public class JuliaFractal extends AbstractFractal {
 		name = "Julia Set";
 		constant = new Complex(0.285, 0.01);
 		maxIterations = 1024;
-		escapeValue = 2.0;
+		escapeValue = 2.0f;
 		scale = new Scale(new Point(0, 0));
 
 		// Initialize managers, color schemes etc..
@@ -69,13 +69,13 @@ public class JuliaFractal extends AbstractFractal {
 
 	}
 
-	public double getEscapeValue() {
+	public float getEscapeValue() {
 
 		return escapeValue;
 
 	}
 
-	public void setEscapeValue(double escapeValue) {
+	public void setEscapeValue(float escapeValue) {
 
 		this.escapeValue = escapeValue;
 
