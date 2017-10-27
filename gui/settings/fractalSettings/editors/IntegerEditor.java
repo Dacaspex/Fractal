@@ -11,20 +11,21 @@ import fractals.settings.properties.Property;
 
 public class IntegerEditor extends DefaultCellEditor implements TableCellEditor {
 
+	private static final long serialVersionUID = 3464531358342477564L;
+
 	private Property<Integer> property;
-	
+
 	public IntegerEditor(Property<Integer> property) {
 		super(new JTextField());
-		
+
 		this.property = property;
-		
 	}
 
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		
-		property.setValue((int) value);
-		
+
+		property.setValue(Integer.parseInt((String) value));
+
 		return super.getTableCellEditorComponent(table, value, isSelected, row, column);
 	}
 
