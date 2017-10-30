@@ -44,7 +44,10 @@ public class FractalSettingsDisplay extends JFrame {
 
 	public void buildPropertyTable() {
 
-		propertyTable = new PropertyTable(fractalManager.getActiveFractal().getSettingsManager().getProperties());
+		propertyTable = new PropertyTable(
+				fractalManager.getActiveFractal().getSettingsManager().getProperties(),
+				fractalManager.getActiveFractal().getSettingsManager(),
+				fractalManager.getActiveFractal().getColorSchemeManager().getActiveColorScheme().getSettingsManager());
 
 	}
 

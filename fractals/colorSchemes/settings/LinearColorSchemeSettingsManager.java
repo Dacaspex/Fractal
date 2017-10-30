@@ -65,4 +65,10 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 		return null;
 	}
 
+	@Override
+	public void updateProperties() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

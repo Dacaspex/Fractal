@@ -1,6 +1,5 @@
 package gui.settings.fractalSettings.editors;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -13,14 +12,14 @@ import javax.swing.table.TableCellEditor;
 import fractals.settings.properties.Property;
 import gui.settings.fractalSettings.PropertyTable;
 
-public class IntegerEditor extends DefaultCellEditor implements TableCellEditor, KeyListener {
+public class FloatEditor extends DefaultCellEditor implements TableCellEditor, KeyListener {
 
 	private static final long serialVersionUID = 3464531358342477564L;
 
-	private Property<Integer> property;
+	private Property<Float> property;
 	private PropertyTable table;
 
-	public IntegerEditor(Property<Integer> property, PropertyTable table) {
+	public FloatEditor(Property<Float> property, PropertyTable table) {
 		super(new JTextField());
 
 		this.property = property;
@@ -42,13 +41,7 @@ public class IntegerEditor extends DefaultCellEditor implements TableCellEditor,
 	@Override
 	public void keyReleased(KeyEvent event) {
 
-		// TODO Better solution with validators
-		try {
-			property.setValue(Integer.parseInt((String) ((JTextField) super.getComponent()).getText()));
-			((JTextField) super.getComponent()).setBackground(Color.WHITE);
-		} catch (NumberFormatException exception) {
-			((JTextField) super.getComponent()).setBackground(Color.RED);
-		}
+		property.setValue(Float.parseFloat((String) ((JTextField) super.getComponent()).getText()));
 
 		// Check if the property wants a request update, if so, pass it on
 		table.requestUpdate(false);

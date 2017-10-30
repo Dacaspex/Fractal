@@ -5,14 +5,19 @@ import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import fractals.settings.SettingsManager;
 import fractals.settings.properties.Property;
 import gui.settings.fractalSettings.editors.EditorController;
+import gui.settings.fractalSettings.editors.FloatEditor;
 import gui.settings.fractalSettings.editors.IntegerEditor;
+import main.Application;
 
 public class PropertyTable extends JTable {
 
 	private static final long serialVersionUID = 6697511685217086092L;
 
+	private SettingsManager fractalSettingsManager;
+	private SettingsManager colorSchemeSettingsManager;
 	private Property<?>[] properties;
 
 	private int rowCounter;
@@ -20,11 +25,14 @@ public class PropertyTable extends JTable {
 	private HashMap<Integer, TableCellRenderer> renderers;
 	private EditorController editorController;
 
-	public PropertyTable(Property<?>[] properties, String leftHeader, String rightHeader) {
+	public PropertyTable(Property<?>[] properties, SettingsManager fractalSettingsManager,
+			SettingsManager colorSchemeSettingsManager) {
 
+		this.fractalSettingsManager = fractalSettingsManager;
+		this.colorSchemeSettingsManager = colorSchemeSettingsManager;
 		this.properties = properties;
 
-		String[] headers = { leftHeader, rightHeader };
+		String[] headers = { "Property", "Value" };
 
 		rowCounter = 0;
 		model = new PropertyTableModel(headers, null);
@@ -36,10 +44,6 @@ public class PropertyTable extends JTable {
 
 		addProperties();
 
-	}
-
-	public PropertyTable(Property<?>[] properties) {
-		this(properties, "Property", "Value");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,10 +60,11 @@ public class PropertyTable extends JTable {
 				break;
 			case FLOAT:
 				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
+				editorController.addEditor(rowCounter, new FloatEditor((Property<Float>) property, this));
 				break;
 			case INTEGER:
 				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
-				editorController.addEditor(rowCounter, new IntegerEditor((Property<Integer>) property));
+				editorController.addEditor(rowCounter, new IntegerEditor((Property<Integer>) property, this));
 				break;
 			default:
 				break;
@@ -68,6 +73,8 @@ public class PropertyTable extends JTable {
 
 			rowCounter++;
 		}
+
+		model.addTableModelListener(new PropertyTableModelListener(this));
 	}
 
 	@Override
@@ -78,6 +85,13 @@ public class PropertyTable extends JTable {
 		}
 
 		return super.getCellRenderer(row, column);
+
+	}
+
+	public void requestUpdate(boolean updateGUI) {
+
+		fractalSettingsManager.updateProperties();
+		Application.getApplication().update(updateGUI);
 
 	}
 

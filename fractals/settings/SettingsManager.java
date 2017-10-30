@@ -10,4 +10,6 @@ public interface SettingsManager {
 
 	public Property<?>[] getProperties();
 	
+	public void updateProperties();
+	
 }

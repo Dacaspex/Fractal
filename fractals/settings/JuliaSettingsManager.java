@@ -118,22 +118,33 @@ public class JuliaSettingsManager implements SettingsManager {
 		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
 				escapeValueSettingsItem, constantSettingItem };
 	}
+	
+	Property<Integer> maxIterations;
+	Property<Float> escapeValue;
 
 	@Override
 	public Property<?>[] getProperties() {
 
-		Property<Integer> maxIterations = new Property<Integer>()
+		maxIterations = new Property<Integer>()
 				.setName("Max iterations")
 				.setType(PropertyType.INTEGER)
 				.setValue(juliaFractal.getMaxIterations());
 
-		Property<Float> escapeNumber = new Property<Float>()
+		escapeValue = new Property<Float>()
 				.setName("Escape value")
 				.setType(PropertyType.FLOAT)
 				.setValue(juliaFractal.getEscapeValue());
 
-		return new Property[] { maxIterations, escapeNumber };
+		return new Property[] { maxIterations, escapeValue };
 
+	}
+	
+	@Override
+	public void updateProperties() {
+		
+		juliaFractal.setMaxIterations(maxIterations.getValue());
+		juliaFractal.setEscapeValue(escapeValue.getValue());
+		
 	}
 
 }
