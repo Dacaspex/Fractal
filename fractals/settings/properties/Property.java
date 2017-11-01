@@ -1,11 +1,14 @@
 package fractals.settings.properties;
 
+import fractals.settings.properties.valdiators.Validator;
+
 public class Property<T> {
 
 	protected String name;
 	protected PropertyType type;
 	protected boolean isAction;
 	protected T value;
+	protected Validator validator;
 
 	public Property(String name, PropertyType type) {
 		this.name = name;
@@ -56,8 +59,21 @@ public class Property<T> {
 		return value;
 	}
 
+	public Validator getValidator() {
+		if (validator != null) {
+			return validator;
+		} else {
+			return new Validator();
+		}
+	}
+
+	public Property<T> setValidator(Validator validator) {
+		this.validator = validator;
+		return this;
+	}
+
 	public enum PropertyType {
-		INTEGER, FLOAT, COMPLEX, BOOLEAN, COLOR
+		INTEGER, FLOAT, COMPLEX, BOOLEAN, COLOR, SELECTION
 	}
 
 }

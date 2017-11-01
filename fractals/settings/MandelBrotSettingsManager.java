@@ -101,9 +101,8 @@ public class MandelBrotSettingsManager implements SettingsManager {
 				escapeValueSettingsItem };
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public Property[] getProperties() {
+	public Property<?>[] getProperties() {
 		return null;
 	}
 

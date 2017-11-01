@@ -5,11 +5,15 @@ import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import complex.Complex;
 import fractals.settings.SettingsManager;
+import fractals.settings.properties.ColorSchemeSelectorProperty;
 import fractals.settings.properties.Property;
+import gui.settings.fractalSettings.editors.ComplexEditor;
 import gui.settings.fractalSettings.editors.EditorController;
 import gui.settings.fractalSettings.editors.FloatEditor;
 import gui.settings.fractalSettings.editors.IntegerEditor;
+import gui.settings.fractalSettings.editors.SelectionEditor;
 import main.Application;
 
 public class PropertyTable extends JTable {
@@ -57,6 +61,8 @@ public class PropertyTable extends JTable {
 			case COLOR:
 				break;
 			case COMPLEX:
+				model.addRow(new Object[] { property.getName(), ((Complex) property.getValue()).toString() }); 
+				editorController.addEditor(rowCounter, new ComplexEditor((Property<Complex>) property, this));
 				break;
 			case FLOAT:
 				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
@@ -65,6 +71,11 @@ public class PropertyTable extends JTable {
 			case INTEGER:
 				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
 				editorController.addEditor(rowCounter, new IntegerEditor((Property<Integer>) property, this));
+				break;
+			case SELECTION:
+				String value = ((ColorSchemeSelectorProperty) property).getValue();
+				model.addRow(new Object[] { property.getName(), value });
+				editorController.addEditor(rowCounter, new SelectionEditor((ColorSchemeSelectorProperty) property, this));
 				break;
 			default:
 				break;

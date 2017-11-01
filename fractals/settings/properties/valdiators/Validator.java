@@ -1,7 +1,15 @@
 package fractals.settings.properties.valdiators;
 
-public abstract class Validator {
+public class Validator {
 	
-	public abstract boolean validate(Object value);
+	protected String message;
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public boolean validate(Object value) {
+		return true;
+	}
 
 }

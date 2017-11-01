@@ -10,17 +10,19 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellEditor;
 
+import complex.Complex;
 import fractals.settings.properties.Property;
 import gui.settings.fractalSettings.PropertyTable;
+import util.ComplexValueParser;
 
-public class IntegerEditor extends DefaultCellEditor implements TableCellEditor, KeyListener {
+public class ComplexEditor extends DefaultCellEditor implements TableCellEditor, KeyListener {
 
 	private static final long serialVersionUID = 3464531358342477564L;
 
-	private Property<Integer> property;
+	private Property<Complex> property;
 	private PropertyTable table;
 
-	public IntegerEditor(Property<Integer> property, PropertyTable table) {
+	public ComplexEditor(Property<Complex> property, PropertyTable table) {
 		super(new JTextField());
 
 		this.property = property;
@@ -44,12 +46,13 @@ public class IntegerEditor extends DefaultCellEditor implements TableCellEditor,
 
 		JTextField textField = (JTextField) super.getComponent();
 		String value = (String) textField.getText();
-
-		if (property.getValidator().validate(value)) {
-			property.setValue(Integer.parseInt(value));
-			textField.setBackground(Color.WHITE);
-		} else {
+		Complex complex = ComplexValueParser.parseFromString(value);
+		
+		if (complex == null) {
 			textField.setBackground(Color.RED);
+		} else {
+			textField.setBackground(Color.WHITE);
+			property.setValue(complex);
 		}
 
 		// Check if the property wants a request update, if so, pass it on

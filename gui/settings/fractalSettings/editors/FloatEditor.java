@@ -1,5 +1,6 @@
 package gui.settings.fractalSettings.editors;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -41,7 +42,15 @@ public class FloatEditor extends DefaultCellEditor implements TableCellEditor, K
 	@Override
 	public void keyReleased(KeyEvent event) {
 
-		property.setValue(Float.parseFloat((String) ((JTextField) super.getComponent()).getText()));
+		JTextField textField = (JTextField) super.getComponent();
+
+		// TODO validation
+		try {
+			property.setValue(Float.parseFloat(textField.getText()));
+			textField.setBackground(Color.WHITE);
+		} catch (NumberFormatException exception) {
+			textField.setBackground(Color.RED);
+		}
 
 		// Check if the property wants a request update, if so, pass it on
 		table.requestUpdate(false);
