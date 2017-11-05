@@ -50,9 +50,8 @@ public class SelectionEditor extends DefaultCellEditor implements TableCellEdito
 		
 		if (event.getStateChange() == 1) {
 			property.setValue(((ComboBoxItem<String>) comboBox.getSelectedItem()).getValue());
+			table.requestUpdate(true);
 		}
-
-		table.requestUpdate(true);
 
 	}
 

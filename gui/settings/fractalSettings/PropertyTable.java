@@ -47,6 +47,7 @@ public class PropertyTable extends JTable {
 		getColumnModel().getColumn(1).setCellEditor(editorController);
 
 		addProperties();
+		setRowHeight(30);
 
 	}
 
@@ -73,6 +74,7 @@ public class PropertyTable extends JTable {
 				editorController.addEditor(rowCounter, new IntegerEditor((Property<Integer>) property, this));
 				break;
 			case SELECTION:
+				// TODO Make generic
 				String value = ((ColorSchemeSelectorProperty) property).getValue();
 				model.addRow(new Object[] { property.getName(), value });
 				editorController.addEditor(rowCounter, new SelectionEditor((ColorSchemeSelectorProperty) property, this));
@@ -102,6 +104,7 @@ public class PropertyTable extends JTable {
 	public void requestUpdate(boolean updateGUI) {
 
 		fractalSettingsManager.updateProperties();
+		colorSchemeSettingsManager.updateProperties();
 		Application.getApplication().update(updateGUI);
 
 	}

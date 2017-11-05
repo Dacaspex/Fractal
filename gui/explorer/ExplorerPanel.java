@@ -37,17 +37,10 @@ public class ExplorerPanel extends JPanel {
 	 */
 	private FractalPanel fractalPanel;
 
-	/*
-	 * Side bar menu that houses all settings; both fractal and color scheme
-	 * settings.
-	 */
-	private SettingsPanel settingsPanel;
-
 	public ExplorerPanel() {
 
 		fractalManager = new FractalManager();
 		fractalPanel = new FractalPanel(fractalManager);
-		settingsPanel = new SettingsPanel(fractalManager);
 
 		buildGUI();
 
@@ -63,7 +56,6 @@ public class ExplorerPanel extends JPanel {
 	public void buildGUI() {
 
 		setLayout(new BorderLayout());
-		add(settingsPanel, BorderLayout.LINE_START);
 		add(fractalPanel);
 
 	}
@@ -71,24 +63,7 @@ public class ExplorerPanel extends JPanel {
 	public void update(boolean updateGUI) {
 
 		fractalPanel.update();
-		if (updateGUI) {
-			settingsPanel.update();
-		}
 
-	}
-
-	/**
-	 * Shows the settings panel by adding it back to the explorer panel
-	 */
-	public void showSettingsPanel() {
-		add(settingsPanel, BorderLayout.LINE_START);
-	}
-
-	/**
-	 * Removes the settings panel by removing it from the explorer panel
-	 */
-	public void hideSettingsPanel() {
-		remove(settingsPanel);
 	}
 
 }

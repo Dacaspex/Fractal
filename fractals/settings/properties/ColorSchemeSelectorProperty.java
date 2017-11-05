@@ -12,7 +12,8 @@ public class ColorSchemeSelectorProperty extends Property<String> {
 	
 	public ColorSchemeSelectorProperty(ColorSchemeManager manager) {
 
-		list = new ArrayList<ComboBoxItem<String>>();
+		this.type = PropertyType.SELECTION;
+		this.list = new ArrayList<ComboBoxItem<String>>();
 		
 		list.add(new ComboBoxItem<String>(manager.getActiveColorScheme().getName(),
 				manager.getActiveColorScheme().getIdentifier()));

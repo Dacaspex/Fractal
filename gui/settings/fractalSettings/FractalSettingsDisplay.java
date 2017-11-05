@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import fractals.FractalManager;
+import fractals.settings.properties.Property;
 import main.Application;
 
 public class FractalSettingsDisplay extends JFrame {
@@ -44,9 +45,21 @@ public class FractalSettingsDisplay extends JFrame {
 
 	public void buildPropertyTable() {
 
-		propertyTable = new PropertyTable(
-				fractalManager.getActiveFractal().getSettingsManager().getProperties(),
-				fractalManager.getActiveFractal().getSettingsManager(),
+		Property<?>[] fractalProperties = fractalManager.getActiveFractal().getSettingsManager().getProperties();
+		Property<?>[] colorSchemeProperties = fractalManager.getActiveFractal().getColorSchemeManager()
+				.getActiveColorScheme().getSettingsManager().getProperties();
+
+		Property<?>[] properties = new Property<?>[fractalProperties.length + colorSchemeProperties.length];
+
+		int i = 0;
+		for (; i < fractalProperties.length; i++) {
+			properties[i] = fractalProperties[i];
+		}
+		for (int j = 0; j < colorSchemeProperties.length; j++) {
+			properties[i++] = colorSchemeProperties[j];
+		}
+
+		propertyTable = new PropertyTable(properties, fractalManager.getActiveFractal().getSettingsManager(),
 				fractalManager.getActiveFractal().getColorSchemeManager().getActiveColorScheme().getSettingsManager());
 
 	}

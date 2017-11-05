@@ -1,17 +1,18 @@
 package fractals.settings;
 
-import javax.swing.event.DocumentEvent;
-
 import fractals.MandelBrotFractal;
+import fractals.settings.properties.ColorSchemeSelectorProperty;
 import fractals.settings.properties.Property;
-import gui.settings.utilComponents.ColorSchemeSelectorBox;
+import fractals.settings.properties.Property.PropertyType;
 import gui.settings.utilComponents.SettingItemComponent;
-import gui.settings.utilComponents.TextFieldComponent;
-import main.Application;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
 	private MandelBrotFractal mandelBrotFractal;
+
+	private Property<Integer> maxIterations;
+	private Property<Float> escapeValue;
+	private ColorSchemeSelectorProperty colorSchemes;
 
 	public MandelBrotSettingsManager(MandelBrotFractal mandelBrotFractal) {
 
@@ -19,97 +20,38 @@ public class MandelBrotSettingsManager implements SettingsManager {
 
 	}
 
-	public void setMaxIterations(String iterationsString) {
-
-		try {
-
-			int iterations = Integer.parseInt(iterationsString);
-
-			if (iterations <= 0) {
-
-				return;
-
-			}
-
-			mandelBrotFractal.setMaxIterations(iterations);
-			Application.getApplication().update(false);
-
-		} catch (NumberFormatException exception) {
-
-			return;
-
-		}
-
-	}
-
-	public void setEscapeValue(String escapeValueString) {
-
-		try {
-
-			double escapeValue = Double.parseDouble(escapeValueString);
-
-			if (escapeValue <= 0) {
-
-				return;
-
-			}
-
-			mandelBrotFractal.setEscapeValue(escapeValue);
-			Application.getApplication().update(false);
-
-		} catch (NumberFormatException exception) {
-
-			return;
-
-		}
-
-	}
-
-	@Override
-	public SettingItemComponent[] getSettingComponents() {
-
-		// Color scheme
-		ColorSchemeSelectorBox colorSchemeBox = new ColorSchemeSelectorBox(mandelBrotFractal.getColorSchemeManager());
-		SettingItemComponent colorSchemeBoxSettingItem = new SettingItemComponent("Color Scheme:", colorSchemeBox);
-
-		// Max iterations
-		TextFieldComponent maxIterationsTextField = new TextFieldComponent(
-				Integer.toString(mandelBrotFractal.getMaxIterations())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setMaxIterations(this.getText());
-			}
-		};
-		SettingItemComponent maxIterationsSettingItem = new SettingItemComponent("Max iterations:",
-				maxIterationsTextField);
-
-		// Escape value
-		TextFieldComponent escapeValueTextField = new TextFieldComponent(
-				Double.toString(mandelBrotFractal.getEscapeValue())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setEscapeValue(this.getText());
-			}
-		};
-		SettingItemComponent escapeValueSettingsItem = new SettingItemComponent("Escape value:", escapeValueTextField);
-
-		return new SettingItemComponent[] { colorSchemeBoxSettingItem, maxIterationsSettingItem,
-				escapeValueSettingsItem };
-	}
-
 	@Override
 	public Property<?>[] getProperties() {
-		return null;
+
+		maxIterations = new Property<Integer>()
+				.setName("Max iterations")
+				.setValue(mandelBrotFractal.getMaxIterations())
+				.setType(PropertyType.INTEGER);
+
+		escapeValue = new Property<Float>()
+				.setName("Escape value")
+				.setValue(mandelBrotFractal.getEscapeValue())
+				.setType(PropertyType.FLOAT);
+
+		colorSchemes = new ColorSchemeSelectorProperty(mandelBrotFractal.getColorSchemeManager())
+				.setName("Color scheme");
+
+		return new Property<?>[] { maxIterations, escapeValue, colorSchemes };
+
 	}
 
 	@Override
 	public void updateProperties() {
-		// TODO Auto-generated method stub
+
+		mandelBrotFractal.setMaxIterations(maxIterations.getValue());
+		mandelBrotFractal.setEscapeValue(escapeValue.getValue());
+		mandelBrotFractal.getColorSchemeManager().setActiveColorScheme(colorSchemes.getValue());
 		
+	}
+
+	@Override
+	public SettingItemComponent[] getSettingComponents() {
+		return null;
 	}
 
 }

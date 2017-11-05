@@ -58,9 +58,8 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public Property[] getProperties() {
+	public Property<?>[] getProperties() {
 		// TODO Auto-generated method stub
 		return null;
 	}

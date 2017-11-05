@@ -6,33 +6,27 @@ import fractals.settings.properties.ColorSchemeSelectorProperty;
 import fractals.settings.properties.Property;
 import fractals.settings.properties.Property.PropertyType;
 import fractals.settings.properties.valdiators.IntegerValidator;
-import gui.settings.utilComponents.ColorSchemeSelectorBox;
 import gui.settings.utilComponents.SettingItemComponent;
 
 public class JuliaSettingsManager implements SettingsManager {
 
 	private JuliaFractal juliaFractal;
+	
+	private Property<Integer> maxIterations;
+	private Property<Float> escapeValue;
+	private Property<Complex> constant;
+	private ColorSchemeSelectorProperty colorSchemes;
 
 	public JuliaSettingsManager(JuliaFractal juliaFractal) {
 
 		this.juliaFractal = juliaFractal;
 
 	}
-
+	
 	@Override
 	public SettingItemComponent[] getSettingComponents() {
-
-		// Color scheme
-		ColorSchemeSelectorBox colorSchemeBox = new ColorSchemeSelectorBox(juliaFractal.getColorSchemeManager());
-		SettingItemComponent colorSchemeBoxSettingItem = new SettingItemComponent("Color Scheme:", colorSchemeBox);
-
-		return new SettingItemComponent[] { colorSchemeBoxSettingItem };
+		return null;
 	}
-
-	Property<Integer> maxIterations;
-	Property<Float> escapeValue;
-	Property<Complex> constant;
-	ColorSchemeSelectorProperty colorSchemes;
 
 	@Override
 	public Property<?>[] getProperties() {
@@ -54,8 +48,7 @@ public class JuliaSettingsManager implements SettingsManager {
 				.setValue(juliaFractal.getConstant());
 		
 		colorSchemes = new ColorSchemeSelectorProperty(juliaFractal.getColorSchemeManager())
-				.setName("Colorscheme")
-				.setType(PropertyType.SELECTION);
+				.setName("Colorscheme");
 
 		return new Property[] { maxIterations, escapeValue, constant, colorSchemes };
 
@@ -67,7 +60,8 @@ public class JuliaSettingsManager implements SettingsManager {
 		juliaFractal.setMaxIterations(maxIterations.getValue());
 		juliaFractal.setEscapeValue(escapeValue.getValue());
 		juliaFractal.setConstant(constant.getValue());
-
+		juliaFractal.getColorSchemeManager().setActiveColorScheme(colorSchemes.getValue());
+		
 	}
 
 }
