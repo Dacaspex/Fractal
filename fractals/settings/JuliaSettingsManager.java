@@ -1,35 +1,28 @@
 package fractals.settings;
 
+import java.util.ArrayList;
+
 import complex.Complex;
 import fractals.JuliaFractal;
-import fractals.settings.properties.ColorSchemeSelectorProperty;
+import fractals.colorSchemes.AbstractColorScheme;
 import fractals.settings.properties.Property;
 import fractals.settings.properties.Property.PropertyType;
+import fractals.settings.properties.SelectionProperty;
 import fractals.settings.properties.valdiators.IntegerValidator;
-import gui.settings.utilComponents.SettingItemComponent;
+import util.ComboBoxItem;
 
 public class JuliaSettingsManager implements SettingsManager {
 
 	private JuliaFractal juliaFractal;
-	
+
 	private Property<Integer> maxIterations;
 	private Property<Float> escapeValue;
 	private Property<Complex> constant;
-	private ColorSchemeSelectorProperty colorSchemes;
+	private SelectionProperty colorSchemes;
 
 	public JuliaSettingsManager(JuliaFractal juliaFractal) {
 
 		this.juliaFractal = juliaFractal;
-
-	}
-	
-	@Override
-	public SettingItemComponent[] getSettingComponents() {
-		return null;
-	}
-
-	@Override
-	public Property<?>[] getProperties() {
 
 		maxIterations = new Property<Integer>()
 				.setName("Max iterations")
@@ -46,9 +39,25 @@ public class JuliaSettingsManager implements SettingsManager {
 				.setName("Constant")
 				.setType(PropertyType.COMPLEX)
 				.setValue(juliaFractal.getConstant());
+
+		ArrayList<ComboBoxItem<String>> list = new ArrayList<ComboBoxItem<String>>();
+
+		list.add(new ComboBoxItem<String>(juliaFractal.getColorSchemeManager().getActiveColorScheme().getName(),
+				juliaFractal.getColorSchemeManager().getActiveColorScheme().getIdentifier()));
+
+		for (AbstractColorScheme scheme : juliaFractal.getColorSchemeManager().getAvailableColorSchemes()) {
+			if (scheme != juliaFractal.getColorSchemeManager().getActiveColorScheme()) {
+				list.add(new ComboBoxItem<String>(scheme.getName(), scheme.getIdentifier()));
+			}
+		}
+
+		colorSchemes = new SelectionProperty(list)
+				.setName("Color schemes");
 		
-		colorSchemes = new ColorSchemeSelectorProperty(juliaFractal.getColorSchemeManager())
-				.setName("Colorscheme");
+	}
+
+	@Override
+	public Property<?>[] getProperties() {
 
 		return new Property[] { maxIterations, escapeValue, constant, colorSchemes };
 
@@ -61,7 +70,7 @@ public class JuliaSettingsManager implements SettingsManager {
 		juliaFractal.setEscapeValue(escapeValue.getValue());
 		juliaFractal.setConstant(constant.getValue());
 		juliaFractal.getColorSchemeManager().setActiveColorScheme(colorSchemes.getValue());
-		
+
 	}
 
 }

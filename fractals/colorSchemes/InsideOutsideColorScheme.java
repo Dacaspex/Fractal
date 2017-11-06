@@ -20,7 +20,7 @@ public class InsideOutsideColorScheme extends AbstractColorScheme {
 		this.maxIterations = 0;
 		this.threshold = 0;
 		
-		this.settingsManager = new InsideOutsideColorSchemeSettingsManager();
+		this.settingsManager = new InsideOutsideColorSchemeSettingsManager(this);
 		
 	}
 	

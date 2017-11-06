@@ -1,10 +1,13 @@
 package fractals.settings;
 
+import java.util.ArrayList;
+
 import fractals.MandelBrotFractal;
-import fractals.settings.properties.ColorSchemeSelectorProperty;
+import fractals.colorSchemes.AbstractColorScheme;
+import fractals.settings.properties.SelectionProperty;
 import fractals.settings.properties.Property;
 import fractals.settings.properties.Property.PropertyType;
-import gui.settings.utilComponents.SettingItemComponent;
+import util.ComboBoxItem;
 
 public class MandelBrotSettingsManager implements SettingsManager {
 
@@ -12,16 +15,11 @@ public class MandelBrotSettingsManager implements SettingsManager {
 
 	private Property<Integer> maxIterations;
 	private Property<Float> escapeValue;
-	private ColorSchemeSelectorProperty colorSchemes;
+	private SelectionProperty colorSchemes;
 
 	public MandelBrotSettingsManager(MandelBrotFractal mandelBrotFractal) {
 
 		this.mandelBrotFractal = mandelBrotFractal;
-
-	}
-
-	@Override
-	public Property<?>[] getProperties() {
 
 		maxIterations = new Property<Integer>()
 				.setName("Max iterations")
@@ -33,8 +31,24 @@ public class MandelBrotSettingsManager implements SettingsManager {
 				.setValue(mandelBrotFractal.getEscapeValue())
 				.setType(PropertyType.FLOAT);
 
-		colorSchemes = new ColorSchemeSelectorProperty(mandelBrotFractal.getColorSchemeManager())
-				.setName("Color scheme");
+		ArrayList<ComboBoxItem<String>> list = new ArrayList<ComboBoxItem<String>>();
+
+		list.add(new ComboBoxItem<String>(mandelBrotFractal.getColorSchemeManager().getActiveColorScheme().getName(),
+				mandelBrotFractal.getColorSchemeManager().getActiveColorScheme().getIdentifier()));
+
+		for (AbstractColorScheme scheme : mandelBrotFractal.getColorSchemeManager().getAvailableColorSchemes()) {
+			if (scheme != mandelBrotFractal.getColorSchemeManager().getActiveColorScheme()) {
+				list.add(new ComboBoxItem<String>(scheme.getName(), scheme.getIdentifier()));
+			}
+		}
+
+		colorSchemes = new SelectionProperty(list)
+				.setName("Color schemes");
+
+	}
+
+	@Override
+	public Property<?>[] getProperties() {
 
 		return new Property<?>[] { maxIterations, escapeValue, colorSchemes };
 
@@ -46,12 +60,7 @@ public class MandelBrotSettingsManager implements SettingsManager {
 		mandelBrotFractal.setMaxIterations(maxIterations.getValue());
 		mandelBrotFractal.setEscapeValue(escapeValue.getValue());
 		mandelBrotFractal.getColorSchemeManager().setActiveColorScheme(colorSchemes.getValue());
-		
-	}
 
-	@Override
-	public SettingItemComponent[] getSettingComponents() {
-		return null;
 	}
 
 }

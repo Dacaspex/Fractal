@@ -7,7 +7,7 @@ import javax.swing.table.TableCellRenderer;
 
 import complex.Complex;
 import fractals.settings.SettingsManager;
-import fractals.settings.properties.ColorSchemeSelectorProperty;
+import fractals.settings.properties.SelectionProperty;
 import fractals.settings.properties.Property;
 import gui.settings.fractalSettings.editors.ComplexEditor;
 import gui.settings.fractalSettings.editors.EditorController;
@@ -48,7 +48,6 @@ public class PropertyTable extends JTable {
 
 		addProperties();
 		setRowHeight(30);
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -75,9 +74,9 @@ public class PropertyTable extends JTable {
 				break;
 			case SELECTION:
 				// TODO Make generic
-				String value = ((ColorSchemeSelectorProperty) property).getValue();
+				String value = ((SelectionProperty) property).getValue();
 				model.addRow(new Object[] { property.getName(), value });
-				editorController.addEditor(rowCounter, new SelectionEditor((ColorSchemeSelectorProperty) property, this));
+				editorController.addEditor(rowCounter, new SelectionEditor((SelectionProperty) property, this));
 				break;
 			default:
 				break;
@@ -89,7 +88,7 @@ public class PropertyTable extends JTable {
 
 		model.addTableModelListener(new PropertyTableModelListener(this));
 	}
-
+	
 	@Override
 	public TableCellRenderer getCellRenderer(int row, int column) {
 
