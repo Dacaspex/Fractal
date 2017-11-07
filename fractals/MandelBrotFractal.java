@@ -30,15 +30,13 @@ public class MandelBrotFractal extends AbstractFractal {
 		// Create color scheme manager
 		colorSchemeManager = new ColorSchemeManager();
 
-		WaveColorScheme simpleWaveColorScheme = new WaveColorScheme();
-		simpleWaveColorScheme.setMaximumValue(maxIterations);
-		simpleWaveColorScheme.setThreshold(2.0);
+		WaveColorScheme waveColorScheme = new WaveColorScheme();
 
 		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
 		linearColorScheme.loadDefaultColors();
 		linearColorScheme.generateGradientMap();
 
-		colorSchemeManager.addColorScheme(simpleWaveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(waveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		colorSchemeManager.addColorScheme(linearColorScheme);
 
 		settingsManager = new MandelBrotSettingsManager(this);
@@ -54,7 +52,6 @@ public class MandelBrotFractal extends AbstractFractal {
 	public void setMaxIterations(int maxIterations) {
 
 		this.maxIterations = maxIterations;
-		((WaveColorScheme) colorSchemeManager.getColorScheme("WaveColorScheme")).setMaximumValue(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setSteps(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
 

@@ -1,5 +1,6 @@
 package gui.settings.fractalSettings;
 
+import java.awt.Color;
 import java.util.HashMap;
 
 import javax.swing.JTable;
@@ -7,13 +8,17 @@ import javax.swing.table.TableCellRenderer;
 
 import complex.Complex;
 import fractals.settings.SettingsManager;
-import fractals.settings.properties.SelectionProperty;
 import fractals.settings.properties.Property;
+import fractals.settings.properties.SelectionProperty;
+import gui.settings.fractalSettings.editors.BooleanEditor;
+import gui.settings.fractalSettings.editors.ColorEditor;
 import gui.settings.fractalSettings.editors.ComplexEditor;
 import gui.settings.fractalSettings.editors.EditorController;
 import gui.settings.fractalSettings.editors.FloatEditor;
 import gui.settings.fractalSettings.editors.IntegerEditor;
 import gui.settings.fractalSettings.editors.SelectionEditor;
+import gui.settings.fractalSettings.renderers.ColorRenderer;
+import gui.settings.fractalSettings.renderers.BooleanRenderer;
 import main.Application;
 
 public class PropertyTable extends JTable {
@@ -57,27 +62,39 @@ public class PropertyTable extends JTable {
 
 			switch (property.getType()) {
 			case BOOLEAN:
+				model.addRow(new String[] { property.getName(), property.getValue().toString() });
+				editorController.addEditor(rowCounter, new BooleanEditor((Property<Boolean>) property, this));
+				renderers.put(rowCounter, new BooleanRenderer());
 				break;
+				
 			case COLOR:
+				String color = String.format("#%06x", ((Property<Color>) property).getValue().getRGB() & 0x00FFFFFF);
+				model.addRow(new String[] { property.getName(), color });
+				editorController.addEditor(rowCounter, new ColorEditor((Property<Color>) property, this));
+				renderers.put(rowCounter, new ColorRenderer());
 				break;
+				
 			case COMPLEX:
-				model.addRow(new Object[] { property.getName(), ((Complex) property.getValue()).toString() }); 
+				model.addRow(new String[] { property.getName(), ((Complex) property.getValue()).toString() }); 
 				editorController.addEditor(rowCounter, new ComplexEditor((Property<Complex>) property, this));
 				break;
+				
 			case FLOAT:
-				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
+				model.addRow(new String[] { property.getName(), property.getValue().toString() });
 				editorController.addEditor(rowCounter, new FloatEditor((Property<Float>) property, this));
 				break;
+				
 			case INTEGER:
-				model.addRow(new Object[] { property.getName(), property.getValue().toString() });
+				model.addRow(new String[] { property.getName(), property.getValue().toString() });
 				editorController.addEditor(rowCounter, new IntegerEditor((Property<Integer>) property, this));
 				break;
+				
 			case SELECTION:
-				// TODO Make generic
 				String value = ((SelectionProperty) property).getValue();
-				model.addRow(new Object[] { property.getName(), value });
+				model.addRow(new String[] { property.getName(), value });
 				editorController.addEditor(rowCounter, new SelectionEditor((SelectionProperty) property, this));
 				break;
+				
 			default:
 				break;
 
@@ -88,7 +105,7 @@ public class PropertyTable extends JTable {
 
 		model.addTableModelListener(new PropertyTableModelListener(this));
 	}
-	
+
 	@Override
 	public TableCellRenderer getCellRenderer(int row, int column) {
 

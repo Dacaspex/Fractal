@@ -1,5 +1,7 @@
 package fractals.colorSchemes.settings;
 
+import java.awt.Color;
+
 import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
 import fractals.settings.properties.Property;
@@ -7,60 +9,100 @@ import fractals.settings.properties.Property.PropertyType;
 
 public class WaveColorSchemeSettingsManager implements SettingsManager {
 
-	private WaveColorScheme simpleWaveColorScheme;
+	private WaveColorScheme colorScheme;
 
 	private Property<Float> frequencyRed;
 	private Property<Float> frequencyGreen;
 	private Property<Float> frequencyBlue;
+
 	private Property<Float> phaseRed;
 	private Property<Float> phaseGreen;
 	private Property<Float> phaseBlue;
-	private Property<Float> center;
-	private Property<Float> delta;
 
-	public WaveColorSchemeSettingsManager(WaveColorScheme simpleWaveColorScheme) {
+	private Property<Float> centerRed;
+	private Property<Float> centerGreen;
+	private Property<Float> centerBlue;
 
-		this.simpleWaveColorScheme = simpleWaveColorScheme;
+	private Property<Float> deltaRed;
+	private Property<Float> deltaGreen;
+	private Property<Float> deltaBlue;
+
+	private Property<Float> threshold;
+	private Property<Color> maximumColor;
+
+	public WaveColorSchemeSettingsManager(WaveColorScheme colorScheme) {
+
+		this.colorScheme = colorScheme;
 
 		frequencyRed = new Property<Float>()
 				.setName("Frequency red")
-				.setValue(0.016f)
+				.setValue(colorScheme.getFrequencyRed())
 				.setType(PropertyType.FLOAT);
 
 		frequencyGreen = new Property<Float>()
 				.setName("Frequency green")
-				.setValue(0.013f)
+				.setValue(colorScheme.getFrequencyGreen())
 				.setType(PropertyType.FLOAT);
 
 		frequencyBlue = new Property<Float>()
 				.setName("Frequencey blue")
-				.setValue(0.01f)
+				.setValue(colorScheme.getFrequencyBlue())
 				.setType(PropertyType.FLOAT);
 
 		phaseRed = new Property<Float>()
 				.setName("Phase red")
-				.setValue(4f)
+				.setValue(colorScheme.getPhaseRed())
 				.setType(PropertyType.FLOAT);
 
 		phaseGreen = new Property<Float>()
 				.setName("Phase green")
-				.setValue(2f)
+				.setValue(colorScheme.getPhaseGreen())
 				.setType(PropertyType.FLOAT);
 
 		phaseBlue = new Property<Float>()
 				.setName("Phase blue")
-				.setValue(1f)
+				.setValue(colorScheme.getPhaseBlue())
 				.setType(PropertyType.FLOAT);
 
-		center = new Property<Float>()
-				.setName("Center")
-				.setValue(230f)
+		centerRed = new Property<Float>()
+				.setName("Center red")
+				.setValue(colorScheme.getCenterRed())
 				.setType(PropertyType.FLOAT);
 
-		delta = new Property<Float>()
-				.setName("Delta")
-				.setValue(25f)
+		centerGreen = new Property<Float>()
+				.setName("Center green")
+				.setValue(colorScheme.getCenterGreen())
 				.setType(PropertyType.FLOAT);
+
+		centerBlue = new Property<Float>()
+				.setName("Center blue")
+				.setValue(colorScheme.getCenterBlue())
+				.setType(PropertyType.FLOAT);
+
+		deltaRed = new Property<Float>()
+				.setName("Delta red")
+				.setValue(colorScheme.getDeltaRed())
+				.setType(PropertyType.FLOAT);
+
+		deltaGreen = new Property<Float>()
+				.setName("Delta green")
+				.setValue(colorScheme.getDeltaGreen())
+				.setType(PropertyType.FLOAT);
+
+		deltaBlue = new Property<Float>()
+				.setName("Delta blue")
+				.setValue(colorScheme.getDeltaBlue())
+				.setType(PropertyType.FLOAT);
+
+		threshold = new Property<Float>()
+				.setName("Threshold")
+				.setValue(colorScheme.getThreshold())
+				.setType(PropertyType.FLOAT);
+
+		maximumColor = new Property<Color>()
+				.setName("Maximum colour")
+				.setValue(colorScheme.getMaximumColor())
+				.setType(PropertyType.COLOR);
 
 	}
 
@@ -74,8 +116,14 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 				phaseRed,
 				phaseBlue,
 				phaseGreen,
-				center,
-				delta
+				centerRed,
+				centerGreen,
+				centerBlue,
+				deltaRed,
+				deltaGreen,
+				deltaBlue,
+				threshold,
+				maximumColor
 		};
 
 	}
@@ -83,14 +131,24 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 	@Override
 	public void updateProperties() {
 
-		simpleWaveColorScheme.setFrequencyRed(frequencyRed.getValue());
-		simpleWaveColorScheme.setFrequencyBlue(frequencyBlue.getValue());
-		simpleWaveColorScheme.setFrequencyGreen(frequencyGreen.getValue());
-		simpleWaveColorScheme.setPhaseRed(phaseRed.getValue());
-		simpleWaveColorScheme.setPhaseBlue(phaseBlue.getValue());
-		simpleWaveColorScheme.setPhaseGreen(phaseGreen.getValue());
-		simpleWaveColorScheme.setCenter(center.getValue());
-		simpleWaveColorScheme.setDelta(delta.getValue());
+		colorScheme.setFrequencyRed(frequencyRed.getValue());
+		colorScheme.setFrequencyBlue(frequencyBlue.getValue());
+		colorScheme.setFrequencyGreen(frequencyGreen.getValue());
+
+		colorScheme.setPhaseRed(phaseRed.getValue());
+		colorScheme.setPhaseBlue(phaseBlue.getValue());
+		colorScheme.setPhaseGreen(phaseGreen.getValue());
+
+		colorScheme.setCenterRed(centerRed.getValue());
+		colorScheme.setCenterGreen(centerGreen.getValue());
+		colorScheme.setCenterBlue(centerBlue.getValue());
+
+		colorScheme.setDeltaRed(deltaRed.getValue());
+		colorScheme.setDeltaGreen(deltaGreen.getValue());
+		colorScheme.setDeltaBlue(deltaBlue.getValue());
+
+		colorScheme.setThreshold(threshold.getValue());
+		colorScheme.setMaximumColor(maximumColor.getValue());
 
 	}
 

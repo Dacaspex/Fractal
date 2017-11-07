@@ -185,7 +185,7 @@ public class LinearColorScheme extends AbstractColorScheme {
 	 * @return The color that corresponds to that position in the array
 	 */
 	@Override
-	public int getRGBValue(double referenceNumber) {
+	public int getRGBValue(float referenceNumber) {
 
 		int index = (int) ((referenceNumber / maxInputSteps) * (steps - 1));
 		return gradientMap[index];

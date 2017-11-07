@@ -7,40 +7,47 @@ import fractals.colorSchemes.settings.WaveColorSchemeSettingsManager;
 
 public class WaveColorScheme extends AbstractColorScheme {
 
-	private double frequencyRed;
-	private double frequencyGreen;
-	private double frequencyBlue;
-	private double phaseRed;
-	private double phaseGreen;
-	private double phaseBlue;
-	private double center;
-	private double delta;
+	private float frequencyRed;
+	private float frequencyGreen;
+	private float frequencyBlue;
+	private float phaseRed;
+	private float phaseGreen;
+	private float phaseBlue;
+	private float centerRed;
+	private float centerGreen;
+	private float centerBlue;
+	private float deltaRed;
+	private float deltaGreen;
+	private float deltaBlue;
 
 	private boolean useContinuousIndex;
 
-	private double maximumValue;
 	private Color maximumColor;
-	private double threshold;
+	private float threshold;
 
 	public WaveColorScheme() {
 
 		identifier = "WaveColorScheme";
 		name = "Wave colour scheme";
 
-		frequencyRed = 0.016;
-		frequencyGreen = 0.013;
-		frequencyBlue = 0.01;
+		frequencyRed = 0.016f;
+		frequencyGreen = 0.013f;
+		frequencyBlue = 0.01f;
 
 		phaseRed = 4;
 		phaseGreen = 2;
 		phaseBlue = 1;
 
-		center = 230;
-		delta = 25;
+		centerRed = 230;
+		centerGreen = 230;
+		centerBlue = 230;
+		
+		deltaRed = 25;
+		deltaGreen = 25;
+		deltaBlue = 25;
 
 		useContinuousIndex = true;
 
-		maximumValue = Integer.MAX_VALUE;
 		maximumColor = Color.black;
 		threshold = 0;
 
@@ -48,159 +55,139 @@ public class WaveColorScheme extends AbstractColorScheme {
 
 	}
 
-	public double getFrequencyRed() {
-
+	public float getFrequencyRed() {
 		return frequencyRed;
-
 	}
 
-	public void setFrequencyRed(double frequencyRed) {
-
+	public void setFrequencyRed(float frequencyRed) {
 		this.frequencyRed = frequencyRed;
-
 	}
 
-	public double getFrequencyGreen() {
-
+	public float getFrequencyGreen() {
 		return frequencyGreen;
-
 	}
 
-	public void setFrequencyGreen(double frequencyGreen) {
-
+	public void setFrequencyGreen(float frequencyGreen) {
 		this.frequencyGreen = frequencyGreen;
-
 	}
 
-	public double getFrequencyBlue() {
-
+	public float getFrequencyBlue() {
 		return frequencyBlue;
-
 	}
 
-	public void setFrequencyBlue(double frequencyBlue) {
-
+	public void setFrequencyBlue(float frequencyBlue) {
 		this.frequencyBlue = frequencyBlue;
-
 	}
 
-	public double getPhaseRed() {
-
+	public float getPhaseRed() {
 		return phaseRed;
-
 	}
 
-	public void setPhaseRed(double phaseRed) {
-
+	public void setPhaseRed(float phaseRed) {
 		this.phaseRed = phaseRed;
-
 	}
 
-	public double getPhaseGreen() {
-
+	public float getPhaseGreen() {
 		return phaseGreen;
-
 	}
 
-	public void setPhaseGreen(double phaseGreen) {
-
+	public void setPhaseGreen(float phaseGreen) {
 		this.phaseGreen = phaseGreen;
-
 	}
 
-	public double getPhaseBlue() {
-
+	public float getPhaseBlue() {
 		return phaseBlue;
-
 	}
 
-	public void setPhaseBlue(double phaseBlue) {
-
+	public void setPhaseBlue(float phaseBlue) {
 		this.phaseBlue = phaseBlue;
-
 	}
 
-	public double getCenter() {
-
-		return center;
-
+	public float getCenterRed() {
+		return centerRed;
 	}
 
-	public void setCenter(double center) {
-
-		this.center = center;
-
+	public void setCenterRed(float centerRed) {
+		this.centerRed = centerRed;
 	}
 
-	public double getDelta() {
-
-		return delta;
-
+	public float getCenterGreen() {
+		return centerGreen;
 	}
 
-	public void setDelta(double delta) {
-
-		this.delta = delta;
-
+	public void setCenterGreen(float centerGreen) {
+		this.centerGreen = centerGreen;
 	}
 
-	public double getThreshold() {
+	public float getCenterBlue() {
+		return centerBlue;
+	}
 
+	public void setCenterBlue(float centerBlue) {
+		this.centerBlue = centerBlue;
+	}
+
+	public float getDeltaRed() {
+		return deltaRed;
+	}
+
+	public void setDeltaRed(float deltaRed) {
+		this.deltaRed = deltaRed;
+	}
+
+	public float getDeltaGreen() {
+		return deltaGreen;
+	}
+
+	public void setDeltaGreen(float deltaGreen) {
+		this.deltaGreen = deltaGreen;
+	}
+
+	public float getDeltaBlue() {
+		return deltaBlue;
+	}
+
+	public void setDeltaBlue(float deltaBlue) {
+		this.deltaBlue = deltaBlue;
+	}
+
+	public float getThreshold() {
 		return threshold;
-
 	}
 
-	public double getMaximumValue() {
-
-		return maximumValue;
-
-	}
-
-	public void setMaximumValue(double maximumValue) {
-
-		this.maximumValue = maximumValue;
-
-	}
-
-	public void setThreshold(double threshold) {
-
+	public void setThreshold(float threshold) {
 		this.threshold = threshold;
-
 	}
 
 	public Color getMaximumColor() {
-
 		return maximumColor;
-
 	}
 
 	public void setMaximumColor(Color maximumColor) {
-
 		this.maximumColor = maximumColor;
-
 	}
 
-	public int getRGBValue(double value) {
+	public int getRGBValue(float value) {
 		return getRGBValue(value, null);
 	}
 
-	public int getRGBValue(double escapeNumber, Complex lastEscapeComplexValue) {
+	public int getRGBValue(float escapeNumber, Complex lastEscapeComplexValue) {
 
-		double value = escapeNumber;
+		float value = escapeNumber;
 		if (useContinuousIndex && lastEscapeComplexValue != null) {
 			// Extra calculation for a smooth color transition
-			value = escapeNumber + 1 - (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2);
+			value = (float) (escapeNumber + 1 - (Math.log10(2) / lastEscapeComplexValue.getModulus()) / Math.log10(2));
 		}
 
 		// Apply threshold
-		if (value > maximumValue - threshold) {
+		if (threshold > 0 && value > threshold) {
 			return maximumColor.getRGB();
 		}
 
 		// Calculate rgb values
-		int r = (int) Math.abs((Math.sin(frequencyRed * value + phaseRed) * center + delta));
-		int g = (int) Math.abs((Math.sin(frequencyGreen * value + phaseGreen) * center + delta));
-		int b = (int) Math.abs((Math.sin(frequencyBlue * value + phaseBlue) * center + delta));
+		int r = (int) Math.abs((Math.sin(frequencyRed * value + phaseRed) * centerRed + deltaRed));
+		int g = (int) Math.abs((Math.sin(frequencyGreen * value + phaseGreen) * centerGreen + deltaGreen));
+		int b = (int) Math.abs((Math.sin(frequencyBlue * value + phaseBlue) * centerBlue + deltaBlue));
 
 		// Cap rgb values at 255
 		r = Math.min(r, 255);

@@ -57,7 +57,7 @@ public class InsideOutsideColorScheme extends AbstractColorScheme {
 	}
 
 	@Override
-	public int getRGBValue(double value) {
+	public int getRGBValue(float value) {
 		
 		if (value < maxIterations - threshold) {
 			return outColor.getRGB();
