@@ -14,7 +14,7 @@ import util.math.Scale;
 public class MandelBrotFractal extends AbstractFractal {
 
 	private int maxIterations;
-	private double escapeValue;
+	private float escapeValue;
 
 	public MandelBrotFractal() {
 
@@ -24,21 +24,19 @@ public class MandelBrotFractal extends AbstractFractal {
 		// Set default values
 		name = "Mandelbrot Set";
 		maxIterations = 512;
-		escapeValue = 2.0;
+		escapeValue = 2.0f;
 		scale = new Scale(new Point(-0.5, 0));
 
 		// Create color scheme manager
 		colorSchemeManager = new ColorSchemeManager();
 
-		WaveColorScheme simpleWaveColorScheme = new WaveColorScheme();
-		simpleWaveColorScheme.setMaximumValue(maxIterations);
-		simpleWaveColorScheme.setThreshold(2.0);
+		WaveColorScheme waveColorScheme = new WaveColorScheme();
 
 		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
 		linearColorScheme.loadDefaultColors();
 		linearColorScheme.generateGradientMap();
 
-		colorSchemeManager.addColorScheme(simpleWaveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
+		colorSchemeManager.addColorScheme(waveColorScheme, ColorSchemeManagerOptions.SET_AS_ACTIVE);
 		colorSchemeManager.addColorScheme(linearColorScheme);
 
 		settingsManager = new MandelBrotSettingsManager(this);
@@ -54,19 +52,18 @@ public class MandelBrotFractal extends AbstractFractal {
 	public void setMaxIterations(int maxIterations) {
 
 		this.maxIterations = maxIterations;
-		((WaveColorScheme) colorSchemeManager.getColorScheme("WaveColorScheme")).setMaximumValue(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setSteps(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
 
 	}
 
-	public double getEscapeValue() {
+	public float getEscapeValue() {
 
 		return escapeValue;
 
 	}
 
-	public void setEscapeValue(double escapeValue) {
+	public void setEscapeValue(float escapeValue) {
 
 		this.escapeValue = escapeValue;
 

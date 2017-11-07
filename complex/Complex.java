@@ -130,13 +130,13 @@ public class Complex {
 	}
 
 	public Complex power(double power) {
-		
+
 		for (int i = 0; i < power - 1; i++) {
-			
+
 			this.multiply(this);
-			
+
 		}
-		
+
 		return this;
 
 	}
@@ -145,6 +145,17 @@ public class Complex {
 
 		return new Complex(getReal(), getImaginary());
 
+	}
+
+	public String toString() {
+
+		String glue = "";
+
+		if (imaginary >= 0) {
+			glue = "+";
+		}
+
+		return real + glue + imaginary + "i";
 	}
 
 }

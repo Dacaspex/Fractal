@@ -1,365 +1,154 @@
 package fractals.colorSchemes.settings;
 
-import java.awt.event.ActionEvent;
-import java.util.Random;
-
-import javax.swing.event.DocumentEvent;
+import java.awt.Color;
 
 import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
-import gui.settings.utilComponents.ButtonComponent;
-import gui.settings.utilComponents.ColorPickerButton;
-import gui.settings.utilComponents.SettingItemComponent;
-import gui.settings.utilComponents.TextFieldComponent;
-import main.Application;
+import fractals.settings.properties.Property;
+import fractals.settings.properties.Property.PropertyType;
 
 public class WaveColorSchemeSettingsManager implements SettingsManager {
 
-	private WaveColorScheme simpleWaveColorScheme;
+	private WaveColorScheme colorScheme;
 
-	private TextFieldComponent frequencyRedTextField;
-	private TextFieldComponent frequencyGreenTextField;
-	private TextFieldComponent frequencyBlueTextField;
-	private TextFieldComponent phaseRedTextField;
-	private TextFieldComponent phaseGreenTextField;
-	private TextFieldComponent phaseBlueTextField;
-	private TextFieldComponent centerTextField;
-	private TextFieldComponent deltaTextField;
+	private Property<Float> frequencyRed;
+	private Property<Float> frequencyGreen;
+	private Property<Float> frequencyBlue;
 
-	public WaveColorSchemeSettingsManager(WaveColorScheme simpleWaveColorScheme) {
+	private Property<Float> phaseRed;
+	private Property<Float> phaseGreen;
+	private Property<Float> phaseBlue;
 
-		this.simpleWaveColorScheme = simpleWaveColorScheme;
+	private Property<Float> centerRed;
+	private Property<Float> centerGreen;
+	private Property<Float> centerBlue;
 
-	}
+	private Property<Float> deltaRed;
+	private Property<Float> deltaGreen;
+	private Property<Float> deltaBlue;
 
-	public void setFrequencyRed(String frequencyRedString) {
+	private Property<Float> threshold;
+	private Property<Color> maximumColor;
 
-		try {
-			double frequencyRed = Double.parseDouble(frequencyRedString);
-			simpleWaveColorScheme.setFrequencyRed(frequencyRed);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
+	public WaveColorSchemeSettingsManager(WaveColorScheme colorScheme) {
 
-	}
+		this.colorScheme = colorScheme;
 
-	public void setFrequencyGreen(String frequencyGreenString) {
+		frequencyRed = new Property<Float>()
+				.setName("Frequency red")
+				.setValue(colorScheme.getFrequencyRed())
+				.setType(PropertyType.FLOAT);
 
-		try {
-			double frequencyGreen = Double.parseDouble(frequencyGreenString);
-			simpleWaveColorScheme.setFrequencyGreen(frequencyGreen);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
+		frequencyGreen = new Property<Float>()
+				.setName("Frequency green")
+				.setValue(colorScheme.getFrequencyGreen())
+				.setType(PropertyType.FLOAT);
 
-	}
+		frequencyBlue = new Property<Float>()
+				.setName("Frequencey blue")
+				.setValue(colorScheme.getFrequencyBlue())
+				.setType(PropertyType.FLOAT);
 
-	public void setFrequencyBlue(String frequencyBlueString) {
+		phaseRed = new Property<Float>()
+				.setName("Phase red")
+				.setValue(colorScheme.getPhaseRed())
+				.setType(PropertyType.FLOAT);
 
-		try {
-			double frequencyBlue = Double.parseDouble(frequencyBlueString);
-			simpleWaveColorScheme.setFrequencyBlue(frequencyBlue);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
+		phaseGreen = new Property<Float>()
+				.setName("Phase green")
+				.setValue(colorScheme.getPhaseGreen())
+				.setType(PropertyType.FLOAT);
 
-	}
+		phaseBlue = new Property<Float>()
+				.setName("Phase blue")
+				.setValue(colorScheme.getPhaseBlue())
+				.setType(PropertyType.FLOAT);
 
-	public void setPhaseRed(String phaseRedString) {
+		centerRed = new Property<Float>()
+				.setName("Center red")
+				.setValue(colorScheme.getCenterRed())
+				.setType(PropertyType.FLOAT);
 
-		try {
-			double phaseRed = Double.parseDouble(phaseRedString);
-			simpleWaveColorScheme.setPhaseRed(phaseRed);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
+		centerGreen = new Property<Float>()
+				.setName("Center green")
+				.setValue(colorScheme.getCenterGreen())
+				.setType(PropertyType.FLOAT);
 
-	}
+		centerBlue = new Property<Float>()
+				.setName("Center blue")
+				.setValue(colorScheme.getCenterBlue())
+				.setType(PropertyType.FLOAT);
 
-	public void setPhaseGreen(String phaseGreenString) {
+		deltaRed = new Property<Float>()
+				.setName("Delta red")
+				.setValue(colorScheme.getDeltaRed())
+				.setType(PropertyType.FLOAT);
 
-		try {
-			double phaseGreen = Double.parseDouble(phaseGreenString);
-			simpleWaveColorScheme.setPhaseGreen(phaseGreen);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
+		deltaGreen = new Property<Float>()
+				.setName("Delta green")
+				.setValue(colorScheme.getDeltaGreen())
+				.setType(PropertyType.FLOAT);
 
-	}
+		deltaBlue = new Property<Float>()
+				.setName("Delta blue")
+				.setValue(colorScheme.getDeltaBlue())
+				.setType(PropertyType.FLOAT);
 
-	public void setPhaseBlue(String phaseBlueString) {
+		threshold = new Property<Float>()
+				.setName("Threshold")
+				.setValue(colorScheme.getThreshold())
+				.setType(PropertyType.FLOAT);
 
-		try {
-			double phaseBlue = Double.parseDouble(phaseBlueString);
-			simpleWaveColorScheme.setPhaseBlue(phaseBlue);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
-
-	}
-
-	public void setCenter(String centerString) {
-
-		try {
-			double center = Double.parseDouble(centerString);
-			simpleWaveColorScheme.setCenter(center);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
-
-	}
-
-	public void setDelta(String deltaString) {
-
-		try {
-			double delta = Double.parseDouble(deltaString);
-			simpleWaveColorScheme.setDelta(delta);
-			Application.getApplication().update(false);
-		} catch (NumberFormatException exception) {
-			return;
-		}
-
-	}
-
-	public void setThreshold(String thresholdString) {
-
-		try {
-			double threshold = Double.parseDouble(thresholdString);
-			if (threshold >= 0) {
-				simpleWaveColorScheme.setThreshold(threshold);
-				Application.getApplication().update(false);
-			}
-		} catch (NumberFormatException exception) {
-			return;
-		}
-
-	}
-
-	public void setMaximumValue(String maximumValueString) {
-
-		if (maximumValueString.trim().equals("")) {
-			simpleWaveColorScheme.setMaximumValue(Integer.MAX_VALUE);
-			Application.getApplication().update(false);
-		}
-
-		try {
-			double maximumValue = Double.parseDouble(maximumValueString);
-			if (maximumValue >= 0) {
-				simpleWaveColorScheme.setMaximumValue(maximumValue);
-				Application.getApplication().update(false);
-			}
-		} catch (NumberFormatException exception) {
-			return;
-		}
-
-	}
-
-	public void generateRandomSettings() {
-
-		Random random = new Random();
-
-		// Generate random values
-		double frequencyRed = random.nextDouble() * 0.1;
-		double frequencyGreen = random.nextDouble() * 0.1;
-		double frequencyBlue = random.nextDouble() * 0.1;
-		double phaseRed = random.nextDouble() * 10;
-		double phaseGreen = random.nextDouble() * 10;
-		double phaseBlue = random.nextDouble() * 10;
-		double center = random.nextDouble() * (300 - 200) + 200;
-		double delta = random.nextDouble() * 100;
-
-		// Set values in the color scheme
-		simpleWaveColorScheme.setFrequencyRed(frequencyRed);
-		simpleWaveColorScheme.setFrequencyGreen(frequencyGreen);
-		simpleWaveColorScheme.setFrequencyBlue(frequencyBlue);
-		simpleWaveColorScheme.setPhaseRed(phaseRed);
-		simpleWaveColorScheme.setPhaseGreen(phaseGreen);
-		simpleWaveColorScheme.setPhaseBlue(phaseBlue);
-		simpleWaveColorScheme.setCenter(center);
-		simpleWaveColorScheme.setDelta(delta);
-
-		// Update input fields
-		frequencyRedTextField.setTextNoTrigger(Double.toString(frequencyRed));
-		frequencyGreenTextField.setTextNoTrigger(Double.toString(frequencyGreen));
-		frequencyBlueTextField.setTextNoTrigger(Double.toString(frequencyBlue));
-		phaseRedTextField.setTextNoTrigger(Double.toString(phaseRed));
-		phaseGreenTextField.setTextNoTrigger(Double.toString(phaseGreen));
-		phaseBlueTextField.setTextNoTrigger(Double.toString(phaseBlue));
-		centerTextField.setTextNoTrigger(Double.toString(center));
-		deltaTextField.setTextNoTrigger(Double.toString(delta));
-
-		// Update fractal
-		Application.getApplication().update(false);
+		maximumColor = new Property<Color>()
+				.setName("Maximum colour")
+				.setValue(colorScheme.getMaximumColor())
+				.setType(PropertyType.COLOR);
 
 	}
 
 	@Override
-	public SettingItemComponent[] getSettingComponents() {
+	public Property<?>[] getProperties() {
 
-		// Frequency red
-		frequencyRedTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyRed())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setFrequencyRed(this.getText());
-			}
+		return new Property<?>[] {
+				frequencyRed,
+				frequencyBlue,
+				frequencyGreen,
+				phaseRed,
+				phaseBlue,
+				phaseGreen,
+				centerRed,
+				centerGreen,
+				centerBlue,
+				deltaRed,
+				deltaGreen,
+				deltaBlue,
+				threshold,
+				maximumColor
 		};
-		SettingItemComponent frequencyRedSettingItem = new SettingItemComponent("Frequency red:",
-				frequencyRedTextField);
 
-		// Frequency green
-		frequencyGreenTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyGreen())) {
-			private static final long serialVersionUID = -6033309334749328555L;
+	}
 
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setFrequencyGreen(this.getText());
-			}
-		};
-		SettingItemComponent frequencyGreenSettingItem = new SettingItemComponent("Frequency green:",
-				frequencyGreenTextField);
+	@Override
+	public void updateProperties() {
 
-		// Frequency blue
-		frequencyBlueTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getFrequencyBlue())) {
-			private static final long serialVersionUID = -6033309334749328555L;
+		colorScheme.setFrequencyRed(frequencyRed.getValue());
+		colorScheme.setFrequencyBlue(frequencyBlue.getValue());
+		colorScheme.setFrequencyGreen(frequencyGreen.getValue());
 
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setFrequencyBlue(this.getText());
-			}
-		};
-		SettingItemComponent frequencyBlueSettingItem = new SettingItemComponent("Frequency blue:",
-				frequencyBlueTextField);
+		colorScheme.setPhaseRed(phaseRed.getValue());
+		colorScheme.setPhaseBlue(phaseBlue.getValue());
+		colorScheme.setPhaseGreen(phaseGreen.getValue());
 
-		// Phase red
-		phaseRedTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseRed())) {
-			private static final long serialVersionUID = -6033309334749328555L;
+		colorScheme.setCenterRed(centerRed.getValue());
+		colorScheme.setCenterGreen(centerGreen.getValue());
+		colorScheme.setCenterBlue(centerBlue.getValue());
 
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setPhaseRed(this.getText());
-			}
-		};
-		SettingItemComponent phaseRedSettingItem = new SettingItemComponent("Phase red:", phaseRedTextField);
+		colorScheme.setDeltaRed(deltaRed.getValue());
+		colorScheme.setDeltaGreen(deltaGreen.getValue());
+		colorScheme.setDeltaBlue(deltaBlue.getValue());
 
-		// Phase Green
-		phaseGreenTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseGreen())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setPhaseGreen(this.getText());
-			}
-		};
-		SettingItemComponent phaseGreenSettingItem = new SettingItemComponent("Phase green:", phaseGreenTextField);
-
-		// Phase Blue
-		phaseBlueTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getPhaseBlue())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setPhaseBlue(this.getText());
-			}
-		};
-		SettingItemComponent phaseBlueSettingItem = new SettingItemComponent("Phase blue:", phaseBlueTextField);
-
-		// Center
-		centerTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getCenter())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setCenter(this.getText());
-			}
-		};
-		SettingItemComponent centerSettingItem = new SettingItemComponent("Center:", centerTextField);
-
-		// Delta
-		deltaTextField = new TextFieldComponent(Double.toString(simpleWaveColorScheme.getDelta())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setDelta(this.getText());
-			}
-		};
-		SettingItemComponent deltaSettingItem = new SettingItemComponent("Delta:", deltaTextField);
-
-		// Threshold
-		TextFieldComponent thresholdTextField = new TextFieldComponent(
-				Double.toString(simpleWaveColorScheme.getThreshold())) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setThreshold(this.getText());
-			}
-		};
-		SettingItemComponent thresholdSettingItem = new SettingItemComponent("Threshold:", thresholdTextField);
-
-		// Maximum value
-		double maximumValue = simpleWaveColorScheme.getMaximumValue();
-		String maximumValueString;
-		if (maximumValue == Integer.MAX_VALUE) {
-			maximumValueString = "";
-		} else {
-			maximumValueString = Double.toString(simpleWaveColorScheme.getMaximumValue());
-		}
-
-		TextFieldComponent maximumValueTextField = new TextFieldComponent(maximumValueString) {
-			private static final long serialVersionUID = -6033309334749328555L;
-
-			@Override
-			public void documentUpdate(DocumentEvent event) {
-				setMaximumValue(this.getText());
-			}
-		};
-		SettingItemComponent maximumValueSettingItem = new SettingItemComponent("Maximum value:",
-				maximumValueTextField);
-
-		// Color picker button
-		ColorPickerButton colorPickerButton = new ColorPickerButton(simpleWaveColorScheme.getMaximumColor()) {
-
-			private static final long serialVersionUID = 8994349209644064825L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				update();
-				simpleWaveColorScheme.setMaximumColor(color);
-				Application.getApplication().update(false);
-
-			}
-
-		};
-		SettingItemComponent colorPickerSettingItem = new SettingItemComponent("Color picker:", colorPickerButton);
-
-		// Random button
-		ButtonComponent randomButton = new ButtonComponent("Random") {
-
-			private static final long serialVersionUID = 1886939492408972226L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				generateRandomSettings();
-			}
-
-		};
-		SettingItemComponent randomButtonSettingItem = new SettingItemComponent("Randomize:", randomButton);
-
-		return new SettingItemComponent[] { frequencyRedSettingItem, frequencyGreenSettingItem,
-				frequencyBlueSettingItem, phaseRedSettingItem, phaseGreenSettingItem, phaseBlueSettingItem,
-				centerSettingItem, deltaSettingItem, thresholdSettingItem, maximumValueSettingItem,
-				colorPickerSettingItem, randomButtonSettingItem };
+		colorScheme.setThreshold(threshold.getValue());
+		colorScheme.setMaximumColor(maximumColor.getValue());
 
 	}
 

@@ -20,7 +20,7 @@ public class InsideOutsideColorScheme extends AbstractColorScheme {
 		this.maxIterations = 0;
 		this.threshold = 0;
 		
-		this.settingsManager = new InsideOutsideColorSchemeSettingsManager();
+		this.settingsManager = new InsideOutsideColorSchemeSettingsManager(this);
 		
 	}
 	
@@ -57,7 +57,7 @@ public class InsideOutsideColorScheme extends AbstractColorScheme {
 	}
 
 	@Override
-	public int getRGBValue(double value) {
+	public int getRGBValue(float value) {
 		
 		if (value < maxIterations - threshold) {
 			return outColor.getRGB();

@@ -60,6 +60,7 @@ public class Application {
 
 		applicationMode = ApplicationMode.EXPLORER;
 		display = new Display();
+		display.buildGUI();
 
 		Logger.log(this, "Application started successfully", Type.LOG_SUCCESS);
 

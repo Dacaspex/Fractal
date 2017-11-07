@@ -1,9 +1,11 @@
 package fractals.settings;
 
-import gui.settings.utilComponents.SettingItemComponent;
+import fractals.settings.properties.Property;
 
 public interface SettingsManager {
 
-	public SettingItemComponent[] getSettingComponents();
-
+	public Property<?>[] getProperties();
+	
+	public void updateProperties();
+	
 }

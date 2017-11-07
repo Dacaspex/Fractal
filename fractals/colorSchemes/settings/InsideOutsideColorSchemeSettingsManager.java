@@ -1,13 +1,29 @@
 package fractals.colorSchemes.settings;
 
+import fractals.colorSchemes.InsideOutsideColorScheme;
 import fractals.settings.SettingsManager;
-import gui.settings.utilComponents.SettingItemComponent;
+import fractals.settings.properties.Property;
 
 public class InsideOutsideColorSchemeSettingsManager implements SettingsManager {
 
+	private InsideOutsideColorScheme colorScheme;
+	
+	public InsideOutsideColorSchemeSettingsManager(InsideOutsideColorScheme colorScheme) {
+		
+		this.colorScheme = colorScheme;
+		
+	}
+	
 	@Override
-	public SettingItemComponent[] getSettingComponents() {
-		return new SettingItemComponent[] {};
+	public Property<?>[] getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateProperties() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

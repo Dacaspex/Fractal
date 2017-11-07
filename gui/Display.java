@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,9 +10,13 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import fractals.AbstractFractal;
 import gui.explorer.ExplorerPanel;
 import gui.menuItems.AboutMenuItem;
 import gui.menuItems.ExitMenuItem;
+import gui.menuItems.FractalMenuItem;
+import gui.menuItems.OpenFractalSettingsMenuItem;
+import gui.settings.fractalSettings.FractalSettingsDisplay;
 import util.Settings;
 
 /**
@@ -46,6 +51,8 @@ public class Display extends JFrame {
 	 * can be edited.
 	 */
 	private ExplorerPanel explorerPanel;
+	
+	private JMenuBar menuBar;
 
 	public Display() {
 
@@ -56,17 +63,21 @@ public class Display extends JFrame {
 		DEFAULT_DISPLAY_WIDTH = 1150;
 		DEFAULT_DISPLAY_HEIGHT = 1000;
 		explorerPanel = new ExplorerPanel();
-
-		// Build the display
-		buildGUI();
+		menuBar = new JMenuBar();
 
 	}
 
 	public ExplorerPanel getExplorerPanel() {
 		return explorerPanel;
 	}
+	
+	public void openFractalSettings() {
 
-	private void buildGUI() {
+		new FractalSettingsDisplay();
+		
+	}
+
+	public void buildGUI() {
 
 		// Set look and feel, size and title
 		setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -88,9 +99,7 @@ public class Display extends JFrame {
 	 * Creates the top menu bar and adds it to the display.
 	 */
 	private void buildTopMenu() {
-
-		JMenuBar menuBar = new JMenuBar();
-
+		
 		// File menu
 		JMenu fileMenu = new JMenu("File");
 		ExitMenuItem exitMenuItem = new ExitMenuItem();
@@ -98,8 +107,7 @@ public class Display extends JFrame {
 		menuBar.add(fileMenu);
 
 		// Fractal menu
-		JMenu fractalMenu = explorerPanel.getFractalMenu();
-		menuBar.add(fractalMenu);
+		createFractalMenuItem();
 
 		// About menu
 		JMenu aboutMenu = new JMenu("About");
@@ -110,6 +118,22 @@ public class Display extends JFrame {
 		setJMenuBar(menuBar);
 
 	}
+	
+	private void createFractalMenuItem() {
+		
+		JMenu fractalMenu = new JMenu("Fractals");
+		ArrayList<AbstractFractal> fractals = explorerPanel.getFractalManager().getFractals();
+
+		fractalMenu.add(new OpenFractalSettingsMenuItem());
+		fractalMenu.addSeparator();
+		
+		for (AbstractFractal fractal : fractals) {
+			fractalMenu.add(new FractalMenuItem(fractal, explorerPanel.getFractalManager()));
+		}
+		
+		menuBar.add(fractalMenu);
+		
+	}
 
 	/**
 	 * Sets the look and feel of the program
@@ -117,7 +141,7 @@ public class Display extends JFrame {
 	 * @param className
 	 *            The name of the look and feel class
 	 */
-	public void setLookAndFeel(String className) {
+	private void setLookAndFeel(String className) {
 
 		try {
 			UIManager.setLookAndFeel(className);
