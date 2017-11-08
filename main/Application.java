@@ -79,7 +79,7 @@ public class Application {
 
 		switch (applicationMode) {
 		case EXPLORER:
-			display.update();
+			display.update(updateGUI);
 			break;
 		case EXPORT_IMAGE:
 			break;

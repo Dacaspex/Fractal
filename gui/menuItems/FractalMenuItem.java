@@ -37,7 +37,7 @@ public class FractalMenuItem extends JMenuItem implements ActionListener {
 		JMenu menu = (JMenu) popupMenu.getInvoker();
 		((OpenFractalSettingsMenuItem) menu.getMenuComponent(0)).updateText();
 		
-		Application.getApplication().getDisplay().getExplorerPanel().update();
+		Application.getApplication().update(true);
 
 	}
 

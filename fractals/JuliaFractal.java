@@ -41,8 +41,6 @@ public class JuliaFractal extends AbstractFractal {
 		linearColorScheme.generateGradientMap();
 
 		InsideOutsideColorScheme insideOutsideColorScheme = new InsideOutsideColorScheme();
-		insideOutsideColorScheme.setMaxIterations(maxIterations);
-		insideOutsideColorScheme.setThreshold(2);
 
 		colorSchemeManager.addColorScheme(insideOutsideColorScheme);
 		colorSchemeManager.addColorScheme(linearColorScheme);
@@ -64,8 +62,6 @@ public class JuliaFractal extends AbstractFractal {
 		// Update linear and inside-outside color schemes
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setMaxInputSteps(maxIterations);
 		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
-		((InsideOutsideColorScheme) colorSchemeManager.getColorScheme("InsideOutsideColorScheme"))
-				.setMaxIterations(maxIterations);
 
 	}
 

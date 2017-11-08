@@ -31,6 +31,11 @@ public class MandelBrotSettingsManager implements SettingsManager {
 				.setValue(mandelBrotFractal.getEscapeValue())
 				.setType(PropertyType.FLOAT);
 
+	}
+
+	@Override
+	public Property<?>[] getProperties() {
+
 		ArrayList<ComboBoxItem<String>> list = new ArrayList<ComboBoxItem<String>>();
 
 		list.add(new ComboBoxItem<String>(mandelBrotFractal.getColorSchemeManager().getActiveColorScheme().getName(),
@@ -44,12 +49,7 @@ public class MandelBrotSettingsManager implements SettingsManager {
 
 		colorSchemes = new SelectionProperty(list)
 				.setName("Color schemes");
-
-	}
-
-	@Override
-	public Property<?>[] getProperties() {
-
+		
 		return new Property<?>[] { maxIterations, escapeValue, colorSchemes };
 
 	}

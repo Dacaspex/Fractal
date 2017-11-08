@@ -76,16 +76,19 @@ public class Display extends JFrame {
 	public void openFractalSettings() {
 		fractalSettingsDisplay.open();
 	}
-	
+
 	public void closeFractalSettings() {
 		fractalSettingsDisplay.close();
 	}
-	
-	public void update() {
-		
+
+	public void update(boolean updateGUI) {
+
 		explorerPanel.update();
-		fractalSettingsDisplay.update();
-		
+
+		if (updateGUI) {
+			fractalSettingsDisplay.update();
+		}
+
 	}
 
 	public void buildGUI() {
@@ -103,7 +106,7 @@ public class Display extends JFrame {
 		// Finish the GUI
 		pack();
 		setVisible(true);
-		
+
 		fractalSettingsDisplay = new FractalSettingsDisplay();
 
 	}
