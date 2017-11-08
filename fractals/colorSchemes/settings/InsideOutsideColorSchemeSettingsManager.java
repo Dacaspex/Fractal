@@ -16,8 +16,9 @@ public class InsideOutsideColorSchemeSettingsManager implements SettingsManager 
 	
 	@Override
 	public Property<?>[] getProperties() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Property<?>[] {};
+		
 	}
 
 	@Override

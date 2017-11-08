@@ -39,6 +39,11 @@ public class JuliaSettingsManager implements SettingsManager {
 				.setName("Constant")
 				.setType(PropertyType.COMPLEX)
 				.setValue(juliaFractal.getConstant());
+		
+	}
+
+	@Override
+	public Property<?>[] getProperties() {
 
 		ArrayList<ComboBoxItem<String>> list = new ArrayList<ComboBoxItem<String>>();
 
@@ -54,11 +59,6 @@ public class JuliaSettingsManager implements SettingsManager {
 		colorSchemes = new SelectionProperty(list)
 				.setName("Color schemes");
 		
-	}
-
-	@Override
-	public Property<?>[] getProperties() {
-
 		return new Property[] { maxIterations, escapeValue, constant, colorSchemes };
 
 	}

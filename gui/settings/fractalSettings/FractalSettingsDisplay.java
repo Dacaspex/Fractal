@@ -18,14 +18,35 @@ public class FractalSettingsDisplay extends JFrame {
 
 	private PropertyTable propertyTable;
 	private FractalManager fractalManager;
+	private JScrollPane scrollPane;
 
 	public FractalSettingsDisplay() {
 
 		fractalManager = Application.getApplication().getDisplay().getExplorerPanel().getFractalManager();
 
 		buildGUI();
-		setLocationRelativeTo(Application.getApplication().getDisplay());
 
+	}
+	
+	public void open() {
+		setVisible(true);	
+	}
+	
+	public void close() {
+		setVisible(false);
+	}
+	
+	public void update() {
+		
+		buildPropertyTable();
+		
+		getContentPane().removeAll();
+		scrollPane = new JScrollPane(propertyTable);
+		getContentPane().add(scrollPane);
+		
+		revalidate();
+		repaint();
+		
 	}
 
 	public void buildGUI() {
@@ -35,11 +56,11 @@ public class FractalSettingsDisplay extends JFrame {
 
 		buildPropertyTable();
 
-		JScrollPane scrollPane = new JScrollPane(propertyTable);
+		scrollPane = new JScrollPane(propertyTable);
 		getContentPane().add(scrollPane);
 
 		pack();
-		setVisible(true);
+		setLocationRelativeTo(Application.getApplication().getDisplay());
 
 	}
 

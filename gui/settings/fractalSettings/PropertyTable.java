@@ -59,7 +59,7 @@ public class PropertyTable extends JTable {
 	private void addProperties() {
 
 		for (Property<?> property : properties) {
-
+			
 			switch (property.getType()) {
 			case BOOLEAN:
 				model.addRow(new String[] { property.getName(), property.getValue().toString() });

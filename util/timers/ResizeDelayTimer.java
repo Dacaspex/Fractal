@@ -60,7 +60,7 @@ public class ResizeDelayTimer implements ActionListener {
 		timer.stop();
 		// Request the explorer panel to update.
 		// TODO: Create more abstractive use
-		Application.getApplication().getDisplay().getExplorerPanel().update(false);
+		Application.getApplication().getDisplay().getExplorerPanel().update();
 
 	}
 

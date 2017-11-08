@@ -17,7 +17,7 @@ public class LinearColorSchemeSettingsManager implements SettingsManager {
 	@Override
 	public Property<?>[] getProperties() {
 
-		return null;
+		return new Property<?>[] {};
 
 	}
 

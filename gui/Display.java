@@ -51,7 +51,9 @@ public class Display extends JFrame {
 	 * can be edited.
 	 */
 	private ExplorerPanel explorerPanel;
-	
+
+	private FractalSettingsDisplay fractalSettingsDisplay;
+
 	private JMenuBar menuBar;
 
 	public Display() {
@@ -70,10 +72,19 @@ public class Display extends JFrame {
 	public ExplorerPanel getExplorerPanel() {
 		return explorerPanel;
 	}
-	
-	public void openFractalSettings() {
 
-		new FractalSettingsDisplay();
+	public void openFractalSettings() {
+		fractalSettingsDisplay.open();
+	}
+	
+	public void closeFractalSettings() {
+		fractalSettingsDisplay.close();
+	}
+	
+	public void update() {
+		
+		explorerPanel.update();
+		fractalSettingsDisplay.update();
 		
 	}
 
@@ -92,6 +103,8 @@ public class Display extends JFrame {
 		// Finish the GUI
 		pack();
 		setVisible(true);
+		
+		fractalSettingsDisplay = new FractalSettingsDisplay();
 
 	}
 
@@ -99,7 +112,7 @@ public class Display extends JFrame {
 	 * Creates the top menu bar and adds it to the display.
 	 */
 	private void buildTopMenu() {
-		
+
 		// File menu
 		JMenu fileMenu = new JMenu("File");
 		ExitMenuItem exitMenuItem = new ExitMenuItem();
@@ -118,21 +131,21 @@ public class Display extends JFrame {
 		setJMenuBar(menuBar);
 
 	}
-	
+
 	private void createFractalMenuItem() {
-		
+
 		JMenu fractalMenu = new JMenu("Fractals");
 		ArrayList<AbstractFractal> fractals = explorerPanel.getFractalManager().getFractals();
 
 		fractalMenu.add(new OpenFractalSettingsMenuItem());
 		fractalMenu.addSeparator();
-		
+
 		for (AbstractFractal fractal : fractals) {
 			fractalMenu.add(new FractalMenuItem(fractal, explorerPanel.getFractalManager()));
 		}
-		
+
 		menuBar.add(fractalMenu);
-		
+
 	}
 
 	/**

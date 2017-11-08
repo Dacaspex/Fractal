@@ -60,7 +60,7 @@ public class ExplorerPanel extends JPanel {
 
 	}
 
-	public void update(boolean updateGUI) {
+	public void update() {
 
 		fractalPanel.update();
 
