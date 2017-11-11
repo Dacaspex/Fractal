@@ -6,6 +6,7 @@ import fractals.colorSchemes.WaveColorScheme;
 import fractals.settings.SettingsManager;
 import fractals.settings.properties.Property;
 import fractals.settings.properties.Property.PropertyType;
+import fractals.settings.properties.valdiators.FloatValidator;
 
 public class WaveColorSchemeSettingsManager implements SettingsManager {
 
@@ -33,76 +34,92 @@ public class WaveColorSchemeSettingsManager implements SettingsManager {
 	public WaveColorSchemeSettingsManager(WaveColorScheme colorScheme) {
 
 		this.colorScheme = colorScheme;
+		
+		FloatValidator validator = new FloatValidator();
 
 		frequencyRed = new Property<Float>()
 				.setName("Frequency red")
 				.setValue(colorScheme.getFrequencyRed())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		frequencyGreen = new Property<Float>()
 				.setName("Frequency green")
 				.setValue(colorScheme.getFrequencyGreen())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		frequencyBlue = new Property<Float>()
 				.setName("Frequencey blue")
 				.setValue(colorScheme.getFrequencyBlue())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		phaseRed = new Property<Float>()
 				.setName("Phase red")
 				.setValue(colorScheme.getPhaseRed())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		phaseGreen = new Property<Float>()
 				.setName("Phase green")
 				.setValue(colorScheme.getPhaseGreen())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		phaseBlue = new Property<Float>()
 				.setName("Phase blue")
 				.setValue(colorScheme.getPhaseBlue())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		centerRed = new Property<Float>()
 				.setName("Center red")
 				.setValue(colorScheme.getCenterRed())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		centerGreen = new Property<Float>()
 				.setName("Center green")
 				.setValue(colorScheme.getCenterGreen())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		centerBlue = new Property<Float>()
 				.setName("Center blue")
 				.setValue(colorScheme.getCenterBlue())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		deltaRed = new Property<Float>()
 				.setName("Delta red")
 				.setValue(colorScheme.getDeltaRed())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		deltaGreen = new Property<Float>()
 				.setName("Delta green")
 				.setValue(colorScheme.getDeltaGreen())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		deltaBlue = new Property<Float>()
 				.setName("Delta blue")
 				.setValue(colorScheme.getDeltaBlue())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		threshold = new Property<Float>()
 				.setName("Threshold")
 				.setValue(colorScheme.getThreshold())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(validator);
 
 		maximumColor = new Property<Color>()
 				.setName("Maximum colour")
 				.setValue(colorScheme.getMaximumColor())
-				.setType(PropertyType.COLOR);
+				.setType(PropertyType.COLOR)
+				.setValidator(validator);
 
 	}
 

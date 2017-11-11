@@ -17,14 +17,16 @@ import gui.settings.fractalSettings.editors.EditorController;
 import gui.settings.fractalSettings.editors.FloatEditor;
 import gui.settings.fractalSettings.editors.IntegerEditor;
 import gui.settings.fractalSettings.editors.SelectionEditor;
-import gui.settings.fractalSettings.renderers.ColorRenderer;
 import gui.settings.fractalSettings.renderers.BooleanRenderer;
+import gui.settings.fractalSettings.renderers.ColorRenderer;
 import main.Application;
 
 public class PropertyTable extends JTable {
 
 	private static final long serialVersionUID = 6697511685217086092L;
 
+	public static Color invalidColor = new Color(255, 114, 114);
+	
 	private SettingsManager fractalSettingsManager;
 	private SettingsManager colorSchemeSettingsManager;
 	private Property<?>[] properties;

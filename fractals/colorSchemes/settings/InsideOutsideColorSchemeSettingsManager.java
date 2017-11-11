@@ -6,6 +6,7 @@ import fractals.colorSchemes.InsideOutsideColorScheme;
 import fractals.settings.SettingsManager;
 import fractals.settings.properties.Property;
 import fractals.settings.properties.Property.PropertyType;
+import fractals.settings.properties.valdiators.FloatValidator;
 
 public class InsideOutsideColorSchemeSettingsManager implements SettingsManager {
 
@@ -22,7 +23,8 @@ public class InsideOutsideColorSchemeSettingsManager implements SettingsManager 
 		threshold = new Property<Float>()
 				.setName("Threshold")
 				.setValue(colorScheme.getThreshold())
-				.setType(PropertyType.FLOAT);
+				.setType(PropertyType.FLOAT)
+				.setValidator(new FloatValidator().setLowerBound(1));
 		
 		inColor = new Property<Color>()
 				.setName("Inside set color")
