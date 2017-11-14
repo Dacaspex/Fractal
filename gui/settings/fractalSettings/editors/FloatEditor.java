@@ -43,13 +43,13 @@ public class FloatEditor extends DefaultCellEditor implements TableCellEditor, K
 	public void keyReleased(KeyEvent event) {
 
 		JTextField textField = (JTextField) super.getComponent();
-
-		// TODO validation
-		try {
-			property.setValue(Float.parseFloat(textField.getText()));
+		String value = (String) textField.getText();
+		
+		if (property.getValidator().validate(value)) {
+			property.setValue(Float.parseFloat(value));
 			textField.setBackground(Color.WHITE);
-		} catch (NumberFormatException exception) {
-			textField.setBackground(Color.RED);
+		} else {
+			textField.setBackground(PropertyTable.invalidColor);
 		}
 
 		// Check if the property wants a request update, if so, pass it on

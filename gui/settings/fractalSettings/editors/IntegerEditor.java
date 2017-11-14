@@ -49,7 +49,7 @@ public class IntegerEditor extends DefaultCellEditor implements TableCellEditor,
 			property.setValue(Integer.parseInt(value));
 			textField.setBackground(Color.WHITE);
 		} else {
-			textField.setBackground(Color.RED);
+			textField.setBackground(PropertyTable.invalidColor);
 		}
 
 		// Check if the property wants a request update, if so, pass it on

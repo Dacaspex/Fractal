@@ -14,18 +14,22 @@ public class Property<T> {
 		this.name = name;
 		this.type = type;
 		this.isAction = false;
+		this.validator = new Validator();
 	}
 
 	public Property(String name, boolean isAction) {
 		this.name = name;
 		this.isAction = isAction;
+		this.validator = new Validator();
 	}
 
 	public Property(String name) {
 		this.name = name;
+		this.validator = new Validator();
 	}
 
 	public Property() {
+		this.validator = new Validator();
 	}
 
 	public String getName() {
@@ -60,11 +64,7 @@ public class Property<T> {
 	}
 
 	public Validator getValidator() {
-		if (validator != null) {
-			return validator;
-		} else {
-			return new Validator();
-		}
+		return validator;
 	}
 
 	public Property<T> setValidator(Validator validator) {

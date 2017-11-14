@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import fractals.FractalManager;
+import main.Application;
 import render.RenderListener;
 import render.Renderer;
 import util.timers.ResizeDelayTimer;
@@ -71,7 +72,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().zoomIn();
 
 		// Update image
-		update();
+		Application.getApplication().update(true);
 
 	}
 
@@ -91,7 +92,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().zoomOut();
 
 		// Update image
-		update();
+		Application.getApplication().update(true);
 
 	}
 
@@ -110,7 +111,7 @@ public class FractalPanel extends JPanel implements MouseListener, ComponentList
 		fractalManager.getActiveFractal().getScale().setCenter(point);
 
 		// Update image
-		update();
+		Application.getApplication().update(true);
 
 	}
 

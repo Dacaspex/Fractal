@@ -37,8 +37,6 @@ public class JuliaFractal extends AbstractFractal {
 		colorSchemeManager = new ColorSchemeManager();
 
 		LinearColorScheme linearColorScheme = new LinearColorScheme(maxIterations);
-		linearColorScheme.loadDefaultColors();
-		linearColorScheme.generateGradientMap();
 
 		InsideOutsideColorScheme insideOutsideColorScheme = new InsideOutsideColorScheme();
 
@@ -50,43 +48,31 @@ public class JuliaFractal extends AbstractFractal {
 	}
 
 	public int getMaxIterations() {
-
 		return maxIterations;
-
 	}
 
 	public void setMaxIterations(int maxIterations) {
 
 		this.maxIterations = maxIterations;
 
-		// Update linear and inside-outside color schemes
-		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setMaxInputSteps(maxIterations);
-		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).generateGradientMap();
+		((LinearColorScheme) colorSchemeManager.getColorScheme("LinearColorScheme")).setMax(maxIterations);
 
 	}
 
 	public float getEscapeValue() {
-
 		return escapeValue;
-
 	}
 
 	public void setEscapeValue(float escapeValue) {
-
 		this.escapeValue = escapeValue;
-
 	}
 
 	public Complex getConstant() {
-
 		return constant;
-
 	}
 
 	public void setConstant(Complex constant) {
-
 		this.constant = constant;
-
 	}
 
 	@Override

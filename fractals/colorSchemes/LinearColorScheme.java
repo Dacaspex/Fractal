@@ -9,185 +9,131 @@ public class LinearColorScheme extends AbstractColorScheme {
 
 	private Color[] colorArray;
 	private int[] gradientMap;
+	private int max;
 	private int steps;
-	private int maxInputSteps;
+	private boolean loop;
 
-	public LinearColorScheme(int steps) {
+	public LinearColorScheme(int max) {
 
 		this.identifier = "LinearColorScheme";
 		this.name = "Linear Color Scheme";
-		this.colorArray = new Color[0];
-		this.steps = steps;
-		this.maxInputSteps = steps;
+		this.colorArray = getDefaultColors();
+		this.max = max;
+		this.steps = 100;
+		this.loop = false;
+		this.gradientMap = generateGradientMap();
 		this.settingsManager = new LinearColorSchemeSettingsManager(this);
 
 	}
+	
+	public Color[] getColorArray() {
+		return colorArray;
+	}
+	
+	public void setColorArray(Color[] colorArray) {
+		this.colorArray = colorArray;
+	}
 
 	public int getSteps() {
-
 		return steps;
-
 	}
 
 	public void setSteps(int steps) {
-
 		this.steps = steps;
-
+		this.gradientMap = generateGradientMap();
 	}
 
-	public void setMaxInputSteps(int maxInputSteps) {
-
-		this.maxInputSteps = maxInputSteps;
-
+	public int getMax() {
+		return max;
 	}
 
-	/**
-	 * This method generates a gradient color map for the current loaded color
-	 * and steps. It will do this linearly from one color to the next in equally
-	 * spaced steps. It updates the gradient map which is used to retrieve a
-	 * color value
-	 */
-	public void generateGradientMap() {
+	public void setMax(int max) {
+		this.max = max;
+	}
 
-		int gradientMap[] = new int[steps];
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
+	}
+
+	public int[] generateGradientMap() {
+		
+		int[] gradientMap = new int[steps];
+
+		if (colorArray.length <= 0) {
+			// TODO error
+		}
 
 		if (colorArray.length == 1) {
-
 			Arrays.fill(gradientMap, colorArray[0].getRGB());
-			this.gradientMap = gradientMap;
-
+			return gradientMap;
 		}
 
-		double colorDelta = 1.0 / (colorArray.length - 1);
-		for (int i = 0; i < steps; i++) {
+		int colorIndex = 0;
+		float relativeIndex = 0;
+		float slotSpacing = ((float) steps) / ((float) (colorArray.length - 1));
 
-			double globalRel = (double) i / (steps - 1);
-			int index0 = (int) (globalRel / colorDelta);
-			int index1 = Math.min(colorArray.length - 1, index0 + 1);
-			double localRel = (globalRel - index0 * colorDelta) / colorDelta;
+		for (int absoluteIndex = 0; absoluteIndex < steps; absoluteIndex++) {
 
-			Color c0 = colorArray[index0];
-			int r0 = c0.getRed();
-			int g0 = c0.getGreen();
-			int b0 = c0.getBlue();
-			int a0 = c0.getAlpha();
-
-			Color c1 = colorArray[index1];
-			int r1 = c1.getRed();
-			int g1 = c1.getGreen();
-			int b1 = c1.getBlue();
-			int a1 = c1.getAlpha();
-
-			int dr = r1 - r0;
-			int dg = g1 - g0;
-			int db = b1 - b0;
-			int da = a1 - a0;
-
-			int r = (int) (r0 + localRel * dr);
-			int g = (int) (g0 + localRel * dg);
-			int b = (int) (b0 + localRel * db);
-			int a = (int) (a0 + localRel * da);
-			int rgb = (a << 24) | (r << 16) | (g << 8) | (b << 0);
-			gradientMap[i] = rgb;
-
+			if (relativeIndex > slotSpacing) {
+				relativeIndex = 0;
+				colorIndex++;
+			}
+			
+			Color leftColor = colorArray[colorIndex];
+			Color rightColor = colorArray[colorIndex + 1];
+			
+			float interpolation = relativeIndex / slotSpacing;
+			
+			float r = leftColor.getRed() * (1 - interpolation) + rightColor.getRed() * interpolation;
+			float g = leftColor.getGreen() * (1 - interpolation) + rightColor.getGreen() * interpolation;
+			float b = leftColor.getBlue() * (1 - interpolation) + rightColor.getBlue() * interpolation;
+			
+			r = Math.min(r, 255);
+			g = Math.min(g, 255);
+			b = Math.min(b, 255);
+			
+			gradientMap[absoluteIndex] = new Color(r / 255, g / 255, b / 255).getRGB();
+			relativeIndex++;
+			
 		}
 
-		this.gradientMap = gradientMap;
+		return gradientMap;
 
 	}
 
-	/**
-	 * Loads a set of default colors in the color array TODO: Specify which
-	 * colors.
-	 */
-	public void loadDefaultColors() {
-
-		colorArray = new Color[] { new Color(0, 0, 128), new Color(0, 0, 255), new Color(255, 255, 255),
-				new Color(255, 200, 0), new Color(0, 0, 0) };
-
-	}
-
-	/**
-	 * Sets the color array to a specific new array. When the updateGradientMap
-	 * variable is true, it also updates the gradient map immediately
-	 * 
-	 * @param colorArray
-	 *            The new color array that should be loaded in
-	 * @param updateGradientMap
-	 *            If set to true, it will update the gradient map as well
-	 */
-	public void setColorArray(Color[] colorArray, boolean updateGradientMap) {
-
-		this.colorArray = colorArray;
-
-		if (updateGradientMap) {
-
-			generateGradientMap();
-
-		}
+	public Color[] getDefaultColors() {
+		
+		return new Color[] {
+				new Color(0, 0, 128),
+				new Color(0, 0, 255),
+				new Color(255, 255, 255),
+				new Color(255, 200, 0),
+				new Color(0, 0, 0)
+		};
 
 	}
 
-	/**
-	 * Adds a color to the end of the color array
-	 * 
-	 * @param color
-	 *            The color to be added
-	 * @param updateGradientMap
-	 *            If set to true, it will update the gradient map as well
-	 */
-	public void addColor(Color color, boolean updateGradientMap) {
-
-		addColors(new Color[] { color }, updateGradientMap);
-
-	}
-
-	/**
-	 * Adds an array of colors to the end of the color array
-	 * 
-	 * @param colors
-	 *            The array of colors to be added at the end
-	 * @param updateGradientMap
-	 *            If set to true, it will update the gradient map as well
-	 */
-	public void addColors(Color[] colors, boolean updateGradientMap) {
-
-		// Create new array
-		Color[] colorArray = new Color[this.colorArray.length + colors.length];
-
-		// Copy old array into new array
-		int index = 0;
-		for (int i = 0; i < this.colorArray.length; i++) {
-
-			colorArray[index++] = this.colorArray[i];
-
-		}
-
-		// Append new colors
-		for (int j = 0; j < colors.length; j++) {
-
-			colorArray[index++] = colors[j];
-
-		}
-
-		this.colorArray = colorArray;
-
-		generateGradientMap();
-
-	}
-
-	/**
-	 * Returns the value in the gradient map that corresponds to the
-	 * referenceNumber.
-	 * 
-	 * @param referenceNumber
-	 *            The position in the array
-	 * @return The color that corresponds to that position in the array
-	 */
 	@Override
 	public int getRGBValue(float referenceNumber) {
 
-		int index = (int) ((referenceNumber / maxInputSteps) * (steps - 1));
+		int value = (int) referenceNumber;
+		int index = 0;
+		
+		if (max == 0) {
+			return gradientMap[0];
+		}
+		
+		if (loop) {
+			index = Math.floorMod(value, steps);
+		} else {
+			value = Math.min(value, max - 1);
+			index = (int) ((((float) value) / ((float) max)) * steps);
+		}
+
 		return gradientMap[index];
 
 	}
