@@ -93,22 +93,28 @@ public class Renderer {
 	 */
 	public boolean render(AbstractFractal fractal, int width, int height) {
 
-		if (renderState == RenderState.IDLE) {
+		if (renderState != RenderState.IDLE) {
 
-			renderState = RenderState.RENDERING;
-
-			// Save information, create and start threads
-			requestedFractal = fractal;
-			requestedDimension = new Dimension(width, height);
-			Logger.log(this,
-					"Requested image (" + width + " x " + height + ") for " + fractal.getClass().getSimpleName());
-			renderStartTime = System.currentTimeMillis();
-			threadManager.createThreads(fractal, width, height);
-			return true;
-
-		} else {
+			// Stop current render
+			synchronized (threadManager) {
+				threadManager.stopThreads();
+			}
+			
+			renderState = RenderState.IDLE;
 			return false;
+			
 		}
+		
+		renderState = RenderState.RENDERING;
+
+		// Save information, create and start threads
+		requestedFractal = fractal;
+		requestedDimension = new Dimension(width, height);
+		Logger.log(this,
+				"Requested image (" + width + " x " + height + ") for " + fractal.getClass().getSimpleName());
+		renderStartTime = System.currentTimeMillis();
+		threadManager.createThreads(fractal, width, height);
+		return true;
 
 	}
 

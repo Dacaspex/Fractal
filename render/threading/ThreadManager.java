@@ -16,9 +16,12 @@ public class ThreadManager {
 	private ImageGeneratorThread[] threads;
 	private BufferedImage[] images;
 
+	private ThreadState state;
+
 	public ThreadManager(Renderer renderer) {
 
 		this.renderer = renderer;
+		this.state = ThreadState.WAITING;
 
 	}
 
@@ -37,7 +40,9 @@ public class ThreadManager {
 	 *            The number of threads to use
 	 */
 	public void createThreads(AbstractFractal fractal, int width, int height) {
-		
+
+		state = ThreadState.RUNNING;
+
 		// Setup thread array
 		threadsDone = 0;
 		threads = new ImageGeneratorThread[threadCount];
@@ -64,6 +69,10 @@ public class ThreadManager {
 
 	public void notifyDone(BufferedImage image, int number) {
 
+		if (state == ThreadState.STOPPING) {
+			return;
+		}
+
 		images[number] = image;
 		threadsDone += 1;
 
@@ -79,11 +88,22 @@ public class ThreadManager {
 	}
 
 	/**
-	 * Removes the pointer to the thread array for memory efficiency
+	 * Removes the pointer to the thread array
 	 */
 	public void kill() {
 		this.threads = null;
-		this.images = null;
+	}
+
+	public void stopThreads() {
+
+		state = ThreadState.STOPPING;
+
+		for (ImageGeneratorThread thread : threads) {
+			thread.interrupt();
+		}
+
+		kill();
+
 	}
 
 	public static void setThreadCount(int threadCount) {
@@ -92,6 +112,10 @@ public class ThreadManager {
 
 	public static int getThreadCount() {
 		return threadCount;
+	}
+
+	private enum ThreadState {
+		RUNNING, STOPPING, WAITING
 	}
 
 }
