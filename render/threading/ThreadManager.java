@@ -78,20 +78,12 @@ public class ThreadManager {
 
 		if (isDone()) {
 			renderer.finish();
-			kill();
 		}
 
 	}
 
 	public BufferedImage[] getImages() {
 		return images;
-	}
-
-	/**
-	 * Removes the pointer to the thread array
-	 */
-	public void kill() {
-		this.threads = null;
 	}
 
 	public void stopThreads() {
@@ -101,8 +93,6 @@ public class ThreadManager {
 		for (ImageGeneratorThread thread : threads) {
 			thread.interrupt();
 		}
-
-		kill();
 
 	}
 
